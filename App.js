@@ -1,97 +1,35 @@
-import Expo from 'expo';
-import * as ExpoPixi from 'expo-pixi';
-import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
+// In App.js in a new project
+import React from 'react';
+import { Button, View, Text } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+// import colin's stuff
+// import 'drawing.js'
 
-const isAndroid = Platform.OS === 'android';
-function uuidv4() {
-  //https://stackoverflow.com/a/2117523/4047926
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = (Math.random() * 16) | 0,
-      v = c == 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-}
 
-//Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
 
-export default class App extends Component {
-  state = {
-    image: null,
-    strokeColor: Math.random() * 0xffffff,
-    strokeWidth: Math.random() * 30 + 10,
-    appState: AppState.currentState,
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Home Screen',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
   };
-
-  handleAppStateChangeAsync = nextAppState => {
-    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
-      if (isAndroid && this.sketch) {
-        this.setState({ appState: nextAppState, id: uuidv4(), lines: this.sketch.lines });
-        return;
-      }
-    }
-    this.setState({ appState: nextAppState });
-  };
-
-  componentDidMount() {
-    AppState.addEventListener('change', this.handleAppStateChangeAsync);
-  }
-
-  componentWillUnmount() {
-    AppState.removeEventListener('change', this.handleAppStateChangeAsync);
-  }
-
-  onChangeAsync = async () => {
-    const { uri } = await this.sketch.takeSnapshotAsync();
-
-    this.setState({
-      image: { uri },
-      strokeWidth: Math.random() * 30 + 10,
-      strokeColor: Math.random() * 0xffffff,
-    });
-  };
-
-  onReady = () => {
-    console.log('ready!');
-  };
-
   render() {
     return (
-      <View style={styles.container}>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
-        <View style={styles.container}>
-          <View style={styles.sketchContainer}>
-            <ExpoPixi.Sketch
-              ref={ref => (this.sketch = ref)}
-              style={styles.sketch}
-              strokeColor={this.state.strokeColor}
-              strokeWidth={this.state.strokeWidth}
-              strokeAlpha={1}
-              onChange={this.onChangeAsync}
-              onReady={this.onReady}
-            />
-            <View style={styles.label}>
-              <Text>Canvas - draw here or dont</Text>
-            </View>
-          </View>
-        </View>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Home Screen</Text>
         <Button
-          color={'blue'}
-          title="undo"
-          style={styles.button}
+          title="Settings"
           onPress={() => {
-            this.sketch.undo();
-          }}
-        />
-        <Button
-          color={'red'}
-          title="clear"
-          style={styles.button}
-          onPress={() => {
-            this.sketch.reset();
+            /* 1. Navigate to the Details route with params */
+            this.props.navigation.navigate('Settings', {
+              itemId: 86,
+              otherParam: 'wubba lubba dub dub',
+            });
           }}
         />
       </View>
@@ -99,36 +37,60 @@ export default class App extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+class SettingsScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('otherParam', 'A Nested Settings Screen'),
+    };
+  };
+  render() {
+    /* 2. Get the param, provide a fallback value if not available */
+    const { navigation } = this.props;
+    const itemId = navigation.getParam('itemId', 'NO-ID');
+    const otherParam = navigation.getParam('otherParam', 'some default value');
+
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Settings Screen</Text>
+        <Text>itemId: {JSON.stringify(itemId)}</Text>
+        <Text>otherParam: {JSON.stringify(otherParam)}</Text>
+        <Button
+          title="Go to settings again..."
+          onPress={() =>
+            // example of how push can override the intial declaration of prop.
+            this.props.navigation.push('Settings', {
+              itemId: Math.floor(Math.random() * 100),
+            })}
+        />
+        <Button
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+        <Button
+          title="Go back"
+          onPress={() => this.props.navigation.goBack()}
+        />
+        <Button
+           title="Morty quote"
+           onPress={() => this.props.navigation.setParams({otherParam: 'Awww jeez ricky'})}
+         />
+      </View>
+    );
+  }
+}
+
+const RootStack = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Settings: SettingsScreen
   },
-  sketch: {
-    flex: 1,
-  },
-  sketchContainer: {
-    height: '100%',
-  },
-  image: {
-    flex: 1,
-  },
-  imageContainer: {
-    height: '100%',
-    borderTopWidth: 4,
-    borderTopColor: '#E44262',
-  },
-  label: {
-    width: '100%',
-    padding: 5,
-    alignItems: 'center',
-  },
-  button: {
-    // position: 'absolute',
-    // bottom: 8,
-    // left: 8,
-    zIndex: 1,
-    padding: 12,
-    minWidth: 56,
-    minHeight: 48,
-  },
-});
+  {
+    initialRouteName: 'Home',
+  }
+);
+
+export default class App extends React.Component {
+  render() {
+    return <RootStack />;
+  }
+}

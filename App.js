@@ -9,7 +9,7 @@ import { createStackNavigator } from 'react-navigation';
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Home Screen',
+    title: 'BrushOff',
     headerStyle: {
       backgroundColor: '#f4511e',
     },
@@ -21,17 +21,31 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
+        {/*<Text>Home Screen</Text>    */}
+
+        <Button
+          title="Play!"
+          onPress={() => {
+            /* 1. Navigate to the Details route with params */
+            this.props.navigation.navigate('EnterPlayers', {
+              itemId: 86,
+              otherParam: 'wubba lubba dub dub',
+            });
+          }}
+        />
+
         <Button
           title="Settings"
           onPress={() => {
             /* 1. Navigate to the Details route with params */
             this.props.navigation.navigate('Settings', {
               itemId: 86,
-              otherParam: 'wubba lubba dub dub',
+              otherParam: 'Settings',
             });
           }}
         />
+
+
       </View>
     );
   }
@@ -51,17 +65,26 @@ class SettingsScreen extends React.Component {
 
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Settings Screen</Text>
+        {/*<Text>Settings Screen</Text>
+
         <Text>itemId: {JSON.stringify(itemId)}</Text>
         <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-        <Button
-          title="Go to settings again..."
+        */}
+         <Button
+          title="Rick quote"
           onPress={() =>
             // example of how push can override the intial declaration of prop.
-            this.props.navigation.push('Settings', {
+            this.props.navigation.navigate('Settings', {
               itemId: Math.floor(Math.random() * 100),
+              otherParam: "wubba lubba dub dub",
             })}
         />
+
+        <Button
+           title="Morty quote"
+           onPress={() => this.props.navigation.setParams({otherParam: 'Awww jeez ricky'})}
+         />
+
         <Button
           title="Go to Home"
           onPress={() => this.props.navigation.navigate('Home')}
@@ -70,19 +93,45 @@ class SettingsScreen extends React.Component {
           title="Go back"
           onPress={() => this.props.navigation.goBack()}
         />
-        <Button
-           title="Morty quote"
-           onPress={() => this.props.navigation.setParams({otherParam: 'Awww jeez ricky'})}
-         />
+
       </View>
     );
   }
 }
 
+{/*
+class EnterPlayers extends React.Component {
+  static navigationOptions = {
+    title: 'Players',
+    headerStyle: {
+      backgroundColor: '#f4511e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+  render() {
+
+    const { navigation } = this.props;
+    const otherParam = navigation.getParam('otherParam', 'some default value');
+
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>How many players?</Text>
+      </View>
+    );
+  }
+}
+*/}
+
+
+
 const RootStack = createStackNavigator(
   {
     Home: HomeScreen,
     Settings: SettingsScreen
+    /*Players: EnterPlayers*/
   },
   {
     initialRouteName: 'Home',

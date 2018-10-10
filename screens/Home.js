@@ -10,12 +10,25 @@ export default class Home extends React.Component {
         const { navigate } = this.props.navigation;
         return (
             <View style = {styles.container}>
-                <Text
-                    onPress= { ()=> navigate('Drawing') }>Play game
-                </Text>
-                <Text
-                    onPress= { ()=> navigate('Settings') }>Settings
-                </Text>
+                <Button
+                  title="Play Game"
+                  onPress={() => {
+                    /* 1. Navigate to the Details route with params */
+                    this.props.navigation.navigate('Drawing', {
+
+                    });
+                  }}
+                />
+
+                <Button
+                  title="Settings"
+                  onPress={() => {
+                    /* 1. Navigate to the Details route with params */
+                    this.props.navigation.navigate('Settings', {
+
+                    });
+                  }}
+                />
             </View>
         )
     }

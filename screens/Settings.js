@@ -10,9 +10,14 @@ export default class Settings extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style = {styles.container}>
-        <Text
-          onPress= { ()=> navigate ('Home') }>Home
-        </Text>
+        <Button
+          title="Home Screen"
+          onPress={() => {
+            /* 1. Navigate to the Details route with params */
+            this.props.navigation.navigate('Home', {
+            });
+          }}
+        />
       </View>
     )
   }

@@ -2,22 +2,15 @@ import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
-export default class Settings extends React.Component {
+export default class LobbyScreen extends React.Component {
   static navigationOptions = {
-    title: 'Settings'
+    title: 'Lobby'
   };
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style = {styles.container}>
-        <Button
-          title="Home Screen"
-          onPress={() => {
-            /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Home', {
-            });
-          }}
-        />
+        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>How Many Players?</Text>
       </View>
     )
   }

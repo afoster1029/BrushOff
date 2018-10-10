@@ -1,6 +1,4 @@
 node_modules
 .expo
 npm-debug.*
-
-.expo/packager-info.json
-.expo/settings.json
+.DS_Store

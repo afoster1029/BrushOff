@@ -11,6 +11,16 @@ export default class Home extends React.Component {
         return (
             <View style = {styles.container}>
                 <Button
+                  title="Lobby"
+                  onPress={() => {
+                    /* 1. Navigate to the Details route with params */
+                    this.props.navigation.navigate('Lobby', {
+
+                    });
+                  }}
+                />
+
+                <Button
                   title="Play Game"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */

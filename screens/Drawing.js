@@ -94,7 +94,7 @@ export default class Drawing extends Component {
           title="clear"
           style={styles.button}
           onPress={() => {
-            this.sketch.reset();
+            this.sketch.undo()
           }}
         />
       </View>

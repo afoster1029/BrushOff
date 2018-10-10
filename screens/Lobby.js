@@ -1,16 +1,30 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { Button, View, StyleSheet, Text, TextInput } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
-export default class LobbyScreen extends React.Component {
+export default class LobbyScree extends React.Component {
   static navigationOptions = {
     title: 'Lobby'
   };
+  constructor(props) {
+    super(props);
+    this.state = {text: ''};
+  }
+
   render() {
-    const { navigate } = this.props.navigation;
     return (
-      <View style = {styles.container}>
-        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>How Many Players?</Text>
+      <View style={{padding: 140}}>
+        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>How many players?</Text>
+
+        <TextInput
+          style={{height: 40, borderColor: 'gray', borderWidth: 5}}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
+        />
+
+        <Text style={{padding: 10, fontSize: 42}}>
+          {this.state.text.split(' ').map((word) => word).join(' ')}
+        </Text>
       </View>
     )
   }

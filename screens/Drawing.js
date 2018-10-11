@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
 
 const isAndroid = Platform.OS === 'android';
+
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -20,6 +21,7 @@ export default class Drawing extends Component {
     image: null,
     strokeColor: Math.random() * 0xffffff,
     strokeWidth: Math.random() * 30 + 10,
+    count: 0,
     appState: AppState.currentState,
   };
   static navigationOptions = {
@@ -51,11 +53,20 @@ export default class Drawing extends Component {
       image: { uri },
       strokeWidth: Math.random() * 30 + 10,
       strokeColor: Math.random() * 0xffffff,
+      count: this.state.count + 1
     });
   };
 
+  clearScreen() {
+    for(i = 0; i < this.state.count; i++) {
+      console.log("removing a thing");
+      this.sketch.undo();
+    }
+  }
+
   onReady = () => {
     console.log('ready!');
+    //const { blank } = this.sketch.takeSnapshotAsync();
   };
 
   render() {
@@ -87,6 +98,7 @@ export default class Drawing extends Component {
           style={styles.button}
           onPress={() => {
             this.sketch.undo();
+
           }}
         />
         <Button
@@ -94,7 +106,7 @@ export default class Drawing extends Component {
           title="clear"
           style={styles.button}
           onPress={() => {
-            this.sketch.undo()
+            {this.clearScreen()}
           }}
         />
       </View>

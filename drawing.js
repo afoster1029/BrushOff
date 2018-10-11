@@ -74,12 +74,13 @@ export default class App extends Component {
               onReady={this.onReady}
             />
             <View style={styles.label}>
-              <Text>Canvas - draw here or dont</Text>
+              <Text>This is a test part two</Text>
             </View>
           </View>
         </View>
         <Button
           color={'blue'}
+          backgroundColor = {'red'}
           title="undo"
           style={styles.button}
           onPress={() => {
@@ -89,6 +90,7 @@ export default class App extends Component {
         <Button
           color={'red'}
           title="clear"
+          backgroundColor = {'blue'}
           style={styles.button}
           onPress={() => {
             this.sketch.reset();

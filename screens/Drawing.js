@@ -18,8 +18,8 @@ function uuidv4() {
 export default class Drawing extends Component {
   state = {
     image: null,
-    strokeColor: Math.random() * 0xffffff,
-    strokeWidth: Math.random() * 30 + 10,
+    strokeColor: 0x000000,
+    strokeWidth: 23,
     appState: AppState.currentState,
   };
   static navigationOptions = {
@@ -49,8 +49,8 @@ export default class Drawing extends Component {
 
     this.setState({
       image: { uri },
-      strokeWidth: Math.random() * 30 + 10,
-      strokeColor: Math.random() * 0xffffff,
+      strokeWidth: 20,
+      strokeColor: 0x000000,
     });
   };
 
@@ -77,7 +77,7 @@ export default class Drawing extends Component {
               onReady={this.onReady}
             />
             <View style={styles.label}>
-              <Text>Canvas - draw here or dont</Text>
+              <Text> it is a test </Text>
             </View>
           </View>
         </View>

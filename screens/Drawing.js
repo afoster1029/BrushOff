@@ -59,7 +59,6 @@ export default class Drawing extends Component {
 
   clearScreen() {
     for(i = 0; i < this.state.count; i++) {
-      console.log("removing a thing");
       this.sketch.undo();
     }
   }

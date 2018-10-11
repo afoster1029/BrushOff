@@ -3,7 +3,6 @@ import { Button, View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 export default class Home extends React.Component {
-<<<<<<< HEAD
   static navigationOptions = {
     title: 'Home Screen'
   };
@@ -20,7 +19,6 @@ export default class Home extends React.Component {
       </View>
     )
   }
-=======
     static navigationOptions = {
         title: 'Home Screen'
     };
@@ -60,7 +58,6 @@ export default class Home extends React.Component {
             </View>
         )
     }
->>>>>>> 31049577b64f9d3bb17ff68fa1fd155cd25b1d2b
 }
 
 const styles = StyleSheet.create({

@@ -2,13 +2,47 @@ import React from 'react';
 import { Button, View, StyleSheet, Text, TextInput } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
-export default class LobbyScree extends React.Component {
+export default class LobbyScreen extends React.Component {
   static navigationOptions = {
     title: 'Lobby'
   };
   constructor(props) {
     super(props);
-    this.state = {text: ''};
+    this.state = {
+      numPlayers: '',
+      setNumPlayers: 0
+    };
+  }
+
+  /*
+    trying to make a fuction that will take in the user inputted value
+    and then loop through a create that many text inputs for them to enter
+    play names.
+  */
+  enterPlayerNames = () => {
+    var table = []
+    // Outer loop to create parent
+    for (var i = 0; i < this.state.setNumPlayers; i++) {
+      table.push(
+        <View>
+          <View>
+            <TextInput
+              style={{height: 40, borderColor: 'gray', borderWidth: 5}}
+             />
+          </View>
+
+          <View>
+            <TextInput
+              style={{height: 40, borderColor: 'gray', borderWidth: 5}}
+             />
+          </View>
+
+          <View>
+            <TextInput />
+          </View>
+        </View>
+  )
+    }
   }
 
   render() {
@@ -18,13 +52,20 @@ export default class LobbyScree extends React.Component {
 
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 5}}
-          onChangeText={(text) => this.setState({text})}
+          onChangeText={(numPlayers) => this.setState({numPlayers})}
+          numPlayers = {this.state.text}
           value={this.state.text}
         />
 
+        <Button onPress={ this.SampleFunction1.bind(this) } title=" Click Here To Call Function - 1 " />
+
+
+
         <Text style={{padding: 10, fontSize: 42}}>
-          {this.state.text.split(' ').map((word) => word).join(' ')}
+          {this.state.numPlayers.split(' ').map((word) => word).join(' ')}
         </Text>
+
+
       </View>
     )
   }

@@ -2,8 +2,10 @@ import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
+import { TouchableHighlight } from 'react-native'
 
 const isAndroid = Platform.OS === 'android';
+
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -18,8 +20,9 @@ function uuidv4() {
 export default class Drawing extends Component {
   state = {
     image: null,
-    strokeColor: Math.random() * 0xffffff,
-    strokeWidth: Math.random() * 30 + 10,
+    strokeColor: 0x000000,
+    strokeWidth: 20,
+    count: 0,
     appState: AppState.currentState,
   };
   static navigationOptions = {
@@ -49,13 +52,20 @@ export default class Drawing extends Component {
 
     this.setState({
       image: { uri },
-      strokeWidth: Math.random() * 30 + 10,
-      strokeColor: Math.random() * 0xffffff,
+      strokeWidth: 20,
+      count: this.state.count + 1
     });
   };
 
+  clearScreen() {
+    for(i = 0; i < this.state.count; i++) {
+      this.sketch.undo();
+    }
+  }
+
   onReady = () => {
     console.log('ready!');
+    //const { blank } = this.sketch.takeSnapshotAsync();
   };
 
   render() {
@@ -81,12 +91,50 @@ export default class Drawing extends Component {
             </View>
           </View>
         </View>
+
+        <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
+        <TouchableHighlight
+          onPress={() => {
+            {this.setState({
+              strokeColor: 0x0000ff,
+            })}
+          }}>
+          <Image
+            style={styles.colorButton}
+            source={require('/Users/johnpellegrini/BrushOff/color_buttons/bluebutton.png')}
+          />
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            {this.setState({
+              strokeColor: 0xff0000,
+            })}
+          }}>
+          <Image
+            style={styles.colorButton}
+            source={require('/Users/johnpellegrini/BrushOff/color_buttons/redbutton.png')}
+          />
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => {
+            {this.setState({
+              strokeColor: 0x00ff00,
+            })}
+          }}>
+          <Image
+            style={styles.colorButton}
+            source={require('/Users/johnpellegrini/BrushOff/color_buttons/greenbutton.png')}
+          />
+        </TouchableHighlight>
+
+        </View>
         <Button
           color={'blue'}
           title="undo"
           style={styles.button}
           onPress={() => {
             this.sketch.undo();
+
           }}
         />
         <Button
@@ -94,7 +142,7 @@ export default class Drawing extends Component {
           title="clear"
           style={styles.button}
           onPress={() => {
-            this.sketch.reset();
+            {this.clearScreen()}
           }}
         />
       </View>
@@ -126,12 +174,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    // position: 'absolute',
-    // bottom: 8,
-    // left: 8,
+    //position: 'absolute',
+    //bottom: 8,
+    //left: 8,
     zIndex: 1,
     padding: 12,
     minWidth: 56,
     minHeight: 48,
+  },
+  colorButton: {
+    height: 40,
+    width: 40,
   },
 });

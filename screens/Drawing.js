@@ -2,7 +2,7 @@ import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
-import { TouchableHighlight } from 'react-native'
+import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
 
 const isAndroid = Platform.OS === 'android';
 
@@ -39,6 +39,18 @@ export default class Drawing extends Component {
     this.setState({ appState: nextAppState });
   };
 
+  clearAlert() {
+    Alert.alert(
+      'Alert Title',
+      'My Alert Msg',
+      [
+        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'OK', onPress: () => {this.clearScreen()}},
+      ],
+      { cancelable: false }
+    )
+  }
+
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
   }
@@ -61,7 +73,9 @@ export default class Drawing extends Component {
     for(i = 0; i < this.state.count; i++) {
       this.sketch.undo();
     }
+
   }
+
 
   onReady = () => {
     console.log('ready!');
@@ -91,9 +105,8 @@ export default class Drawing extends Component {
             </View>
           </View>
         </View>
-
         <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => {
             {this.setState({
               strokeColor: 0x0000ff,
@@ -103,8 +116,8 @@ export default class Drawing extends Component {
             style={styles.colorButton}
             source={require('/Users/johnpellegrini/BrushOff/color_buttons/bluebutton.png')}
           />
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
             {this.setState({
               strokeColor: 0xff0000,
@@ -114,8 +127,8 @@ export default class Drawing extends Component {
             style={styles.colorButton}
             source={require('/Users/johnpellegrini/BrushOff/color_buttons/redbutton.png')}
           />
-        </TouchableHighlight>
-        <TouchableHighlight
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
             {this.setState({
               strokeColor: 0x00ff00,
@@ -125,24 +138,35 @@ export default class Drawing extends Component {
             style={styles.colorButton}
             source={require('/Users/johnpellegrini/BrushOff/color_buttons/greenbutton.png')}
           />
-        </TouchableHighlight>
-
-        </View>
-        <Button
-          color={'blue'}
-          title="undo"
-          style={styles.button}
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => {
-            this.sketch.undo();
+            {this.setState({
+              strokeColor: 0x000000,
+            })}
+          }}>
+          <Image
+            style={styles.colorButton}
+            source={require('/Users/johnpellegrini/BrushOff/color_buttons/blackbutton.jpg')}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+        onPress={() => {
+          this.sketch.undo();
 
-          }}
-        />
+        }}>
+          <Image
+            style={styles.colorButton}
+            source={require('/Users/johnpellegrini/BrushOff/color_buttons/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
+          />
+        </TouchableOpacity>
+        </View>
         <Button
           color={'red'}
           title="clear"
           style={styles.button}
           onPress={() => {
-            {this.clearScreen()}
+            {this.clearAlert()}
           }}
         />
       </View>
@@ -183,7 +207,7 @@ const styles = StyleSheet.create({
     minHeight: 48,
   },
   colorButton: {
-    height: 40,
-    width: 40,
+    height: 30,
+    width: 30,
   },
 });

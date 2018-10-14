@@ -114,7 +114,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/bluebutton.png')}
+            source={require('./img/bluebutton.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -125,7 +125,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/redbutton.png')}
+            source={require('./img/redbutton.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -136,7 +136,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/greenbutton.png')}
+            source={require('./img/greenbutton.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -147,7 +147,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/blackbutton.jpg')}
+            source={require('./img/blackbutton.jpg')}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -157,7 +157,7 @@ export default class Drawing extends Component {
         }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
+            source={require('./img/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
           />
         </TouchableOpacity>
         </View>

@@ -101,7 +101,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/bluebutton.png')}
+            source={require('../color_buttons/bluebutton.png')}
           />
         </TouchableHighlight>
         <TouchableHighlight
@@ -112,7 +112,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/redbutton.png')}
+            source={require('../color_buttons/redbutton.png')}
           />
         </TouchableHighlight>
         <TouchableHighlight
@@ -123,7 +123,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/greenbutton.png')}
+            source={require('../color_buttons/greenbutton.png')}
           />
         </TouchableHighlight>
 

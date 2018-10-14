@@ -41,11 +41,11 @@ export default class Drawing extends Component {
 
   clearAlert() {
     Alert.alert(
-      'Alert Title',
-      'My Alert Msg',
+      'Are you sure you want to clear?',
+      '',
       [
         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        {text: 'OK', onPress: () => {this.clearScreen()}},
+        {text: 'Yes', onPress: () => {this.clearScreen()}},
       ],
       { cancelable: false }
     )

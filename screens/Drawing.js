@@ -147,7 +147,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/blackbutton.jpg')}
+            source={require('/Users/alexanderfoster/BrushOff/color_buttons/blackbutton.jpg')}
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -157,7 +157,7 @@ export default class Drawing extends Component {
         }}>
           <Image
             style={styles.colorButton}
-            source={require('/Users/johnpellegrini/BrushOff/color_buttons/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
+            source={require('/Users/alexanderfoster/BrushOff/color_buttons/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
           />
         </TouchableOpacity>
         </View>

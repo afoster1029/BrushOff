@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, StyleSheet, Text, TextInput } from 'react-native';
+import { Button, View, StyleSheet, Text, TextInput, Picker } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 export default class LobbyScreen extends React.Component {
@@ -9,31 +9,56 @@ export default class LobbyScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      PickerValue : '',
       numPlayers: '',
       setNumPlayers: 0
     };
   }
 
+  clickme=()=>{
+    var data = this.state.PickerValue;
+    if (data=='') {
+      alert('Please select an option.');
+    }else{
+      alert('figure out how to add x amount of names')
+    }
+  }
   render() {
     return (
+      //this.test(10)
       <View style={{padding: 140}}>
         <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>How many players?</Text>
 
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 5}}
-          onChangeText={(numPlayers) => this.setState({numPlayers})}
-          numPlayers = {this.state.text}
-          value={this.state.text}
-        />
+        <Picker
+          style = {{ width:'120%'}}
+          selectedValue = {this.state.PickerValue}
+          onValueChange = {(itemValue, itemIdex) => this.setState({
+            PickerValue:itemValue})}
+        >
 
-        <Text style={{padding: 10, fontSize: 42}}>
-          {this.state.numPlayers.split(' ').map((word) => word).join(' ')}
-        </Text>
+        <Picker.Item label = 'Select an option' value = '' />
+        <Picker.Item label = '2' value = '2' />
+        <Picker.Item label = '3' value = '3' />
+        <Picker.Item label = '4' value = '4' />
+        <Picker.Item label = '5' value = '5' />
+        <Picker.Item label = '6' value = '6' />
+        <Picker.Item label = '7' value = '7' />
+        <Picker.Item label = '8' value = '8' />
+
+        </Picker>
+
+        <Button title='Add Player Names' onPress={this.clickme}/>
+
 
 
       </View>
+
+
+
     )
   }
+
+
 }
 
 const styles = StyleSheet.create({
@@ -45,6 +70,20 @@ const styles = StyleSheet.create({
   },
 });
 
+// <TextInput
+//   style={{height: 40, borderColor: 'gray', borderWidth: 5}}
+//   onChangeText={(numPlayers) => this.setState({numPlayers})}
+//
+//
+//   numPlayers = {this.state.text}
+//   value={this.state.text}
+//
+// />
+//
+//
+// <Text style={{padding: 10, fontSize: 42}}>
+//   {this.state.numPlayers.split(' ').map((word) => word).join(' ')}
+// </Text>
 
 
 /*

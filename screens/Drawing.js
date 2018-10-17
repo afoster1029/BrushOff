@@ -89,7 +89,7 @@ export default class Drawing extends Component {
     //const { blank } = this.sketch.takeSnapshotAsync();
   };
 
-  
+
 
   render() {
     return (

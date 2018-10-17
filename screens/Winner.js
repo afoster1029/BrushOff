@@ -12,10 +12,14 @@ export default class Voting extends React.Component {
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Congrats p1</Text>
-        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player One</Text>
-        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Two</Text>
-        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Three</Text>
-        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Four</Text>
+        /*Maybe have randomized congrats messages/comments? Like "Looks like p1 is pulling ahead!"
+        or something? Too complex? Good for user experience.*/
+        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player One: x Points</Text>
+        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Two: y Points</Text>
+        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Three: z Points</Text>
+        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Four: i Points</Text>
+        /*For later: Make the alignment of the Players dynamic based off their points, simple list system,
+        need access to profiles and their points values.*/
         <Button
           title="Next Round"
           onPress={() => {
@@ -25,7 +29,7 @@ export default class Voting extends React.Component {
           }}
         />
         <Button
-          title="Return to Menu"
+          title="Quit"
           onPress={() => {
             /* 1. Navigate to the Details route with params */
             this.props.navigation.navigate('Home', {

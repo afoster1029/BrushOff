@@ -24,6 +24,7 @@ export default class InterPlayer extends React.Component {
                 });
               }}
             />
+          />
           </View>
           <View style={{width: 60, height: 40, backgroundColor: 'red'}} >
             <Button
@@ -34,6 +35,7 @@ export default class InterPlayer extends React.Component {
                 });
               }}
             />
+          />
           </View>
         </View>
       </View>

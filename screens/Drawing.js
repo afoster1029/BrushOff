@@ -1,8 +1,9 @@
 import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
+import RNFetchBlob from 'react-native-fetch-blob';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -73,7 +74,16 @@ export default class Drawing extends Component {
     for(i = 0; i < this.state.count; i++) {
       this.sketch.undo();
     }
+  }
 
+  saveImage() {
+    _storeData = async () => {
+      try {
+        await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
+      } catch (error) {
+        console.log("Error saving image");
+      }
+    }
   }
 
 
@@ -163,10 +173,18 @@ export default class Drawing extends Component {
         </View>
         <Button
           color={'red'}
-          title="clear"
+          title="Clear"
           style={styles.button}
           onPress={() => {
             {this.clearAlert()}
+          }}
+        />
+        <Button
+          color={'green'}
+          title="Submit"
+          style={styles.button}
+          onPress={() => {
+            {this.saveImage()}
           }}
         />
       </View>

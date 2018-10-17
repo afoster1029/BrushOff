@@ -23,11 +23,9 @@ export default class InterPlayer extends React.Component {
               }}
             />
           </View>
-        </View>
-        <View style = {{flex: 2, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <View style={{width: 60, height: 40, backgroundColor: 'steelblue'}} />
+          <View style={{width: 60, height: 40, backgroundColor: 'red'}} />
             <Button
-              title="Return to Menu"
+              title="Quit"
               onPress={() => {
                 /* 1. Navigate to the Details route with params */
                 this.props.navigation.navigate('Home', {

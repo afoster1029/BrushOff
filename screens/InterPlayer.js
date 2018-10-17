@@ -3,7 +3,7 @@ import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
 
-export default class Voting extends React.Component {
+export default class InterPlayer extends React.Component {
   static navigationOptions = {
     title: 'InterPlayer'
   };

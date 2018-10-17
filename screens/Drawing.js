@@ -2,9 +2,11 @@ import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
-import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
+import { TouchableHighlight, TouchableOpacity, FileSystem, Alert} from 'react-native'
+import TimerMixin from 'react-timer-mixin';
 
 const isAndroid = Platform.OS === 'android';
+const timer = require('react-native-timer');
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -15,6 +17,7 @@ function uuidv4() {
   });
 }
 
+
 //Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
 
 export default class Drawing extends Component {
@@ -24,6 +27,7 @@ export default class Drawing extends Component {
     strokeWidth: 20,
     count: 0,
     appState: AppState.currentState,
+
   };
   static navigationOptions = {
     title: 'BrushOff'
@@ -38,6 +42,8 @@ export default class Drawing extends Component {
     }
     this.setState({ appState: nextAppState });
   };
+
+
 
   clearAlert() {
     Alert.alert(
@@ -55,7 +61,7 @@ export default class Drawing extends Component {
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount() {     //maybe add timer.clearTimeout(this); to this function?
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
   }
 
@@ -79,8 +85,11 @@ export default class Drawing extends Component {
 
   onReady = () => {
     console.log('ready!');
+    timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
     //const { blank } = this.sketch.takeSnapshotAsync();
   };
+
+  
 
   render() {
     return (

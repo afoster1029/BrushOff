@@ -13,7 +13,7 @@ export default class InterPlayer extends React.Component {
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up!</Text>
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}} />
+          <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}}
             <Button
               title="Next Player"
               onPress={() => {
@@ -22,8 +22,9 @@ export default class InterPlayer extends React.Component {
                 });
               }}
             />
+          />
           </View>
-          <View style={{width: 60, height: 40, backgroundColor: 'red'}} />
+          <View style={{width: 60, height: 40, backgroundColor: 'red'}}
             <Button
               title="Quit"
               onPress={() => {
@@ -32,8 +33,10 @@ export default class InterPlayer extends React.Component {
                 });
               }}
             />
+          />
           </View>
         </View>
       </View>
     )
   }
+}

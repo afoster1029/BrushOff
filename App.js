@@ -7,6 +7,9 @@ import HomeScreen from './screens/Home.js';
 import SettingsScreen from './screens/Settings.js';
 import DrawingScreen from './screens/Drawing.js';
 import LobbyScreen from './screens/Lobby.js'
+import InterPlayerScreen from './screens/InterPlayer.js'
+import VotingScreen from './screens/Voting.js'
+import WinnerScreen from './screens/Winner.js'
 
 const Navigation = createStackNavigator({
     Home: {screen: HomeScreen},

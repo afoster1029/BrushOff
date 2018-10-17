@@ -1,6 +1,6 @@
 # BrushOff
 <<<<<<< HEAD
-Drawing app that provides users with a prompt to draw something. 
+Drawing app that provides users with a prompt to draw something.
 
 To install:
 1. Install yarn
@@ -12,5 +12,10 @@ Need to install several modules via the terminal.
 - Install npm
 - Install expo with npm
 - Install yarn (however you like)
-- With yarn, add expo-pixie and react-navigation.  
+- With yarn, add expo-pixie and react-navigation.
+- Run command: "npm install --save react-native-timer"
+- Run command: "npm install react-native-filesystem --save"
+- Run command: "react-native link react-native-filesystem"
+- Run command: "npm install -g react-native-cli" to install the cli (enter sudo
+  before npm if having system access troubles)
 >>>>>>> 31049577b64f9d3bb17ff68fa1fd155cd25b1d2b

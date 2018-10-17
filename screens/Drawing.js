@@ -114,11 +114,8 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-<<<<<<< HEAD
-            source={require('/Users/alexanderfoster/BrushOff/color_buttons/bluebutton.png')}
-=======
             source={require('./img/bluebutton.png')}
->>>>>>> 3e9092a71fd1a736674c9d93c9f71121afb8f15b
+
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -129,11 +126,8 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-<<<<<<< HEAD
-            source={require('/Users/alexanderfoster/BrushOff/color_buttons/redbutton.png')}
-=======
             source={require('./img/redbutton.png')}
->>>>>>> 3e9092a71fd1a736674c9d93c9f71121afb8f15b
+
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -144,11 +138,7 @@ export default class Drawing extends Component {
           }}>
           <Image
             style={styles.colorButton}
-<<<<<<< HEAD
-            source={require('/Users/alexanderfoster/BrushOff/color_buttons/greenbutton.png')}
-=======
             source={require('./img/greenbutton.png')}
->>>>>>> 3e9092a71fd1a736674c9d93c9f71121afb8f15b
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -158,26 +148,17 @@ export default class Drawing extends Component {
             })}
           }}>
           <Image
-            style={styles.colorButton}
-<<<<<<< HEAD
-            source={require('/Users/alexanderfoster/BrushOff/color_buttons/blackbutton.jpg')}
-=======
-            source={require('./img/blackbutton.jpg')}
->>>>>>> 3e9092a71fd1a736674c9d93c9f71121afb8f15b
+            style={styles.colorButton
+            source={require('./img/blackbutton.png')}
           />
         </TouchableOpacity>
         <TouchableOpacity
-        onPress={() => {
+         onPress={() => {
           this.sketch.undo();
-
         }}>
           <Image
             style={styles.colorButton}
-<<<<<<< HEAD
-            source={require('/Users/alexanderfoster/BrushOff/color_buttons/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
-=======
             source={require('./img/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
->>>>>>> 3e9092a71fd1a736674c9d93c9f71121afb8f15b
           />
         </TouchableOpacity>
         </View>

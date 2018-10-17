@@ -21,7 +21,8 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
+          </View>
+          <View style={{width: 50, height: 50, backgroundColor: 'blue'}} />
             <Button
               title="Picture 2"
               onPress={() => {
@@ -30,7 +31,8 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
+          </View>
+          <View style={{width: 50, height: 50, backgroundColor: 'green'}} />
             <Button
               title="Picture 3"
               onPress={() => {
@@ -39,7 +41,8 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
+          </View>
+          <View style={{width: 50, height: 50, backgroundColor: 'yellow'}} />
             <Button
               title="Picture 4"
               onPress={() => {
@@ -48,6 +51,8 @@ export default class Voting extends React.Component {
                 });
               }}
             />
+          </View>
+        </View>
       </View>
     )
   }

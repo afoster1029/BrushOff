@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, View, StyleSheet, Text, TextInput, Picker } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 export default class LobbyScreen extends React.Component {
   static navigationOptions = {
@@ -11,29 +12,35 @@ export default class LobbyScreen extends React.Component {
     this.state = {
       PickerValue : '',
       numPlayers: '',
-      setNumPlayers: 0
+      setNumPlayers: 0,
+      playerNames: []
     };
   }
 
-  clickme=()=>{
-    var data = this.state.PickerValue;
-    if (data=='') {
-      alert('Please select an option.');
-    }else{
-      alert('figure out how to add x amount of names')
-    }
-  }
+
+
   render() {
     return (
-      //this.test(10)
       <View style={{padding: 140}}>
         <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>How many players?</Text>
 
+
         <Picker
-          style = {{ width:'120%'}}
+          style = {{width:'120%',height:75}}
+          itemStyle={{height: 85}}
           selectedValue = {this.state.PickerValue}
-          onValueChange = {(itemValue, itemIdex) => this.setState({
-            PickerValue:itemValue})}
+          onValueChange = {(itemValue, itemIdex) =>
+            this.state.playerNames = new Array(5),
+            this.state.playerNames.map((data) => {
+              return (
+                <View> <Text>hello world</Text></View>
+              )
+            })
+
+           }
+
+          //this.clickme(itemValue)}
+          //onValueChange = {(itemValue, itemIdex) => this.setState({ PickerValue:itemValue})}
         >
 
         <Picker.Item label = 'Select an option' value = '' />
@@ -44,10 +51,9 @@ export default class LobbyScreen extends React.Component {
         <Picker.Item label = '6' value = '6' />
         <Picker.Item label = '7' value = '7' />
         <Picker.Item label = '8' value = '8' />
-
         </Picker>
 
-        <Button title='Add Player Names' onPress={this.clickme}/>
+       {/* <Button title='Add Player Names' onPress={this.state.clickme}/>*/}
 
 
 

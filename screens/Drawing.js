@@ -1,8 +1,10 @@
 import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,  } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
+import { createStackNavigator } from 'react-navigation';
+
 
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
@@ -100,6 +102,7 @@ export default class Drawing extends Component {
 
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         <Text></Text>
@@ -190,8 +193,9 @@ export default class Drawing extends Component {
           color={'green'}
           title="Submit"
           style={styles.button}
-          onPress={() => {
-            {this.saveImage()}
+          onPress= { ()=> {
+            {navigate('InterPlayer')}
+            {this.clearScreen()}
           }}
         />
       </View>

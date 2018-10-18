@@ -2,6 +2,8 @@ import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+
 
 export default class InterPlayer extends React.Component {
   static navigationOptions = {
@@ -13,7 +15,7 @@ export default class InterPlayer extends React.Component {
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up!</Text>
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}} />
+          <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}} >
             <Button
               title="Next Player"
               onPress={() => {
@@ -22,8 +24,9 @@ export default class InterPlayer extends React.Component {
                 });
               }}
             />
+          />
           </View>
-          <View style={{width: 60, height: 40, backgroundColor: 'red'}} />
+          <View style={{width: 60, height: 40, backgroundColor: 'red'}} >
             <Button
               title="Quit"
               onPress={() => {
@@ -32,8 +35,19 @@ export default class InterPlayer extends React.Component {
                 });
               }}
             />
+          />
           </View>
         </View>
       </View>
     )
   }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

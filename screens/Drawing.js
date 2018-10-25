@@ -8,6 +8,9 @@ import { createStackNavigator } from 'react-navigation';
 
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
+const wordList = ['cat', 'dog', 'rifle', 'butter', 'vase', 'tail', 'monkey', 'stream', 'shoe', 'deer', 'library', 'thumb', 'baby', 'yard', 'jeans', 'rice', 'tiger',
+'snail', 'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'bee', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
+'soup', 'fog', 'toothpaste', 'jellyfish', 'money', 'zebra', 'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'chickens', 'cheese']
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -28,6 +31,7 @@ export default class Drawing extends Component {
     strokeWidth: 20,
     count: 0,
     appState: AppState.currentState,
+    word: wordList[Math.floor(Math.random() * wordList.length)]
 
   };
   static navigationOptions = {
@@ -96,6 +100,8 @@ export default class Drawing extends Component {
   onReady = () => {
     console.log('ready!');
     timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
+    console.log('word of the day is', this.state.word)
+
     //const { blank } = this.sketch.takeSnapshotAsync();
   };
 
@@ -108,7 +114,9 @@ export default class Drawing extends Component {
         <Text></Text>
         <Text></Text>
         <Text></Text>
-        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
+
+
+        <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
         <View style={styles.container}>
           <View style={styles.sketchContainer}>
             <ExpoPixi.Sketch
@@ -121,7 +129,7 @@ export default class Drawing extends Component {
               onReady={this.onReady}
             />
             <View style={styles.label}>
-              <Text>Canvas - draw here or dont</Text>
+
             </View>
           </View>
         </View>

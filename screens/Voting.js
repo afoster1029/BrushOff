@@ -21,7 +21,6 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          />
           </View>
           <View style={{width: 65, height: 65, backgroundColor: 'blue'}}
             <Button
@@ -32,7 +31,6 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          />
           </View>
           <View style={{width: 65, height: 65, backgroundColor: 'green'}}
             <Button
@@ -43,7 +41,6 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          />
           </View>
           <View style={{width: 65, height: 65, backgroundColor: 'yellow'}}
             <Button
@@ -54,7 +51,6 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          />
           </View>
         </View>
       </View>

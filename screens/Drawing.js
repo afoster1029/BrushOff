@@ -1,4 +1,5 @@
 import Expo from 'expo';
+import FileSystem from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,  } from 'react-native';
@@ -28,7 +29,7 @@ export default class Drawing extends Component {
     strokeWidth: 20,
     count: 0,
     appState: AppState.currentState,
-
+    makeDir: true,
   };
   static navigationOptions = {
     title: 'BrushOff'
@@ -82,14 +83,24 @@ export default class Drawing extends Component {
     }
   }
 
-  saveImage() {
-    _storeData = async () => {
-      try {
-        await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
-      } catch (error) {
-        console.log("Error saving image");
-      }
+  async saveImage() {
+    const { result } = await takeSnapshotAsync(this.imageContainer, {
+      result: 'file',
+      height: pixels,
+      width: pixels,
+      quality: 1,
+      format: 'png',
+    });
+
+    if(this.props.makeDir) {
+      await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'images/');
+      this.props.makeDir = false;
     }
+
+    await FileSystem.moveAsync({
+      from: result,
+      to: FileSystem.documentDirectory + 'images/drawing1.png'
+    })
   }
 
 

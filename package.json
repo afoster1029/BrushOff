@@ -18,10 +18,6 @@
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-timer": "^1.3.4",
     "react-navigation": "^2.17.0",
-<<<<<<< HEAD
     "save": "^2.3.2"
-=======
-    "rn-fetch-blob": "^0.10.13"
->>>>>>> f2fb8605ea1ef356f06b64ea1488458d3e5a1711
   }
 }

@@ -12,7 +12,7 @@ export default class Voting extends React.Component {
     return (
       <View style = {styles.container}>
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-          <View style={{width: 65, height: 65, backgroundColor: 'purple'}}
+
             <Button
               title="Picture 1"
               onPress={() => {
@@ -23,7 +23,7 @@ export default class Voting extends React.Component {
             />
           />
           </View>
-          <View style={{width: 65, height: 65, backgroundColor: 'blue'}}
+          <View style={{width: 65, height: 65, backgroundColor: 'blue'}}>
             <Button
               title="Picture 2"
               onPress={() => {
@@ -32,9 +32,9 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          />
+
           </View>
-          <View style={{width: 65, height: 65, backgroundColor: 'green'}}
+          <View style={{width: 65, height: 65, backgroundColor: 'green'}}>
             <Button
               title="Picture 3"
               onPress={() => {
@@ -43,9 +43,9 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          />
+
           </View>
-          <View style={{width: 65, height: 65, backgroundColor: 'yellow'}}
+          <View style={{width: 65, height: 65, backgroundColor: 'yellow'}}>
             <Button
               title="Picture 4"
               onPress={() => {
@@ -54,10 +54,10 @@ export default class Voting extends React.Component {
                 });
               }}
             />
-          />
+
           </View>
         </View>
-      </View>
+  
     )
   }
 }

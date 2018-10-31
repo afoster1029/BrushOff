@@ -99,7 +99,7 @@ export default class LobbyScreen extends React.Component {
           title="Start Game"
           onPress={() => {
             /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Drawing', {});
+            this.props.navigation.navigate('Categories', {});
           }}
         />
 

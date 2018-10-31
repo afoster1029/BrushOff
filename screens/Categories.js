@@ -6,20 +6,20 @@ import { createStackNavigator } from 'react-navigation';
 //import Drawing from '/Users/johnpellegrini/BrushOff/screens/Drawing.js';
 
 const randomWordList = [ 'rifle', 'butter', 'vase', 'tail',  'stream', 'shoe',  'library', 'thumb', 'baby', 'yard', 'jeans', 'rice',
-'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
+'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'basketball', 'wool', 'milk', 'dress', 'friction', 'cake',
 'soup', 'fog', 'toothpaste',  'money',  'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'cheese']
 
 const sportsWordList = ['basketball', 'baseball', 'touchdown', 'goal', 'homerun']
 
 const artsWordList = ['Monet', 'Impressionism', 'Starry Night', 'Salvador Dali', ]
 
-const animalWordList = ['cow', 'dog', 'chicken', 'starfish', 'octopus', 'whale','jellyfish','bee']
+const animalWordList = ['cow', 'dog', 'chicken', 'starfish', 'octopus', 'whale','jellyfish','bee', 'horse']
 
 export default class CategoriesScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-    list: randomWordList
+
   };
 }
 
@@ -34,38 +34,22 @@ export default class CategoriesScreen extends React.Component {
   }
 
   sportsCategory() {
-    this.setState({
-      list: sportsWordList
-    });
-    //console.log(this.state.list);
-    this.props.navigation.navigate('Drawing', {list : this.state.list
+    this.props.navigation.navigate('Drawing', {list : sportsWordList
     });
   };
 
   artCategory() {
-    this.setState({
-      list: artsWordList
-    });
-    //console.log(this.state.list);
-    this.props.navigation.navigate('Drawing', {list : this.state.list
+    this.props.navigation.navigate('Drawing', {list : artsWordList
     });
   };
 
   animalCategory() {
-    this.setState({
-      list: animalWordList
-    });
-    //console.log(this.state.list);
-    this.props.navigation.navigate('Drawing', {list : this.state.list
+    this.props.navigation.navigate('Drawing', {list : animalWordList
     });
   };
 
   randomCategory() {
-    this.setState({
-      list: randomWordList
-    });
-    //console.log(this.state.list);
-    this.props.navigation.navigate('Drawing', {list : this.state.list
+    this.props.navigation.navigate('Drawing', {list : randomWordList
     });
   };
 

@@ -29,7 +29,7 @@ export default class Drawing extends React.Component {
   constructor(props){
     super(props)
   var wordList = this.props.navigation.state.params.list
-  console.log(wordList)
+  //console.log(wordList)
   this.state = {
     image: null,
     strokeColor: 0x000000,

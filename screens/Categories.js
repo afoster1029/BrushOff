@@ -47,7 +47,7 @@ export default class CategoriesScreen extends React.Component {
       list: artsWordList
     });
     //console.log(this.state.list);
-    this.props.navigation.navigate('Drawing', {
+    this.props.navigation.navigate('Drawing', {list : this.state.list
     });
   };
 
@@ -56,7 +56,7 @@ export default class CategoriesScreen extends React.Component {
       list: animalWordList
     });
     //console.log(this.state.list);
-    this.props.navigation.navigate('Drawing', {
+    this.props.navigation.navigate('Drawing', {list : this.state.list
     });
   };
 
@@ -65,7 +65,7 @@ export default class CategoriesScreen extends React.Component {
       list: randomWordList
     });
     //console.log(this.state.list);
-    this.props.navigation.navigate('Drawing', {
+    this.props.navigation.navigate('Drawing', {list : this.state.list
     });
   };
 

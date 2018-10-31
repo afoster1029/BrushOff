@@ -9,14 +9,10 @@ import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
-<<<<<<< HEAD
 var imageList = ['','','','']
-
-=======
 // const wordList = ['cat', 'dog', 'rifle', 'butter', 'vase', 'tail', 'monkey', 'stream', 'shoe', 'deer', 'library', 'thumb', 'baby', 'yard', 'jeans', 'rice', 'tiger',
 // 'snail', 'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'bee', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
 // 'soup', 'fog', 'toothpaste', 'jellyfish', 'money', 'zebra', 'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'chickens', 'cheese']
->>>>>>> 86c01997b37d40d053bbd1d31899c2558f4dd2d8
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -30,11 +26,9 @@ function uuidv4() {
 
 //Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
 
-<<<<<<< HEAD
 export default class Drawing extends Component {
   state = {
     uri: '',
-=======
 export default class Drawing extends React.Component {
 
   constructor(props){
@@ -42,7 +36,6 @@ export default class Drawing extends React.Component {
   var wordList = this.props.navigation.state.params.list
   console.log(wordList)
   this.state = {
->>>>>>> 86c01997b37d40d053bbd1d31899c2558f4dd2d8
     image: null,
     strokeColor: 0xff0000,
     backgroundColor: 0x000000,
@@ -50,22 +43,16 @@ export default class Drawing extends React.Component {
     strokeWidth: 20,
     count: 0,
     appState: AppState.currentState,
-<<<<<<< HEAD
     makeDir: true,
     numPlayers: 4,
     currentPlayer: 1,
     completedImages: imageList
-=======
     word: wordList[Math.floor(Math.random() * wordList.length)]
->>>>>>> 86c01997b37d40d053bbd1d31899c2558f4dd2d8
   };
 }
   static navigationOptions = {
     title: 'BrushOff',
-<<<<<<< HEAD
-=======
     headerLeft: null // this disables the option to go back to the previous screen.
->>>>>>> 86c01997b37d40d053bbd1d31899c2558f4dd2d8
   };
 
   handleAppStateChangeAsync = nextAppState => {
@@ -154,15 +141,10 @@ export default class Drawing extends React.Component {
         <Text></Text>
         <Text></Text>
         <Text></Text>
-<<<<<<< HEAD
         <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
         <View ref = "draw" style={styles.container}>
-=======
-
-
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
         <View style={styles.container}>
->>>>>>> 86c01997b37d40d053bbd1d31899c2558f4dd2d8
           <View style={styles.sketchContainer}>
             <ExpoPixi.Sketch
               ref={ref => (this.sketch = ref)}
@@ -175,12 +157,8 @@ export default class Drawing extends React.Component {
               onChange={this.onChangeAsync}
               onReady={this.onReady}
             />
-<<<<<<< HEAD
-=======
             <View style={styles.label}>
-
             </View>
->>>>>>> 86c01997b37d40d053bbd1d31899c2558f4dd2d8
           </View>
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>

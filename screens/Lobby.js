@@ -3,7 +3,8 @@ import { Alert, Button, View, StyleSheet, Text, TextInput, Picker } from 'react-
 import { createStackNavigator } from 'react-navigation';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-var  SampleArray = ['one', 'two'];
+
+
 
 export default class LobbyScreen extends React.Component {
   static navigationOptions = {
@@ -25,19 +26,18 @@ export default class LobbyScreen extends React.Component {
       p4: '',
       playerNames: []
     }
+    global.names = this.p1;
+
+    this.getPlayerNames = this.getPlayerNames.bind(this);
   }
 
-  printPlayerNames() {
-    let test = ['1','2','3','4'];
-    console.warn(this.state.playerNames)
-    return this.state.playerNames.map((data) => {
-      return (
-        <TextInput>
-          style={{borderColor: 'gray'}}
+  getPlayerNames() {
+    return this.state.p1.toString()
+  }
 
-        </TextInput>
-      )
-    })
+  startGame() {
+    this.props.navigation.navigate('Drawing', {});
+    LobbyScreen.names = this.state.playerNames;
   }
 
   addItemsToArray() {
@@ -51,8 +51,6 @@ export default class LobbyScreen extends React.Component {
     this.state.playerNames.push( this.state.p4.toString() );
 
     Alert.alert(this.state.playerNames.toString());
-
-
   }
 
   render() {
@@ -97,10 +95,7 @@ export default class LobbyScreen extends React.Component {
 
         <Button
           title="Start Game"
-          onPress={() => {
-            /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Drawing', {});
-          }}
+          onPress={() => { this.startGame() }}
         />
 
 
@@ -117,6 +112,13 @@ export default class LobbyScreen extends React.Component {
 
 
 }
+
+// module.exports = {
+//   names : LobbyScreen.playerNames,
+//   p1: LobbyScreen.p1
+// }
+export const playerNames = 2;
+export const p1  = global.names;
 
 const styles = StyleSheet.create({
   container: {

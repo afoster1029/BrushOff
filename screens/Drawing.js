@@ -1,9 +1,12 @@
 import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
+
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,  } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator } from 'react-navigation';
+
+import * as everything from './Lobby.js'
 
 
 const isAndroid = Platform.OS === 'android';
@@ -100,6 +103,7 @@ export default class Drawing extends Component {
 
   onReady = () => {
     console.log('ready!');
+    console.log(everything)
     timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
     console.log('word of the day is', this.state.word)
 

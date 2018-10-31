@@ -1,24 +1,10 @@
 import React from 'react';
+import Expo from 'expo';
+import FileSystem from 'expo';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 export default class Home extends React.Component {
-  static navigationOptions = {
-    title: 'Home Screen'
-  };
-  render() {
-    const { navigate } = this.props.navigation;
-    return (
-      <View style = {styles.container}>
-        <Text
-          onPress= { ()=> navigate('Drawing') }>Play game
-        </Text>
-        <Text
-          onPress= { ()=> navigate('Settings') }>Settings
-        </Text>
-      </View>
-    )
-  }
     static navigationOptions = {
         title: 'Home Screen'
     };

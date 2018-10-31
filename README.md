@@ -1,5 +1,4 @@
 # BrushOff
-<<<<<<< HEAD
 Drawing app that provides users with a prompt to draw something.
 
 To install:
@@ -18,4 +17,3 @@ Need to install several modules via the terminal.
 - Run command: "react-native link react-native-filesystem"
 - Run command: "npm install -g react-native-cli" to install the cli (enter sudo
   before npm if having system access troubles)
->>>>>>> 31049577b64f9d3bb17ff68fa1fd155cd25b1d2b

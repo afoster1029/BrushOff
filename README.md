@@ -18,4 +18,5 @@ Need to install several modules via the terminal.
 - Run command: "react-native link react-native-filesystem"
 - Run command: "npm install -g react-native-cli" to install the cli (enter sudo
   before npm if having system access troubles)
+- Run command "npm i react-native-modal-dropdown -save" 
 >>>>>>> 31049577b64f9d3bb17ff68fa1fd155cd25b1d2b

@@ -1,4 +1,5 @@
 import Expo from 'expo';
+import { FileSystem } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
@@ -10,11 +11,17 @@ export default class InterPlayer extends React.Component {
     title: 'InterPlayer'
   };
   render() {
+    const { imageUri } = FileSystem.documentDirectory + 'drawing1.png';
     const { navigate } = this.props.navigation;
+    // FileSystem.getInfoAsync(FileSystem.documentDirectory + 'drawing1.png')
+    // .then((info) => console.log(info))
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up!</Text>
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
+        <Image
+          source={{uri: imageUri}}
+        />
           <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}} >
             <Button
               title="Next Player"
@@ -24,7 +31,6 @@ export default class InterPlayer extends React.Component {
                 });
               }}
             />
-          />
           </View>
           <View style={{width: 60, height: 40, backgroundColor: 'red'}} >
             <Button
@@ -35,7 +41,6 @@ export default class InterPlayer extends React.Component {
                 });
               }}
             />
-          />
           </View>
         </View>
       </View>

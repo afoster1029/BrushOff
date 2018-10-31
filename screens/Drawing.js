@@ -11,9 +11,9 @@ import * as everything from './Lobby.js'
 
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
-const wordList = ['cat', 'dog', 'rifle', 'butter', 'vase', 'tail', 'monkey', 'stream', 'shoe', 'deer', 'library', 'thumb', 'baby', 'yard', 'jeans', 'rice', 'tiger',
-'snail', 'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'bee', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
-'soup', 'fog', 'toothpaste', 'jellyfish', 'money', 'zebra', 'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'chickens', 'cheese']
+// const wordList = ['cat', 'dog', 'rifle', 'butter', 'vase', 'tail', 'monkey', 'stream', 'shoe', 'deer', 'library', 'thumb', 'baby', 'yard', 'jeans', 'rice', 'tiger',
+// 'snail', 'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'bee', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
+// 'soup', 'fog', 'toothpaste', 'jellyfish', 'money', 'zebra', 'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'chickens', 'cheese']
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -27,16 +27,21 @@ function uuidv4() {
 
 //Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
 
-export default class Drawing extends Component {
-  state = {
+export default class Drawing extends React.Component {
+
+  constructor(props){
+    super(props)
+  var wordList = this.props.navigation.state.params.list
+  console.log(wordList)
+  this.state = {
     image: null,
     strokeColor: 0x000000,
     strokeWidth: 20,
     count: 0,
     appState: AppState.currentState,
     word: wordList[Math.floor(Math.random() * wordList.length)]
-
   };
+}
   static navigationOptions = {
     title: 'BrushOff',
     headerLeft: null // this disables the option to go back to the previous screen.
@@ -106,6 +111,7 @@ export default class Drawing extends Component {
     console.log(everything)
     timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
     console.log('word of the day is', this.state.word)
+    // console.log(this.props.list);
 
     //const { blank } = this.sketch.takeSnapshotAsync();
   };
@@ -114,6 +120,9 @@ export default class Drawing extends Component {
 
   render() {
     const { navigate } = this.props.navigation;
+
+    //const listOfWords = this.props.navigation.getParam('list', 'error');
+    //const word = listOfWords[Math.floor(Math.random() * listOfWords.length)]
     return (
       <View style={styles.container}>
         <Text></Text>

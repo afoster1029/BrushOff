@@ -40,7 +40,8 @@ export default class Drawing extends React.Component {
   };
 }
   static navigationOptions = {
-    title: 'BrushOff'
+    title: 'BrushOff',
+    headerLeft: null // this disables the option to go back to the previous screen.
   };
 
   handleAppStateChangeAsync = nextAppState => {
@@ -152,6 +153,7 @@ export default class Drawing extends React.Component {
           <Image
             style={styles.colorButton}
             source={require('./img/bluebutton.png')}
+
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -163,6 +165,7 @@ export default class Drawing extends React.Component {
           <Image
             style={styles.colorButton}
             source={require('./img/redbutton.png')}
+
           />
         </TouchableOpacity>
         <TouchableOpacity
@@ -176,6 +179,7 @@ export default class Drawing extends React.Component {
             source={require('./img/greenbutton.png')}
           />
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={() => {
             {this.setState({
@@ -190,7 +194,6 @@ export default class Drawing extends React.Component {
         <TouchableOpacity
         onPress={() => {
           this.sketch.undo();
-
         }}>
           <Image
             style={styles.colorButton}

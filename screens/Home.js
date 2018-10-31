@@ -40,7 +40,7 @@ export default class Home extends React.Component {
                   title="Play Game"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */
-                    this.props.navigation.navigate('Drawing', {
+                    this.props.navigation.navigate('Categories', {
 
                     });
                   }}

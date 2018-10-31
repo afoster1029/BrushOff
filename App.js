@@ -8,6 +8,7 @@ import SettingsScreen from './screens/Settings.js';
 import DrawingScreen from './screens/Drawing.js';
 import LobbyScreen from './screens/Lobby.js'
 import InterPlayerScreen from './screens/InterPlayer.js'
+import CategoriesScreen from './screens/Categories.js'
 
 import VotingScreen from './screens/Voting.js'
 import WinnerScreen from './screens/Winner.js'
@@ -17,8 +18,8 @@ const Navigation = createStackNavigator({
     Settings: {screen: SettingsScreen},
     Drawing: {screen: DrawingScreen},
     Lobby: {screen: LobbyScreen},
-    InterPlayer: {screen: InterPlayerScreen}
-
+    InterPlayer: {screen: InterPlayerScreen},
+    Categories: {screen: CategoriesScreen}
 })
 
 export default class App extends React.Component {

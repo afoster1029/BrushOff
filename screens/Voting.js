@@ -12,7 +12,7 @@ export default class Voting extends React.Component {
     return (
       <View style = {styles.container}>
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-
+          <View style={{width: 65, height: 65, backgroundColor: 'purple'}}>
             <Button
               title="Picture 1"
               onPress={() => {

@@ -28,6 +28,8 @@ export default class Home extends React.Component {
             <View style = {styles.container}>
                 <Button
                   title="Lobby"
+                  color="green"
+                  accessibilityLabel="Set up a game with up to five players!"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */
                     this.props.navigation.navigate('Lobby', {
@@ -38,6 +40,8 @@ export default class Home extends React.Component {
 
                 <Button
                   title="Play Game"
+                  color="blue"
+                  accessibilityLabel="Jump straight into messing around on a canvas!"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */
                     this.props.navigation.navigate('Categories', {
@@ -48,6 +52,8 @@ export default class Home extends React.Component {
 
                 <Button
                   title="Settings"
+                  color="gray"
+                  accessibilityLabel="Adjust the time each player had to draw the prompt!"
                   onPress={() => {
                     /* 1. Navigate to the Details route with params */
                     this.props.navigation.navigate('Settings', {

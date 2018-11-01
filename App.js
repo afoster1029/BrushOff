@@ -10,6 +10,8 @@ import LobbyScreen from './screens/Lobby.js'
 import InterPlayerScreen from './screens/InterPlayer.js'
 import VotingScreen from './screens/Voting.js'
 import WinnerScreen from './screens/Winner.js'
+import CategoriesScreen from './screens/Categories.js'
+
 
 
 const Navigation = createStackNavigator({
@@ -19,7 +21,8 @@ const Navigation = createStackNavigator({
     Lobby: {screen: LobbyScreen},
     InterPlayer: {screen: InterPlayerScreen},
     Voting: {screen: VotingScreen},
-    Winner: {screen: WinnerScreen}
+    Winner: {screen: WinnerScreen},
+    Categories: {screen: CategoriesScreen}
 
 })
 

@@ -1,13 +1,18 @@
 import Expo from 'expo';
+import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,  } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
+var imageList = ['','','','']
+// const wordList = ['cat', 'dog', 'rifle', 'butter', 'vase', 'tail', 'monkey', 'stream', 'shoe', 'deer', 'library', 'thumb', 'baby', 'yard', 'jeans', 'rice', 'tiger',
+// 'snail', 'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'bee', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
+// 'soup', 'fog', 'toothpaste', 'jellyfish', 'money', 'zebra', 'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'chickens', 'cheese']
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -21,18 +26,27 @@ function uuidv4() {
 
 //Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
 
+export default class Drawing extends Component {
+  state = {
+    uri: '',
 export default class Drawing extends React.Component {
 
   constructor(props){
     super(props)
   var wordList = this.props.navigation.state.params.list
-  //console.log(wordList)
+  console.log(wordList)
   this.state = {
     image: null,
-    strokeColor: 0x000000,
+    strokeColor: 0xff0000,
+    backgroundColor: 0x000000,
+    transparent: false,
     strokeWidth: 20,
     count: 0,
     appState: AppState.currentState,
+    makeDir: true,
+    numPlayers: 4,
+    currentPlayer: 1,
+    completedImages: imageList
     word: wordList[Math.floor(Math.random() * wordList.length)]
   };
 }
@@ -89,16 +103,21 @@ export default class Drawing extends React.Component {
     }
   }
 
-  saveImage() {
-    _storeData = async () => {
-      try {
-        await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
-      } catch (error) {
-        console.log("Error saving image");
-      }
+  saveImage = async () => {
+    const { uri } = await this.sketch.takeSnapshotAsync({
+      result: 'file',
+      format: 'png'
+    });
+    this.state.completedImages[this.state.currentPlayer - 1] = uri;
+    this.clearScreen();
+    if(this.state.currentPlayer < this.state.numPlayers) {
+      this.state.currentPlayer += 1;
+      this.props.navigation.navigate('InterPlayer');
+    } else {
+      this.props.navigation.navigate('Voting', {images : this.state.completedImages});
     }
-  }
 
+  }
 
   onReady = () => {
     console.log('ready!');
@@ -109,26 +128,29 @@ export default class Drawing extends React.Component {
     //const { blank } = this.sketch.takeSnapshotAsync();
   };
 
-
-
   render() {
     const { navigate } = this.props.navigation;
 
     //const listOfWords = this.props.navigation.getParam('list', 'error');
     //const word = listOfWords[Math.floor(Math.random() * listOfWords.length)]
     return (
-      <View style={styles.container}>
+      <View
+        collapsable={false}
+        ref={ref => (this.pageView = ref)}
+        style={styles.container}>
         <Text></Text>
         <Text></Text>
         <Text></Text>
-
-
+        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
+        <View ref = "draw" style={styles.container}>
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
         <View style={styles.container}>
           <View style={styles.sketchContainer}>
             <ExpoPixi.Sketch
               ref={ref => (this.sketch = ref)}
               style={styles.sketch}
+              backgroundColor={this.state.backgroundColor}
+              transparent={this.state.transparent}
               strokeColor={this.state.strokeColor}
               strokeWidth={this.state.strokeWidth}
               strokeAlpha={1}
@@ -136,7 +158,6 @@ export default class Drawing extends React.Component {
               onReady={this.onReady}
             />
             <View style={styles.label}>
-
             </View>
           </View>
         </View>
@@ -211,8 +232,8 @@ export default class Drawing extends React.Component {
           title="Submit"
           style={styles.button}
           onPress= { ()=> {
-            {navigate('InterPlayer')}
-            {this.clearScreen()}
+            {this.saveImage()}
+            //{this.clearScreen()}
           }}
         />
       </View>

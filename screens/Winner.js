@@ -9,17 +9,14 @@ export default class Voting extends React.Component {
   };
   render() {
     const { navigate } = this.props.navigation;
+    const winnerUri = this.props.navigation.getParam('winningImage', 'no image');
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Congrats p1</Text>
-        /*Maybe have randomized congrats messages/comments? Like "Looks like p1 is pulling ahead!"
-        or something? Too complex? Good for user experience.*/
-        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player One: x Points</Text>
-        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Two: y Points</Text>
-        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Three: z Points</Text>
-        <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>Player Four: i Points</Text>
-        /*For later: Make the alignment of the Players dynamic based off their points, simple list system,
-        need access to profiles and their points values.*/
+        <Image
+          style={{width: 200, height: 200}}
+          source={{uri: winnerUri}}
+        />
         <Button
           title="Next Round"
           onPress={() => {
@@ -40,3 +37,14 @@ export default class Voting extends React.Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

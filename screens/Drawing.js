@@ -26,30 +26,26 @@ function uuidv4() {
 
 //Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
 
-export default class Drawing extends Component {
-  state = {
-    uri: '',
 export default class Drawing extends React.Component {
-
   constructor(props){
     super(props)
-  var wordList = this.props.navigation.state.params.list
-  console.log(wordList)
-  this.state = {
-    image: null,
-    strokeColor: 0xff0000,
-    backgroundColor: 0x000000,
-    transparent: false,
-    strokeWidth: 20,
-    count: 0,
-    appState: AppState.currentState,
-    makeDir: true,
-    numPlayers: 4,
-    currentPlayer: 1,
-    completedImages: imageList
-    word: wordList[Math.floor(Math.random() * wordList.length)]
-  };
-}
+    var wordList = this.props.navigation.state.params.list
+    console.log(wordList)
+    this.state = {
+      image: null,
+      strokeColor: 0xff0000,
+      backgroundColor: 0x000000,
+      transparent: false,
+      strokeWidth: 20,
+      count: 0,
+      appState: AppState.currentState,
+      makeDir: true,
+      numPlayers: 4,
+      currentPlayer: 1,
+      completedImages: imageList,
+      word: wordList[Math.floor(Math.random() * wordList.length)]
+    }
+  }
   static navigationOptions = {
     title: 'BrushOff',
     headerLeft: null // this disables the option to go back to the previous screen.
@@ -122,10 +118,7 @@ export default class Drawing extends React.Component {
   onReady = () => {
     console.log('ready!');
     timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
-    console.log('word of the day is', this.state.word)
-    // console.log(this.props.list);
-
-    //const { blank } = this.sketch.takeSnapshotAsync();
+    console.log('word of the day is', this.state.word);
   };
 
   render() {
@@ -134,108 +127,98 @@ export default class Drawing extends React.Component {
     //const listOfWords = this.props.navigation.getParam('list', 'error');
     //const word = listOfWords[Math.floor(Math.random() * listOfWords.length)]
     return (
-      <View
-        collapsable={false}
-        ref={ref => (this.pageView = ref)}
-        style={styles.container}>
+      <View style={styles.container}>
         <Text></Text>
         <Text></Text>
         <Text></Text>
         <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
-        <View ref = "draw" style={styles.container}>
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
-        <View style={styles.container}>
-          <View style={styles.sketchContainer}>
-            <ExpoPixi.Sketch
-              ref={ref => (this.sketch = ref)}
-              style={styles.sketch}
-              backgroundColor={this.state.backgroundColor}
-              transparent={this.state.transparent}
-              strokeColor={this.state.strokeColor}
-              strokeWidth={this.state.strokeWidth}
-              strokeAlpha={1}
-              onChange={this.onChangeAsync}
-              onReady={this.onReady}
-            />
-            <View style={styles.label}>
+          <View style={styles.container}>
+            <View style={styles.sketchContainer}>
+              <ExpoPixi.Sketch
+                ref={ref => (this.sketch = ref)}
+                style={styles.sketch}
+                backgroundColor={this.state.backgroundColor}
+                transparent={this.state.transparent}
+                strokeColor={this.state.strokeColor}
+                strokeWidth={this.state.strokeWidth}
+                strokeAlpha={1}
+                onChange={this.onChangeAsync}
+                onReady={this.onReady}
+              />
             </View>
           </View>
-        </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
-        <TouchableOpacity
-          onPress={() => {
-            {this.setState({
-              strokeColor: 0x0000ff,
-            })}
-          }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/bluebutton.png')}
-
+          <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
+            <TouchableOpacity
+              onPress={() => {
+                {this.setState({
+                  strokeColor: 0x0000ff,
+                })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/bluebutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                {this.setState({
+                  strokeColor: 0xff0000,
+                })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/redbutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                {this.setState({
+                  strokeColor: 0x00ff00,
+                })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/greenbutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                {this.setState({
+                  strokeColor: 0x000000,
+                })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/blackbutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => {
+              this.sketch.undo();
+            }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
+              />
+            </TouchableOpacity>
+          </View>
+          <Button
+            color={'red'}
+            title="Clear"
+            style={styles.button}
+            onPress={() => {
+              {this.clearAlert()}
+            }}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            {this.setState({
-              strokeColor: 0xff0000,
-            })}
-          }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/redbutton.png')}
-
+          <Button
+            color={'green'}
+            title="Submit"
+            style={styles.button}
+            onPress= { ()=> {
+              {this.saveImage()}
+            }}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            {this.setState({
-              strokeColor: 0x00ff00,
-            })}
-          }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/greenbutton.png')}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            {this.setState({
-              strokeColor: 0x000000,
-            })}
-          }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/blackbutton.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-        onPress={() => {
-          this.sketch.undo();
-        }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
-          />
-        </TouchableOpacity>
-        </View>
-        <Button
-          color={'red'}
-          title="Clear"
-          style={styles.button}
-          onPress={() => {
-            {this.clearAlert()}
-          }}
-        />
-        <Button
-          color={'green'}
-          title="Submit"
-          style={styles.button}
-          onPress= { ()=> {
-            {this.saveImage()}
-            //{this.clearScreen()}
-          }}
-        />
       </View>
     );
   }

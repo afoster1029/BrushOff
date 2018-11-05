@@ -10,12 +10,9 @@ export default class LobbyScreen extends React.Component {
     title: 'Lobby'
   };
 
-
-
   constructor(props) {
     super(props)
     //const { navigate } = this.props.navigation;
-
     this.state = {
       PickerValue : '',
       numPlayers: '',
@@ -34,7 +31,6 @@ export default class LobbyScreen extends React.Component {
       return (
         <TextInput>
           style={{borderColor: 'gray'}}
-
         </TextInput>
       )
     })
@@ -51,8 +47,6 @@ export default class LobbyScreen extends React.Component {
     this.state.playerNames.push( this.state.p4.toString() );
 
     Alert.alert(this.state.playerNames.toString());
-
-
   }
 
   render() {
@@ -99,19 +93,11 @@ export default class LobbyScreen extends React.Component {
           title="Start Game"
           onPress={() => {
             /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Categories', {});
+            this.props.navigation.navigate('Categories', {playerList:
+            [this.state.p1, this.state.p2, this.state.p3, this.state.p4]});
           }}
         />
-
-
-
-
       </View>
-
-
-
-
-
     )
   }
 

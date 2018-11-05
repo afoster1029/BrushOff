@@ -11,17 +11,14 @@ export default class InterPlayer extends React.Component {
     title: 'InterPlayer'
   };
   render() {
-    const { imageUri } = FileSystem.documentDirectory + 'drawing1.png';
+    const player = this.props.navigation.getParam('nextPlayer', 'nothing passed');
     const { navigate } = this.props.navigation;
     // FileSystem.getInfoAsync(FileSystem.documentDirectory + 'drawing1.png')
     // .then((info) => console.log(info))
     return (
       <View style = {styles.container}>
-        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up!</Text>
+        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up! {player}'s turn</Text>
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-        <Image
-          source={{uri: imageUri}}
-        />
           <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}} >
             <Button
               title="Next Player"

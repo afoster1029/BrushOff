@@ -30,7 +30,7 @@ export default class Drawing extends React.Component {
   constructor(props){
     super(props)
     var wordList = this.props.navigation.state.params.list
-    console.log(wordList)
+    var players = this.props.navigation.getParam('playerList', 'nothing passed')
     this.state = {
       image: null,
       strokeColor: 0xff0000,
@@ -41,9 +41,10 @@ export default class Drawing extends React.Component {
       appState: AppState.currentState,
       makeDir: true,
       numPlayers: 4,
-      currentPlayer: 1,
+      playerNum: 1,
       completedImages: imageList,
-      word: wordList[Math.floor(Math.random() * wordList.length)]
+      word: wordList[Math.floor(Math.random() * wordList.length)],
+      playerList: players,
     }
   }
   static navigationOptions = {
@@ -60,8 +61,6 @@ export default class Drawing extends React.Component {
     }
     this.setState({ appState: nextAppState });
   };
-
-
 
   clearAlert() {
     Alert.alert(
@@ -104,13 +103,15 @@ export default class Drawing extends React.Component {
       result: 'file',
       format: 'png'
     });
-    this.state.completedImages[this.state.currentPlayer - 1] = uri;
+    this.state.completedImages[this.state.playerNum - 1] = uri;
     this.clearScreen();
-    if(this.state.currentPlayer < this.state.numPlayers) {
-      this.state.currentPlayer += 1;
-      this.props.navigation.navigate('InterPlayer');
+    if(this.state.playerNum < this.state.numPlayers) {
+      this.state.playerNum += 1;
+      this.props.navigation.navigate('InterPlayer',
+        {nextPlayer: this.state.playerList[this.state.playerNum - 1]});
     } else {
-      this.props.navigation.navigate('Voting', {images : this.state.completedImages});
+      this.props.navigation.navigate('Voting',
+        {images : this.state.completedImages, playerList: this.state.playerList});
     }
 
   }
@@ -123,16 +124,13 @@ export default class Drawing extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-
-    //const listOfWords = this.props.navigation.getParam('list', 'error');
-    //const word = listOfWords[Math.floor(Math.random() * listOfWords.length)]
     return (
       <View style={styles.container}>
         <Text></Text>
         <Text></Text>
         <Text></Text>
-        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
-        <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
+        <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
+        {this.state.playerList[this.state.playerNum - 1]} {this.state.word} </Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch

@@ -2,16 +2,17 @@
 import React from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { StackNavigator, createStackNavigator } from 'react-navigation';
-
+import {AppRegistry} from 'react-native';
 import HomeScreen from './screens/Home.js';
 import SettingsScreen from './screens/Settings.js';
 import DrawingScreen from './screens/Drawing.js';
 import LobbyScreen from './screens/Lobby.js'
 import InterPlayerScreen from './screens/InterPlayer.js'
-import CategoriesScreen from './screens/Categories.js'
-
 import VotingScreen from './screens/Voting.js'
 import WinnerScreen from './screens/Winner.js'
+import CategoriesScreen from './screens/Categories.js'
+
+
 
 const Navigation = createStackNavigator({
     Home: {screen: HomeScreen},
@@ -19,7 +20,10 @@ const Navigation = createStackNavigator({
     Drawing: {screen: DrawingScreen},
     Lobby: {screen: LobbyScreen},
     InterPlayer: {screen: InterPlayerScreen},
+    Voting: {screen: VotingScreen},
+    Winner: {screen: WinnerScreen},
     Categories: {screen: CategoriesScreen}
+
 })
 
 export default class App extends React.Component {

@@ -1,19 +1,19 @@
 import Expo from 'expo';
+import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,  } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 import * as everything from './Lobby.js'
 
 
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
-const wordList = ['cat', 'dog', 'rifle', 'butter', 'vase', 'tail', 'monkey', 'stream', 'shoe', 'deer', 'library', 'thumb', 'baby', 'yard', 'jeans', 'rice', 'tiger',
-'snail', 'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'bee', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
-'soup', 'fog', 'toothpaste', 'jellyfish', 'money', 'zebra', 'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'chickens', 'cheese']
+var imageList = ['','','','']
+
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -28,20 +28,25 @@ function uuidv4() {
 //Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
 
 export default class Drawing extends React.Component {
-
   constructor(props){
     super(props)
-  var wordList = this.props.navigation.state.params.list
-  console.log(wordList)
-  this.state = {
-    image: null,
-    strokeColor: 0x000000,
-    strokeWidth: 20,
-    count: 0,
-    appState: AppState.currentState
-    //word: wordList[Math.floor(Math.random() * wordList.length)]
-  };
-}
+    var wordList = this.props.navigation.state.params.list
+    console.log(wordList)
+    this.state = {
+      image: null,
+      strokeColor: 0xff0000,
+      backgroundColor: 0x000000,
+      transparent: false,
+      strokeWidth: 20,
+      count: 0,
+      appState: AppState.currentState,
+      makeDir: true,
+      numPlayers: 4,
+      currentPlayer: 1,
+      completedImages: imageList,
+      word: wordList[Math.floor(Math.random() * wordList.length)]
+    }
+  }
   static navigationOptions = {
     title: 'BrushOff',
     headerLeft: null // this disables the option to go back to the previous screen.
@@ -95,28 +100,28 @@ export default class Drawing extends React.Component {
     }
   }
 
-  saveImage() {
-    _storeData = async () => {
-      try {
-        await AsyncStorage.setItem('@MySuperStore:key', 'I like to save it.');
-      } catch (error) {
-        console.log("Error saving image");
-      }
+  saveImage = async () => {
+    const { uri } = await this.sketch.takeSnapshotAsync({
+      result: 'file',
+      format: 'png'
+    });
+    this.state.completedImages[this.state.currentPlayer - 1] = uri;
+    this.clearScreen();
+    if(this.state.currentPlayer < this.state.numPlayers) {
+      this.state.currentPlayer += 1;
+      this.props.navigation.navigate('InterPlayer');
+    } else {
+      this.props.navigation.navigate('Voting', {images : this.state.completedImages});
     }
-  }
 
+  }
 
   onReady = () => {
     console.log('ready!');
     console.log(everything)
     timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
-    console.log('word of the day is', this.state.word)
-    // console.log(this.props.list);
-
-    //const { blank } = this.sketch.takeSnapshotAsync();
+    console.log('word of the day is', this.state.word);
   };
-
-
 
   render() {
     const { navigate } = this.props.navigation;
@@ -128,100 +133,94 @@ export default class Drawing extends React.Component {
         <Text></Text>
         <Text></Text>
         <Text></Text>
-
-
+        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
-        <View style={styles.container}>
-          <View style={styles.sketchContainer}>
-            <ExpoPixi.Sketch
-              ref={ref => (this.sketch = ref)}
-              style={styles.sketch}
-              strokeColor={this.state.strokeColor}
-              strokeWidth={this.state.strokeWidth}
-              strokeAlpha={1}
-              onChange={this.onChangeAsync}
-              onReady={this.onReady}
-            />
-            <View style={styles.label}>
-
+          <View style={styles.container}>
+            <View style={styles.sketchContainer}>
+              <ExpoPixi.Sketch
+                ref={ref => (this.sketch = ref)}
+                style={styles.sketch}
+                backgroundColor={this.state.backgroundColor}
+                transparent={this.state.transparent}
+                strokeColor={this.state.strokeColor}
+                strokeWidth={this.state.strokeWidth}
+                strokeAlpha={1}
+                onChange={this.onChangeAsync}
+                onReady={this.onReady}
+              />
             </View>
           </View>
-        </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
-        <TouchableOpacity
-          onPress={() => {
-            {this.setState({
-              strokeColor: 0x0000ff,
-            })}
-          }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/bluebutton.png')}
-
+          <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
+            <TouchableOpacity
+              onPress={() => {
+                {this.setState({
+                  strokeColor: 0x0000ff,
+                })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/bluebutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                {this.setState({
+                  strokeColor: 0xff0000,
+                })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/redbutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                {this.setState({
+                  strokeColor: 0x00ff00,
+                })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/greenbutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                {this.setState({
+                  strokeColor: 0x000000,
+                })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/blackbutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => {
+              this.sketch.undo();
+            }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
+              />
+            </TouchableOpacity>
+          </View>
+          <Button
+            color={'red'}
+            title="Clear"
+            style={styles.button}
+            onPress={() => {
+              {this.clearAlert()}
+            }}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            {this.setState({
-              strokeColor: 0xff0000,
-            })}
-          }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/redbutton.png')}
-
+          <Button
+            color={'green'}
+            title="Submit"
+            style={styles.button}
+            onPress= { ()=> {
+              {this.saveImage()}
+            }}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            {this.setState({
-              strokeColor: 0x00ff00,
-            })}
-          }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/greenbutton.png')}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            {this.setState({
-              strokeColor: 0x000000,
-            })}
-          }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/blackbutton.png')}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-        onPress={() => {
-          this.sketch.undo();
-        }}>
-          <Image
-            style={styles.colorButton}
-            source={require('./img/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
-          />
-        </TouchableOpacity>
-        </View>
-        <Button
-          color={'red'}
-          title="Clear"
-          style={styles.button}
-          onPress={() => {
-            {this.clearAlert()}
-          }}
-        />
-        <Button
-          color={'green'}
-          title="Submit"
-          style={styles.button}
-          onPress= { ()=> {
-            {navigate('InterPlayer')}
-            {this.clearScreen()}
-          }}
-        />
       </View>
     );
   }

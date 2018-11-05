@@ -3,15 +3,10 @@ import { Alert, Button, View, StyleSheet, Text, TextInput, Picker } from 'react-
 import { createStackNavigator } from 'react-navigation';
 import ModalDropdown from 'react-native-modal-dropdown';
 
-
-
-
 export default class LobbyScreen extends React.Component {
   static navigationOptions = {
     title: 'Lobby'
   };
-
-
 
   constructor(props) {
     super(props)
@@ -36,7 +31,7 @@ export default class LobbyScreen extends React.Component {
   }
 
   startGame() {
-    this.props.navigation.navigate('Drawing', {});
+    this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
     LobbyScreen.names = this.state.playerNames;
   }
 

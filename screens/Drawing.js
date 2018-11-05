@@ -1,3 +1,4 @@
+
 import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
@@ -5,7 +6,6 @@ import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,  } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
-
 
 
 const isAndroid = Platform.OS === 'android';
@@ -31,7 +31,7 @@ export default class Drawing extends React.Component {
   constructor(props){
     super(props)
     var wordList = this.props.navigation.state.params.list
-    console.log(wordList)
+    var players = this.props.navigation.getParam('playerList', 'nothing passed')
     this.state = {
       image: null,
       strokeColor: 0xff0000,
@@ -42,9 +42,10 @@ export default class Drawing extends React.Component {
       appState: AppState.currentState,
       makeDir: true,
       numPlayers: 4,
-      currentPlayer: 1,
+      playerNum: 1,
       completedImages: imageList,
-      word: wordList[Math.floor(Math.random() * wordList.length)]
+      word: wordList[Math.floor(Math.random() * wordList.length)],
+      playerList: players,
     }
   }
   static navigationOptions = {
@@ -61,8 +62,6 @@ export default class Drawing extends React.Component {
     }
     this.setState({ appState: nextAppState });
   };
-
-
 
   clearAlert() {
     Alert.alert(
@@ -82,7 +81,6 @@ export default class Drawing extends React.Component {
 
   componentWillUnmount() {     //maybe add timer.clearTimeout(this); to this function?
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
-    //timer.clearTimeout(this);
   }
 
   onChangeAsync = async () => {
@@ -106,40 +104,36 @@ export default class Drawing extends React.Component {
       result: 'file',
       format: 'png'
     });
-    this.state.completedImages[this.state.currentPlayer - 1] = uri;
+    this.state.completedImages[this.state.playerNum - 1] = uri;
     this.clearScreen();
-    if(this.state.currentPlayer < this.state.numPlayers) {
-      this.state.currentPlayer += 1;
-      this.props.navigation.navigate('InterPlayer');
+    if(this.state.playerNum < this.state.numPlayers) {
+      this.state.playerNum += 1;
+      this.props.navigation.navigate('InterPlayer',
+        {nextPlayer: this.state.playerList[this.state.playerNum - 1]});
     } else {
-      this.props.navigation.navigate('Voting', {images : this.state.completedImages});
+      this.props.navigation.navigate('Voting',
+        {images : this.state.completedImages, playerList: this.state.playerList});
     }
 
   }
 
   onReady = () => {
     console.log('ready!');
-    //timer.setTimeout(this,'round over',() => console.log('time is up!'), 3000);
+    timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
     console.log('word of the day is', this.state.word);
   };
 
   render() {
     const { navigate } = this.props.navigation;
-    console
-    //timer.setTimeout(this,'round over',() => this.saveImage(), 3000);
-
-    //const listOfWords = this.props.navigation.getParam('list', 'error');
-    //const word = listOfWords[Math.floor(Math.random() * listOfWords.length)]
     return (
       <View style={styles.container}>
         <Text></Text>
         <Text></Text>
         <Text></Text>
-        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
-        <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
+        <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
+        {this.state.playerList[this.state.playerNum - 1]} {this.state.word} </Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
-
               <ExpoPixi.Sketch
                 ref={ref => (this.sketch = ref)}
                 style={styles.sketch}
@@ -152,11 +146,7 @@ export default class Drawing extends React.Component {
                 onReady={this.onReady}
               />
             </View>
-
-
-
-
-
+          </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
             <TouchableOpacity
               onPress={() => {

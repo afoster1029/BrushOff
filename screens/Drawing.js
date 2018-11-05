@@ -7,6 +7,7 @@ import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Al
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 
 
+
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
 var imageList = ['','','','']
@@ -81,6 +82,7 @@ export default class Drawing extends React.Component {
 
   componentWillUnmount() {     //maybe add timer.clearTimeout(this); to this function?
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
+    //timer.clearTimeout(this);
   }
 
   onChangeAsync = async () => {
@@ -117,12 +119,14 @@ export default class Drawing extends React.Component {
 
   onReady = () => {
     console.log('ready!');
-    timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
+    //timer.setTimeout(this,'round over',() => console.log('time is up!'), 3000);
     console.log('word of the day is', this.state.word);
   };
 
   render() {
     const { navigate } = this.props.navigation;
+    console
+    //timer.setTimeout(this,'round over',() => this.saveImage(), 3000);
 
     //const listOfWords = this.props.navigation.getParam('list', 'error');
     //const word = listOfWords[Math.floor(Math.random() * listOfWords.length)]
@@ -135,6 +139,7 @@ export default class Drawing extends React.Component {
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
+
               <ExpoPixi.Sketch
                 ref={ref => (this.sketch = ref)}
                 style={styles.sketch}
@@ -147,7 +152,11 @@ export default class Drawing extends React.Component {
                 onReady={this.onReady}
               />
             </View>
-          </View>
+
+
+
+
+
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
             <TouchableOpacity
               onPress={() => {

@@ -17,7 +17,7 @@ export default class InterPlayer extends React.Component {
     // .then((info) => console.log(info))
     return (
       <View style = {styles.container}>
-        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up! {player}'s turn</Text>
+        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up! {player}s turn</Text>
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
           <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}} >
             <Button

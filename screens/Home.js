@@ -13,7 +13,7 @@ export default class Home extends React.Component {
         return (
             <View style = {styles.container}>
                 <Button
-                  title="Lobby"
+                  title="Play Game"
                   color="green"
                   accessibilityLabel="Set up a game with up to five players!"
                   onPress={() => {
@@ -25,7 +25,7 @@ export default class Home extends React.Component {
                 />
 
                 <Button
-                  title="Play Game"
+                  title="Don't press"
                   color="blue"
                   accessibilityLabel="Jump straight into messing around on a canvas!"
                   onPress={() => {

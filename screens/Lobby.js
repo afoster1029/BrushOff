@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Alert, Button, View, StyleSheet, Text, TextInput, Picker } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -81,16 +81,29 @@ export default class LobbyScreen extends React.Component {
          // value={this.state.text}
         />
 
-        <Button
-          title="Display names"
-          //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
-          onPress={() => { this.addItemsToArray() }}
-        />
+        <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
+          <View style={{width: 180, height: 50}} >
+            <Button
+              title="Display Names"
+              color="gray"
+              accessibilityLabel="Display the entered names for test/preview purposes."
+              //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
+              onPress={() => { this.addItemsToArray() }}
+            />
+          </View>
 
-        <Button
-          title="Start Game"
-          onPress={() => { this.startGame() }}
-        />
+          <View style={{width: 140, height: 50}} >
+            <Button
+              title="Start Game"
+              color="green"
+              accessibilityLabel="Start the game with the given player names!"
+              onPress={() => { this.startGame() }}
+            />
+          </View>
+
+        </View>
+
+
       </View>
     )
   }
@@ -105,6 +118,7 @@ export default class LobbyScreen extends React.Component {
 export const playerNames = 2;
 export const p1  = global.names;
 
+/*
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -113,3 +127,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+*/

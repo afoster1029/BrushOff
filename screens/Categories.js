@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
@@ -42,40 +42,57 @@ export default class CategoriesScreen extends React.Component {
     return (
 
       <View style = {styles.container}>
-        <Text> Select a Category</Text>
-        <Button
-          title="Sports"
-          onPress={() => {
-            {this.navigateToDrawing(sportsWordList)}
-          }}
+        <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
+          <View style={{width: 70, height: 40}} >
+            <Button
+              title="Sports"
+              color="black"
+              onPress={() => {
+                {this.navigateToDrawing(sportsWordList)}
+              }}
 
-        />
-        <Button
-          title="Art"
-          onPress={() => {
-            {this.navigateToDrawing(artsWordList)}
-          }}
+            />
+          </View>
 
-        />
-        <Button
-          title="Animals"
-          onPress={() => {
-            {this.navigateToDrawing(animalWordList)}
-          }}
-        />
-        <Button
-          title="Random"
-          onPress={() => {
-            {this.navigateToDrawing(randomWordList)}
-          }}
-        />
+          <View style={{width: 50, height: 50}} >
+            <Button
+              title="Art"
+              color="black"
+              onPress={() => {
+                {this.navigateToDrawing(artsWordList)}
+              }}
 
+            />
+          </View>
+
+          <View style={{width: 140, height: 50}} >
+            <Button
+              title="Animals"
+              color="black"
+              onPress={() => {
+                {this.navigateToDrawing(animalWordList)}
+              }}
+            />
+          </View>
+
+          <View style={{width: 140, height: 50}} >
+            <Button
+              title="Random"
+              color="black"
+              onPress={() => {
+                {this.navigateToDrawing(randomWordList)}
+              }}
+            />
+          </View>
+
+        </View>
       </View>
 
 
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

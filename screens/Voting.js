@@ -7,17 +7,29 @@ import { Image, Button, Platform, AppState, StyleSheet, Text, View, TouchableHig
 export default class Voting extends React.Component {
 
   static navigationOptions = {
-    title: 'Voting'
+    title: 'Voting',
+    cardStyle: {
+      backgroundColor: 'transparent',
+    },
+    transitionConfig: (): Object => ({
+      containerStyle: {
+        backgroundColor: 'transparent',
+      },
+    }),
   };
 
+  navigateToWinner(image, playerName) {
+    this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName})
+  }
+
   render() {
+    const playerList = this.props.navigation.getParam('playerList', 'nothing passed');
+    console.log(playerList[0]);
     const imageUri = this.props.navigation.getParam('images', 'no image');
-    console.log(imageUri[0]);
-    const image1 = imageUri[0];
     return (
       <View style = {styles.container}>
         <TouchableHighlight onPress={() =>
-          this.props.navigation.navigate('Winner', {winningImage: imageUri[0]})}
+          {this.navigateToWinner(imageUri[0], playerList[0])}}
           underlayColor="white">
           <Image
             style={{width: 200, height: 200}}
@@ -25,7 +37,7 @@ export default class Voting extends React.Component {
           />
         </TouchableHighlight>
         <TouchableHighlight onPress={() =>
-          this.props.navigation.navigate('Winner', {winningImage: imageUri[1]})}
+          {this.navigateToWinner(imageUri[1], playerList[1])}}
           underlayColor="white">
           <Image
             style={{width: 200, height: 200}}
@@ -33,7 +45,7 @@ export default class Voting extends React.Component {
           />
         </TouchableHighlight>
         <TouchableHighlight onPress={() =>
-          this.props.navigation.navigate('Winner', {winningImage: imageUri[2]})}
+          {this.navigateToWinner(imageUri[2], playerList[2])}}
           underlayColor="white">
           <Image
             style={{width: 200, height: 200}}
@@ -41,7 +53,7 @@ export default class Voting extends React.Component {
           />
         </TouchableHighlight>
         <TouchableHighlight onPress={() =>
-          this.props.navigation.navigate('Winner', {winningImage: imageUri[3]})}
+          {this.navigateToWinner(imageUri[3], playerList[3])}}
           underlayColor="white">
           <Image
             style={{width: 200, height: 200}}
@@ -58,9 +70,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#000',
+    backgroundColor: '#F5FCFF',
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
-  

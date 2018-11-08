@@ -5,14 +5,16 @@ import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react
 
 export default class Voting extends React.Component {
   static navigationOptions = {
-    title: 'Winner'
+    title: 'Winner',
   };
+
   render() {
     const { navigate } = this.props.navigation;
     const winnerUri = this.props.navigation.getParam('winningImage', 'no image');
+    const winner = this.props.navigation.getParam('winnerName', 'nothing passed')
     return (
       <View style = {styles.container}>
-        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Congrats p1</Text>
+        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Congrats {winner}</Text>
         <Image
           style={{width: 200, height: 200}}
           source={{uri: winnerUri}}
@@ -43,7 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#000',
+    backgroundColor: '#F5FCFF',
     alignItems: 'center',
     justifyContent: 'center',
   },

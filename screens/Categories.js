@@ -41,6 +41,7 @@ export default class CategoriesScreen extends React.Component {
     return (
 
       <View style = {styles.container}>
+        <Text> Select a Category</Text>
         <Button
           title="Sports"
           onPress={() => {

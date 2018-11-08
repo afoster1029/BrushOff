@@ -7,7 +7,6 @@ import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import { ColorWheel } from 'react-native-color-wheel';
-import {BlurView, VibrancyView} from 'react-native-blur';
 <script src="https://unpkg.com/colorsys@1.0.11/colorsys.js"></script>
 
 
@@ -44,7 +43,7 @@ export default class Drawing extends React.Component {
       backgroundColor: 0x000000,
       transparent: false,
       strokeWidth: 20,
-      count: 0,
+      count: 0, 
       appState: AppState.currentState,
       makeDir: true,
       numPlayers: 4,
@@ -173,17 +172,17 @@ export default class Drawing extends React.Component {
               transparent= {true}
               animationType='fade'
               >
-                      <ColorWheel
-                      initialColor="#eeeeee"
-                      onColorChange={color => {this.handleColorWheelChange(color)}}
-                      style={{ padding: 5}}
-                       />
-                      <Button
-                        title = 'Close Wheel'
-                        onPress={() => {
-                          {this.launchColorWheel(false)}
-                        }}
-                      />
+                  <ColorWheel
+                  initialColor="#eeeeee"
+                  onColorChange={color => {this.handleColorWheelChange(color)}}
+                  style={{ padding: 5}}
+                   />
+                  <Button
+                    title = 'Close Wheel'
+                    onPress={() => {
+                      {this.launchColorWheel(false)}
+                    }}
+                  />
             </Modal>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>

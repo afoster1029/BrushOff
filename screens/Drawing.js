@@ -12,6 +12,8 @@ import {BlurView, VibrancyView} from 'react-native-blur';
 
 
 
+import * as everything from './Lobby.js'
+
 
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
@@ -139,6 +141,7 @@ export default class Drawing extends React.Component {
 
   onReady = () => {
     console.log('ready!');
+    console.log(everything)
     timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
     console.log('word of the day is', this.state.word);
   };

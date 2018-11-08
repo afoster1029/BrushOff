@@ -48,7 +48,7 @@ export default class CategoriesScreen extends React.Component {
               title="Sports"
               color="black"
               onPress={() => {
-                {this.sportsCategory()}
+                {this.navigateToDrawing(sportsWordList)}
               }}
 
             />
@@ -59,7 +59,7 @@ export default class CategoriesScreen extends React.Component {
               title="Art"
               color="black"
               onPress={() => {
-                {this.artCategory()}
+                {this.navigateToDrawing(artsWordList)}
               }}
 
             />
@@ -70,7 +70,7 @@ export default class CategoriesScreen extends React.Component {
               title="Animals"
               color="black"
               onPress={() => {
-                {this.animalCategory()}
+                {this.navigateToDrawing(animalWordList)}
               }}
             />
           </View>
@@ -80,7 +80,7 @@ export default class CategoriesScreen extends React.Component {
               title="Random"
               color="black"
               onPress={() => {
-                {this.randomCategory()}
+                {this.navigateToDrawing(randomWordList)}
               }}
             />
           </View>

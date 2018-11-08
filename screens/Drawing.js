@@ -1,11 +1,16 @@
+
 import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,  } from 'react-native';
-import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage, Modal,StatusBar } from 'react-native';
+import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
+import { ColorWheel } from 'react-native-color-wheel';
+import {BlurView, VibrancyView} from 'react-native-blur';
+<script src="https://unpkg.com/colorsys@1.0.11/colorsys.js"></script>
+
+
 
 import * as everything from './Lobby.js'
 
@@ -13,7 +18,10 @@ import * as everything from './Lobby.js'
 const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
 var imageList = ['','','','']
-
+var colorsys = require('colorsys')
+// const wordList = ['cat', 'dog', 'rifle', 'butter', 'vase', 'tail', 'monkey', 'stream', 'shoe', 'deer', 'library', 'thumb', 'baby', 'yard', 'jeans', 'rice', 'tiger',
+// 'snail', 'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'bee', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
+// 'soup', 'fog', 'toothpaste', 'jellyfish', 'money', 'zebra', 'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'chickens', 'cheese']
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -31,7 +39,7 @@ export default class Drawing extends React.Component {
   constructor(props){
     super(props)
     var wordList = this.props.navigation.state.params.list
-    console.log(wordList)
+    var players = this.props.navigation.getParam('playerList', 'nothing passed')
     this.state = {
       image: null,
       strokeColor: 0xff0000,
@@ -42,9 +50,11 @@ export default class Drawing extends React.Component {
       appState: AppState.currentState,
       makeDir: true,
       numPlayers: 4,
-      currentPlayer: 1,
+      playerNum: 1,
       completedImages: imageList,
-      word: wordList[Math.floor(Math.random() * wordList.length)]
+      word: wordList[Math.floor(Math.random() * wordList.length)],
+      playerList: players,
+      wheelVisible: false,
     }
   }
   static navigationOptions = {
@@ -61,8 +71,6 @@ export default class Drawing extends React.Component {
     }
     this.setState({ appState: nextAppState });
   };
-
-
 
   clearAlert() {
     Alert.alert(
@@ -100,18 +108,33 @@ export default class Drawing extends React.Component {
     }
   }
 
+  launchColorWheel(bool) {
+    this.setState({wheelVisible: bool})
+  }
+
+  handleColorWheelChange(newColor) {
+    newColorString = String(colorsys.hsvToHex(newColor));
+    newColorHexForm = "0x" +newColorString.substring(1,7);
+    newColorInt = parseInt(newColorHexForm);
+    this.setState({
+      strokeColor: newColorInt,
+    })
+  }
+
   saveImage = async () => {
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
       format: 'png'
     });
-    this.state.completedImages[this.state.currentPlayer - 1] = uri;
+    this.state.completedImages[this.state.playerNum - 1] = uri;
     this.clearScreen();
-    if(this.state.currentPlayer < this.state.numPlayers) {
-      this.state.currentPlayer += 1;
-      this.props.navigation.navigate('InterPlayer');
+    if(this.state.playerNum < this.state.numPlayers) {
+      this.state.playerNum += 1;
+      this.props.navigation.navigate('InterPlayer',
+        {nextPlayer: this.state.playerList[this.state.playerNum - 1]});
     } else {
-      this.props.navigation.navigate('Voting', {images : this.state.completedImages});
+      this.props.navigation.navigate('Voting',
+        {images : this.state.completedImages, playerList: this.state.playerList});
     }
 
   }
@@ -125,16 +148,13 @@ export default class Drawing extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-
-    //const listOfWords = this.props.navigation.getParam('list', 'error');
-    //const word = listOfWords[Math.floor(Math.random() * listOfWords.length)]
     return (
       <View style={styles.container}>
         <Text></Text>
         <Text></Text>
         <Text></Text>
-        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Draw a dog</Text>
-        <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word}</Text>
+        <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
+        {this.state.playerList[this.state.playerNum - 1]} {this.state.word} </Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch
@@ -149,6 +169,25 @@ export default class Drawing extends React.Component {
                 onReady={this.onReady}
               />
             </View>
+          </View>
+          <View>
+            <Modal
+              visible= {this.state.wheelVisible}
+              transparent= {true}
+              animationType='fade'
+              >
+                      <ColorWheel
+                      initialColor="#eeeeee"
+                      onColorChange={color => {this.handleColorWheelChange(color)}}
+                      style={{ padding: 5}}
+                       />
+                      <Button
+                        title = 'Close Wheel'
+                        onPress={() => {
+                          {this.launchColorWheel(false)}
+                        }}
+                      />
+            </Modal>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
             <TouchableOpacity
@@ -193,6 +232,15 @@ export default class Drawing extends React.Component {
               <Image
                 style={styles.colorButton}
                 source={require('./img/blackbutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                {this.launchColorWheel(true)}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/color_palette.png')} //<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -253,7 +301,7 @@ const styles = StyleSheet.create({
     //position: 'absolute',
     //bottom: 8,
     //left: 8,
-    zIndex: 1,
+    zIndex: 2,
     padding: 12,
     minWidth: 56,
     minHeight: 48,

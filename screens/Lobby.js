@@ -11,7 +11,6 @@ export default class LobbyScreen extends React.Component {
   constructor(props) {
     super(props)
     //const { navigate } = this.props.navigation;
-
     this.state = {
       PickerValue : '',
       numPlayers: '',
@@ -92,16 +91,7 @@ export default class LobbyScreen extends React.Component {
           title="Start Game"
           onPress={() => { this.startGame() }}
         />
-
-
-
-
       </View>
-
-
-
-
-
     )
   }
 

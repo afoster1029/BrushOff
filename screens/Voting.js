@@ -18,10 +18,23 @@ export default class Voting extends React.Component {
 
   static navigationOptions = {
     title: 'Voting',
-
+    cardStyle: {
+      backgroundColor: 'transparent',
+    },
+    transitionConfig: (): Object => ({
+      containerStyle: {
+        backgroundColor: 'transparent',
+      },
+    }),
   };
 
+  navigateToWinner(image, playerName) {
+    this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName})
+  }
+
   render() {
+    const playerList = this.props.navigation.getParam('playerList', 'nothing passed');
+    console.log(playerList[0]);
     const imageUri = this.props.navigation.getParam('images', 'no image');
     console.log();
     var window_height = Dimensions.get('window').height;

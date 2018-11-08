@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Button, View, Text, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
@@ -59,39 +59,57 @@ export default class CategoriesScreen extends React.Component {
     return (
 
       <View style = {styles.container}>
-        <Button
-          title="Sports"
-          onPress={() => {
-            {this.sportsCategory()}
-          }}
+        <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
+          <View style={{width: 70, height: 40}} >
+            <Button
+              title="Sports"
+              color="black"
+              onPress={() => {
+                {this.sportsCategory()}
+              }}
 
-        />
-        <Button
-          title="Art"
-          onPress={() => {
-            {this.artCategory()}
-          }}
+            />
+          </View>
 
-        />
-        <Button
-          title="Animals"
-          onPress={() => {
-            {this.animalCategory()}
-          }}
-        />
-        <Button
-          title="Random"
-          onPress={() => {
-            {this.randomCategory()}
-          }}
-        />
+          <View style={{width: 50, height: 50}} >
+            <Button
+              title="Art"
+              color="black"
+              onPress={() => {
+                {this.artCategory()}
+              }}
 
+            />
+          </View>
+
+          <View style={{width: 140, height: 50}} >
+            <Button
+              title="Animals"
+              color="black"
+              onPress={() => {
+                {this.animalCategory()}
+              }}
+            />
+          </View>
+
+          <View style={{width: 140, height: 50}} >
+            <Button
+              title="Random"
+              color="black"
+              onPress={() => {
+                {this.randomCategory()}
+              }}
+            />
+          </View>
+
+        </View>
       </View>
 
 
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

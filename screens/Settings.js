@@ -12,6 +12,8 @@ export default class Settings extends React.Component {
       <View style = {styles.container}>
         <Button
           title="Home Screen"
+          color="gray"
+          accessibilityLabel="Return to the home screen."
           onPress={() => {
             /* 1. Navigate to the Details route with params */
             this.props.navigation.navigate('Home', {

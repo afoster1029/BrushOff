@@ -25,18 +25,6 @@ export default class Home extends React.Component {
                 />
 
                 <Button
-                  title="Don't press"
-                  color="blue"
-                  accessibilityLabel="Jump straight into messing around on a canvas!"
-                  onPress={() => {
-                    /* 1. Navigate to the Details route with params */
-                    this.props.navigation.navigate('Categories', {
-
-                    });
-                  }}
-                />
-
-                <Button
                   title="Settings"
                   color="gray"
                   accessibilityLabel="Adjust the time each player had to draw the prompt!"

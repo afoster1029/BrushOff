@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,  } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
+import TimerCountdown from 'react-native-timer-countdown'
 
 
 const isAndroid = Platform.OS === 'android';
@@ -110,6 +111,7 @@ export default class Drawing extends React.Component {
       this.props.navigation.navigate('InterPlayer',
         {nextPlayer: this.state.playerList[this.state.playerNum - 1]});
     } else {
+      this.state.playerNum = 0;
       this.props.navigation.navigate('Voting',
         {images : this.state.completedImages, playerList: this.state.playerList});
     }
@@ -126,9 +128,13 @@ export default class Drawing extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
+        <TimerCountdown
+          initialSecondsRemaining={1000 * 20}
+          onTick={secondsRemaining => console.log("tick", secondsRemaining)}
+          onTimeElapsed={() => {this.saveImage()}}
+          allowFontScaling={true}
+          style={{ fontSize: 20 }}
+        />
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
         {this.state.playerList[this.state.playerNum - 1]} {this.state.word} </Text>
           <View style={styles.container}>

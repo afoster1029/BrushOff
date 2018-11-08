@@ -8,14 +8,6 @@ export default class Voting extends React.Component {
 
   static navigationOptions = {
     title: 'Voting',
-    cardStyle: {
-      backgroundColor: 'transparent',
-    },
-    transitionConfig: (): Object => ({
-      containerStyle: {
-        backgroundColor: 'transparent',
-      },
-    }),
   };
 
   navigateToWinner(image, playerName) {

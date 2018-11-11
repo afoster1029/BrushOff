@@ -34,9 +34,7 @@ export default class Voting extends React.Component {
 
   render() {
     const playerList = this.props.navigation.getParam('playerList', 'nothing passed');
-    console.log(playerList[0]);
     const imageUri = this.props.navigation.getParam('images', 'no image');
-    console.log();
     var window_height = Dimensions.get('window').height;
     var window_width = Dimensions.get('window').width;
     const image1 = imageUri[0];

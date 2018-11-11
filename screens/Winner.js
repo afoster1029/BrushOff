@@ -23,7 +23,7 @@ export default class Voting extends React.Component {
           title="Next Round"
           onPress={() => {
             /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Drawing', {
+            this.props.navigation.navigate('Categories', {
             });
           }}
         />

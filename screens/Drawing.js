@@ -165,7 +165,7 @@ export default class Drawing extends React.Component {
           style={{ fontSize: 20 }}
         />
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-        {this.state.playerList[this.state.playerNum - 1]} {this.state.word} </Text>
+        {this.state.playerList[this.state.playerNum - 1]} Draw a {this.state.word} </Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch

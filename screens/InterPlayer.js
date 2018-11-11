@@ -30,10 +30,10 @@ export default class InterPlayer extends React.Component {
             />
           </View>
 
-          <View style={{width: 60, height: 40, backgroundColor: 'red'}} >
+          <View style={{width: 60, height: 40}} >
             <Button
               title="Quit"
-              color="red"
+              color="blue"
               accessibilityLabel="Stop the game, lose all variables, and return to the main menu."
               onPress={() => {
                 /* 1. Navigate to the Details route with params */

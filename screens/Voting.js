@@ -26,9 +26,7 @@ export default class Voting extends React.Component {
 
   render() {
     const playerList = this.props.navigation.getParam('playerList', 'nothing passed');
-    console.log(playerList[0]);
     const imageUri = this.props.navigation.getParam('images', 'no image');
-    console.log();
     var window_height = Dimensions.get('window').height;
     var window_width = Dimensions.get('window').width;
     const image1 = imageUri[0];
@@ -38,85 +36,61 @@ export default class Voting extends React.Component {
         showsPagination={true}
         index={0}>
         <View style={styles.container}>
-          
-          <TouchableHighlight onPress={() =>
-            this.props.navigation.navigate('Winner', {winningImage: imageUri[0]})}
-            underlayColor="white">
-            <Image
-              style={{width: 200, height: 200}}
-              source={{uri: imageUri[0]}}
-            />
-          </TouchableHighlight>
+          <Button
+            title="Vote for this drawing"
+            color="blue"
+            onPress={() => {
+              this.props.navigation.navigate('Winner', {winningImage: imageUri[0]})}
+            }
+          />
+          <Image
+            style={{width: window_width, height: window_height}}
+            source={{uri: imageUri[0]}}
+          />
         </View>
 
         <View style={styles.container}>
-          <TouchableHighlight onPress={() =>
-            this.props.navigation.navigate('Winner', {winningImage: imageUri[1]})}
-            underlayColor="white">
-            <Image
-              style={{flex: 1,width: window_width, height: window_height}}
-              source={{uri: imageUri[1]}}
-            />
-          </TouchableHighlight>
+          <Button
+            title="Vote for this drawing"
+            color="blue"
+            onPress={() => {
+              this.props.navigation.navigate('Winner', {winningImage: imageUri[1]})}
+            }
+          />
+          <Image
+            style={{width: window_width, height: window_height}}
+            source={{uri: imageUri[1]}}
+          />
          </View>
+
          <View style={styles.container}>
-          <TouchableHighlight onPress={() =>
-            this.props.navigation.navigate('Winner', {winningImage: imageUri[2]})}
-            underlayColor="white">
-            <Image
-              style={{width: window_width, height: window_height}}
-              source={{uri: imageUri[2]}}
-            />
-          </TouchableHighlight>
+           <Button
+             title="Vote for this drawing"
+             color="blue"
+             onPress={() => {
+               this.props.navigation.navigate('Winner', {winningImage: imageUri[2]})}
+             }
+           />
+          <Image
+            style={{width: window_width, height: window_height}}
+            source={{uri: imageUri[2]}}
+          />
          </View>
+
          <View style={styles.container}>
-          <TouchableHighlight onPress={() =>
-            this.props.navigation.navigate('Winner', {winningImage: imageUri[3]})}
-            underlayColor="white">
-            <Image
-              style={{width: window_width, height: window_height}}
-              source={{uri: imageUri[3]}}
-            />
-          </TouchableHighlight>
+           <Button
+             title="Vote for this drawing"
+             color="blue"
+             onPress={() => {
+               this.props.navigation.navigate('Winner', {winningImage: imageUri[3]})}
+             }
+           />
+          <Image
+            style={{width: window_width, height: window_height}}
+            source={{uri: imageUri[3]}}
+          />
         </View>
       </Swiper>
-
-      /*
-      // <View style = {styles.container}>
-      //   <TouchableHighlight onPress={() =>
-      //     this.props.navigation.navigate('Winner', {winningImage: imageUri[0]})}
-      //     underlayColor="white">
-      //     <Image
-      //       style={{width: 200, height: 200}}
-      //       source={{uri: imageUri[0]}}
-      //     />
-      //   </TouchableHighlight>
-      //   <TouchableHighlight onPress={() =>
-      //     this.props.navigation.navigate('Winner', {winningImage: imageUri[1]})}
-      //     underlayColor="white">
-      //     <Image
-      //       style={{width: 200, height: 200}}
-      //       source={{uri: imageUri[1]}}
-      //     />
-      //   </TouchableHighlight>
-      //   <TouchableHighlight onPress={() =>
-      //     this.props.navigation.navigate('Winner', {winningImage: imageUri[2]})}
-      //     underlayColor="white">
-      //     <Image
-      //       style={{width: 200, height: 200}}
-      //       source={{uri: imageUri[2]}}
-      //     />
-      //   </TouchableHighlight>
-      //   <TouchableHighlight onPress={() =>
-      //     this.props.navigation.navigate('Winner', {winningImage: imageUri[3]})}
-      //     underlayColor="white">
-      //     <Image
-      //       style={{width: 200, height: 200}}
-      //       source={{uri: imageUri[3]}}
-      //     />
-      //   </TouchableHighlight>
-      // </View>
-      */
     )
   }
 }

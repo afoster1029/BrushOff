@@ -49,61 +49,63 @@ export default class LobbyScreen extends React.Component {
 
   render() {
     return (
-      <View style={{padding: 140}}>
-        <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Enter Player Names</Text>
+      <View style = {styles.container}>
+        <View style={{padding: 140}}>
+          <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Enter Player Names</Text>
 
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          placeholder = 'Player 1'
-          onChangeText={text0 => this.setState({ p1 : text0 }) }
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            placeholder = 'Player 1'
+            onChangeText={text0 => this.setState({ p1 : text0 }) }
 
-          //value={this.state.text}
-        />
+            //value={this.state.text}
+          />
 
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          placeholder = 'Player 2'
-          onChangeText={(text1) => this.setState({p2: text1})}
-          //value={this.state.text}
-        />
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            placeholder = 'Player 2'
+            onChangeText={(text1) => this.setState({p2: text1})}
+            //value={this.state.text}
+          />
 
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          placeholder = 'Player 3'
-          onChangeText={(text2) => this.setState({p3: text2})}
-          //value={this.state.text}
-        />
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            placeholder = 'Player 3'
+            onChangeText={(text2) => this.setState({p3: text2})}
+            //value={this.state.text}
+          />
 
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          placeholder = 'Player 4'
-          onChangeText={(text3) => this.setState({p4: text3})}
-         // value={this.state.text}
-        />
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            placeholder = 'Player 4'
+            onChangeText={(text3) => this.setState({p4: text3})}
+           // value={this.state.text}
+          />
 
-        <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-          <View style={{width: 180, height: 50}} >
-            <Button
-              title="Display Names"
-              color="gray"
-              accessibilityLabel="Display the entered names for test/preview purposes."
-              //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
-              onPress={() => { this.addItemsToArray() }}
-            />
+          <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
+            <View style={{width: 180, height: 50}} >
+              <Button
+                title="Display Names"
+                color="gray"
+                accessibilityLabel="Display the entered names for test/preview purposes."
+                //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
+                onPress={() => { this.addItemsToArray() }}
+              />
+            </View>
+
+            <View style={{width: 140, height: 50}} >
+              <Button
+                title="Start Game"
+                color="green"
+                accessibilityLabel="Start the game with the given player names!"
+                onPress={() => { this.startGame() }}
+              />
+            </View>
+
           </View>
 
-          <View style={{width: 140, height: 50}} >
-            <Button
-              title="Start Game"
-              color="green"
-              accessibilityLabel="Start the game with the given player names!"
-              onPress={() => { this.startGame() }}
-            />
-          </View>
 
         </View>
-
-
       </View>
     )
   }
@@ -118,13 +120,8 @@ export default class LobbyScreen extends React.Component {
 export const playerNames = 2;
 export const p1  = global.names;
 
-/*
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  
 });
 */

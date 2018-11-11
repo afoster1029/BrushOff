@@ -13,14 +13,9 @@ export default class InterPlayer extends React.Component {
   render() {
     const player = this.props.navigation.getParam('nextPlayer', 'nothing passed');
     const { navigate } = this.props.navigation;
-    // FileSystem.getInfoAsync(FileSystem.documentDirectory + 'drawing1.png')
-    // .then((info) => console.log(info))
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up! {player}s turn</Text>
-        <Image
-          source={{uri: imageUri}}
-        />
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
           <View style={{width: 120, height: 40}} >
             <Button
@@ -54,7 +49,7 @@ export default class InterPlayer extends React.Component {
   }
 }
 
-/*
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -63,4 +58,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-*/

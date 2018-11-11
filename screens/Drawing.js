@@ -117,18 +117,28 @@ export default class Drawing extends React.Component {
     })
   }
 
+  nextPlayerAlert() {
+    Alert.alert(
+      'Next player',
+      '',
+      [
+        {text: 'GO', onPress: () => {this.clearScreen()}},
+      ],
+      { cancelable: false }
+    )
+  }
+
   saveImage = async () => {
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
       format: 'png'
     });
     this.state.completedImages[this.state.playerNum - 1] = uri;
-    this.clearScreen();
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
-      this.props.navigation.navigate('InterPlayer',
-        {nextPlayer: this.state.playerList[this.state.playerNum - 1]});
+      this.nextPlayerAlert();
     } else {
+      this.clearScreen();
       this.state.playerNum = 0;
       this.props.navigation.navigate('Voting',
         {images : this.state.completedImages, playerList: this.state.playerList});
@@ -148,7 +158,7 @@ export default class Drawing extends React.Component {
     return (
       <View style={styles.container}>
         <TimerCountdown
-          initialSecondsRemaining={1000 * 20}
+          initialSecondsRemaining={1000 * 60}
           onTick={secondsRemaining => console.log("tick", secondsRemaining)}
           onTimeElapsed={() => {this.saveImage()}}
           allowFontScaling={true}
@@ -176,6 +186,7 @@ export default class Drawing extends React.Component {
               visible= {this.state.wheelVisible}
               transparent= {true}
               animationType='fade'
+              onRequestClose={() => null}
               >
                       <ColorWheel
                       initialColor="#eeeeee"

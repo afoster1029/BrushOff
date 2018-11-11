@@ -6,12 +6,10 @@ import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage, Modal,StatusBar } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
+import TimerCountdown from 'react-native-timer-countdown';
 import { ColorWheel } from 'react-native-color-wheel';
 import {BlurView, VibrancyView} from 'react-native-blur';
 <script src="https://unpkg.com/colorsys@1.0.11/colorsys.js"></script>
-
-
-
 import * as everything from './Lobby.js'
 
 
@@ -31,8 +29,6 @@ function uuidv4() {
     return v.toString(16);
   });
 }
-
-
 //Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
 
 export default class Drawing extends React.Component {
@@ -121,18 +117,29 @@ export default class Drawing extends React.Component {
     })
   }
 
+  nextPlayerAlert() {
+    Alert.alert(
+      'Next player',
+      '',
+      [
+        {text: 'GO', onPress: () => {this.clearScreen()}},
+      ],
+      { cancelable: false }
+    )
+  }
+
   saveImage = async () => {
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
       format: 'png'
     });
     this.state.completedImages[this.state.playerNum - 1] = uri;
-    this.clearScreen();
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
-      this.props.navigation.navigate('InterPlayer',
-        {nextPlayer: this.state.playerList[this.state.playerNum - 1]});
+      this.nextPlayerAlert();
     } else {
+      this.clearScreen();
+      this.state.playerNum = 0;
       this.props.navigation.navigate('Voting',
         {images : this.state.completedImages, playerList: this.state.playerList});
     }
@@ -150,11 +157,15 @@ export default class Drawing extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
+        <TimerCountdown
+          initialSecondsRemaining={1000 * 60}
+          onTick={secondsRemaining => console.log("tick", secondsRemaining)}
+          onTimeElapsed={() => {this.saveImage()}}
+          allowFontScaling={true}
+          style={{ fontSize: 20 }}
+        />
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-        {this.state.playerList[this.state.playerNum - 1]} {this.state.word} </Text>
+        {this.state.playerList[this.state.playerNum - 1]} Draw a {this.state.word} </Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch
@@ -175,6 +186,7 @@ export default class Drawing extends React.Component {
               visible= {this.state.wheelVisible}
               transparent= {true}
               animationType='fade'
+              onRequestClose={() => null}
               >
                       <ColorWheel
                       initialColor="#eeeeee"

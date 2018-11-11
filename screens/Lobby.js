@@ -18,7 +18,10 @@ export default class LobbyScreen extends React.Component {
       p2: '',
       p3: '',
       p4: '',
-      playerNames: []
+      playerNames: [],
+      addPlayer: 0,
+      test: false,
+      testArray: [1,2,3,4,5]
     }
     global.names = this.p1;
 
@@ -47,7 +50,27 @@ export default class LobbyScreen extends React.Component {
     Alert.alert(this.state.playerNames.toString());
   }
 
+
+  addPlayerInput() {
+    return(
+      <View>
+        {this.state.testArray.map((prop, key) => {
+          return (
+            <Text> {prop} </Text>
+          );
+        })}
+      </View>
+    )
+  }
+
+  showText () {
+    this.setState({test:true});
+  }
+
   render() {
+
+
+
     return (
       <View style = {styles.container}>
         <View style={{padding: 140}}>
@@ -113,12 +136,6 @@ export default class LobbyScreen extends React.Component {
 
 }
 
-// module.exports = {
-//   names : LobbyScreen.playerNames,
-//   p1: LobbyScreen.p1
-// }
-export const playerNames = 2;
-export const p1  = global.names;
 
 
 const styles = StyleSheet.create({

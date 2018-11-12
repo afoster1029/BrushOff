@@ -18,7 +18,10 @@ export default class LobbyScreen extends React.Component {
       p2: '',
       p3: '',
       p4: '',
-      playerNames: []
+      playerNames: [],
+      addPlayer: 0,
+      test: false,
+      testArray: [1,2,3,4,5]
     }
     global.names = this.p1;
 
@@ -47,16 +50,38 @@ export default class LobbyScreen extends React.Component {
     Alert.alert(this.state.playerNames.toString());
   }
 
+
+  addPlayerInput() {
+    return(
+      <View>
+        {this.state.testArray.map((prop, key) => {
+          return (
+            <Text> {prop} </Text>
+          );
+        })}
+      </View>
+    )
+  }
+
+  showText () {
+    this.setState({test:true});
+  }
+
   render() {
+
+
+
     return (
       <View style={{padding: 140}}>
+
+        
         <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Enter Player Names</Text>
 
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           placeholder = 'Player 1'
-          onChangeText={text0 => this.setState({ p1 : text0 }) }
 
+          onChangeText={text0 => this.setState({ p1 : text0 }) }
           //value={this.state.text}
         />
 
@@ -83,6 +108,7 @@ export default class LobbyScreen extends React.Component {
 
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
           <View style={{width: 140, height: 50}} >
+<<<<<<< HEAD
             <Button
               title="Start Game"
               color="green"
@@ -91,22 +117,21 @@ export default class LobbyScreen extends React.Component {
             />
           </View>
           <View style={{width: 180, height: 50}} >
+=======
+>>>>>>> eadb608c90eb07b689240a8040bef40f12f5b76e
             <Button
-              title="Display Names"
-              color="gray"
-              accessibilityLabel="Display the entered names for test/preview purposes."
-              //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
-              onPress={() => { this.addItemsToArray() }}
+              title="Add Player"
+              color="green"
+              accessibilityLabel= ""
+              onPress={() => { this.showText() }}
             />
-          </View>
-
-          <View style={{width: 140, height: 50}} >
             <Button
               title="Start Game"
-              color="green"
+              color="blue"
               accessibilityLabel="Start the game with the given player names!"
               onPress={() => { this.startGame() }}
             />
+
           </View>
 
         </View>
@@ -119,12 +144,6 @@ export default class LobbyScreen extends React.Component {
 
 }
 
-// module.exports = {
-//   names : LobbyScreen.playerNames,
-//   p1: LobbyScreen.p1
-// }
-export const playerNames = 2;
-export const p1  = global.names;
 
 /*
 const styles = StyleSheet.create({

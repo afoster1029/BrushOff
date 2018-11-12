@@ -18,15 +18,10 @@ export default class InterPlayer extends React.Component {
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up! {player}s turn</Text>
-        <Image
-          source={{uri: imageUri}}
-        />
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <View style={{width: 120, height: 40}} >
+          <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}} >
             <Button
               title="Next Player"
-              color="green"
-              accessibilityLabel="Move to the next player's turn!"
               onPress={() => {
                 /* 1. Navigate to the Details route with params */
                 this.props.navigation.navigate('Drawing', {
@@ -34,12 +29,9 @@ export default class InterPlayer extends React.Component {
               }}
             />
           </View>
-
           <View style={{width: 60, height: 40, backgroundColor: 'red'}} >
             <Button
               title="Quit"
-              color="red"
-              accessibilityLabel="Stop the game, lose all variables, and return to the main menu."
               onPress={() => {
                 /* 1. Navigate to the Details route with params */
                 this.props.navigation.navigate('Home', {
@@ -47,14 +39,12 @@ export default class InterPlayer extends React.Component {
               }}
             />
           </View>
-
         </View>
       </View>
     )
   }
 }
 
-/*
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -63,4 +53,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-*/

@@ -82,6 +82,14 @@ export default class LobbyScreen extends React.Component {
         />
 
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
+          <View style={{width: 140, height: 50}} >
+            <Button
+              title="Start Game"
+              color="green"
+              accessibilityLabel="Start the game with the given player names!"
+              onPress={() => { this.startGame() }}
+            />
+          </View>
           <View style={{width: 180, height: 50}} >
             <Button
               title="Display Names"

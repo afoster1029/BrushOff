@@ -46,7 +46,7 @@ export default class Voting extends React.Component {
         showsPagination={true}
         index={0}>
         <View style={styles.container}>
-          
+
           <TouchableHighlight onPress={() =>
             this.props.navigation.navigate('Winner', {winningImage: imageUri[0]})}
             underlayColor="white">

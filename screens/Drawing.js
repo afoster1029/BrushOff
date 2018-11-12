@@ -3,10 +3,11 @@ import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage, Modal,StatusBar } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import { ColorWheel } from 'react-native-color-wheel';
+import Modal from "react-native-modal";
 <script src="https://unpkg.com/colorsys@1.0.11/colorsys.js"></script>
 
 
@@ -45,7 +46,7 @@ export default class Drawing extends React.Component {
       backgroundColor: 0x000000,
       transparent: false,
       strokeWidth: 20,
-      count: 0, 
+      count: 0,
       appState: AppState.currentState,
       makeDir: true,
       numPlayers: 4,
@@ -54,6 +55,7 @@ export default class Drawing extends React.Component {
       word: wordList[Math.floor(Math.random() * wordList.length)],
       playerList: players,
       wheelVisible: false,
+      interPlayerVisible: false,
     }
   }
   static navigationOptions = {
@@ -111,6 +113,10 @@ export default class Drawing extends React.Component {
     this.setState({wheelVisible: bool})
   }
 
+  launchInterPlayer(bool) {
+    this.setState({interPlayerVisible: bool})
+  }
+
   handleColorWheelChange(newColor) {
     newColorString = String(colorsys.hsvToHex(newColor));
     newColorHexForm = "0x" +newColorString.substring(1,7);
@@ -129,7 +135,7 @@ export default class Drawing extends React.Component {
     this.clearScreen();
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
-      this.props.navigation.navigate('InterPlayer',
+      this.props.navigation.navigate('InterPlayer',                    //To switch from using interplayer screen to popup, change this line
         {nextPlayer: this.state.playerList[this.state.playerNum - 1]});
     } else {
       this.props.navigation.navigate('Voting',
@@ -171,21 +177,31 @@ export default class Drawing extends React.Component {
           </View>
           <View>
             <Modal
-              visible= {this.state.wheelVisible}
-              transparent= {true}
-              animationType='fade'
-              >
+              isVisible= {this.state.wheelVisible}
+              backdropOpacity={.50}
+              onBackdropPress={() => this.launchColorWheel(false)}
+              style={styles.colorWheel}>
                   <ColorWheel
                   initialColor="#eeeeee"
                   onColorChange={color => {this.handleColorWheelChange(color)}}
-                  style={{ padding: 5}}
+
                    />
+            </Modal>
+          </View>
+          <View>
+            <Modal
+              isVisible= {this.state.interPlayerVisible}
+              onBackdropPress={() => this.launchInterPlayer(false)}
+              backdropOpacity={.50}>
+                <View style= {styles.interPlayerPopUp}>
+                  <Text> Interplayer </Text>
+                  <Text> Time is up! </Text>
+                  <Text> Next Player: {this.state.playerList[this.state.playerNum - 1]} </Text>
                   <Button
-                    title = 'Close Wheel'
-                    onPress={() => {
-                      {this.launchColorWheel(false)}
-                    }}
+                    title="Next Player"
+                    onPress={() => this.launchInterPlayer(false)}
                   />
+                </View>
             </Modal>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
@@ -227,6 +243,15 @@ export default class Drawing extends React.Component {
                 {this.setState({
                   strokeColor: 0x000000,
                 })}
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/blackbutton.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                {this.launchInterPlayer(true)}
               }}>
               <Image
                 style={styles.colorButton}
@@ -308,5 +333,18 @@ const styles = StyleSheet.create({
   colorButton: {
     height: 30,
     width: 30,
+  },
+  colorWheel: {
+    height:180,
+    width: 180,
+    position: 'absolute',
+    top: 200,
+    right:50
+  },
+  interPlayerPopUp: {
+    width:280,
+     height: 380,
+     backgroundColor: 'purple',
+    borderRadius:10
   },
 });

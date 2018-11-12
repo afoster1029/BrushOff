@@ -12,25 +12,14 @@ export default class LobbyScreen extends React.Component {
     super(props)
     //const { navigate } = this.props.navigation;
     this.state = {
-      PickerValue : '',
       numPlayers: '',
-      p1: '',
-      p2: '',
-      p3: '',
-      p4: '',
-      playerNames: [{'name':''},{'name':''},{'name':''}],
-      // not ones I'm using currently (for testing)
-      addPlayerCount: 0,
-      test: true,
+      playerNames: [{'name':''},{'name':''},{'name':''}], // preset to 3 since we need at least 3
     }
   }
 
   startGame() {
-    // hard coded in for now.
-    this.state.playerNames = [this.state.p1,this.state.p2,this.state.p3,this.state.p4]
     this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
     LobbyScreen.names = this.state.playerNames;
-    //console.log(LobbyScreen.names)
   }
 
   handleAddPlayer () {

@@ -35,7 +35,8 @@ export default class Drawing extends React.Component {
   constructor(props){
     super(props)
     var wordList = this.props.navigation.state.params.list
-    const players = this.props.navigation.getParam('playerList', 'nothing passed')
+    var players = this.props.navigation.getParam('playerList', 'nothing passed')
+    // console.log(players[0]['name']) // check that players is loaded in correctly.
     this.state = {
       image: null,
       strokeColor: 0xff0000,
@@ -45,7 +46,7 @@ export default class Drawing extends React.Component {
       count: 0,
       appState: AppState.currentState,
       makeDir: true,
-      numPlayers: 4,
+      numPlayers: players.length,
       playerNum: 1,
       completedImages: imageList,
       word: wordList[Math.floor(Math.random() * wordList.length)],
@@ -119,7 +120,7 @@ export default class Drawing extends React.Component {
 
   nextPlayerAlert() {
     Alert.alert(
-      this.state.playerList[this.state.playerNum - 1] + ' is next',
+      this.state.playerList[this.state.playerNum - 1]['name'] + ' is next',
       '',
       [
         {text: 'GO', onPress: () => {this.clearScreen()}},
@@ -133,13 +134,14 @@ export default class Drawing extends React.Component {
       result: 'file',
       format: 'png'
     });
+    console.log('DEBUGG - '+this.state.playerNum, this.state.numPlayers)
     this.state.completedImages[this.state.playerNum - 1] = uri;
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
       this.nextPlayerAlert();
     } else {
       this.clearScreen();
-      this.state.playerNum = 0;
+      this.state.playerNum = 1;
       this.props.navigation.navigate('Voting',
         {images : this.state.completedImages, playerList: this.state.playerList});
     }
@@ -155,6 +157,7 @@ export default class Drawing extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    console.log("DEBUGGINNG -------"+ this.state.playerNum);
     return (
       <View style={styles.container}>
         <TimerCountdown
@@ -164,8 +167,10 @@ export default class Drawing extends React.Component {
           allowFontScaling={true}
           style={{ fontSize: 20 }}
         />
+
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-        {this.state.playerList[this.state.playerNum - 1]} Draw a {this.state.word} </Text>
+
+        {this.state.playerList[this.state.playerNum - 1]['name']} Draw a {this.state.word} </Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch

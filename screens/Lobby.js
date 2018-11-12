@@ -33,6 +33,7 @@ export default class LobbyScreen extends React.Component {
   }
 
   startGame() {
+    this.state.playerNames = [this.state.p1,this.state.p2,this.state.p3,this.state.p4];
     this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
     LobbyScreen.names = this.state.playerNames;
   }
@@ -68,15 +69,9 @@ export default class LobbyScreen extends React.Component {
   }
 
   render() {
-
-
-
     return (
       <View style={{padding: 140}}>
-
-        
         <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Enter Player Names</Text>
-
         <TextInput
           style={{height: 40, borderColor: 'gray', borderWidth: 1}}
           placeholder = 'Player 1'

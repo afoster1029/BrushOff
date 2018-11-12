@@ -35,7 +35,7 @@ export default class Drawing extends React.Component {
   constructor(props){
     super(props)
     var wordList = this.props.navigation.state.params.list
-    var players = this.props.navigation.getParam('playerList', 'nothing passed')
+    const players = this.props.navigation.getParam('playerList', 'nothing passed')
     this.state = {
       image: null,
       strokeColor: 0xff0000,
@@ -119,7 +119,7 @@ export default class Drawing extends React.Component {
 
   nextPlayerAlert() {
     Alert.alert(
-      'Next player',
+      this.state.playerList[this.state.playerNum - 1] + ' is next',
       '',
       [
         {text: 'GO', onPress: () => {this.clearScreen()}},

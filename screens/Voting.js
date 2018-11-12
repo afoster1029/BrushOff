@@ -29,7 +29,6 @@ export default class Voting extends React.Component {
     const imageUri = this.props.navigation.getParam('images', 'no image');
     var window_height = Dimensions.get('window').height;
     var window_width = Dimensions.get('window').width;
-    const image1 = imageUri[0];
     return (
       <Swiper
         loop={false}
@@ -40,8 +39,8 @@ export default class Voting extends React.Component {
             title="Vote for this drawing"
             color="blue"
             onPress={() => {
-              this.props.navigation.navigate('Winner', {winningImage: imageUri[0]})}
-            }
+              {this.navigateToWinner(imageUri[0], playerList[0])}
+            }}
           />
           <Image
             style={{width: window_width, height: window_height}}
@@ -54,8 +53,8 @@ export default class Voting extends React.Component {
             title="Vote for this drawing"
             color="blue"
             onPress={() => {
-              this.props.navigation.navigate('Winner', {winningImage: imageUri[1]})}
-            }
+              {this.navigateToWinner(imageUri[1], playerList[1])}
+            }}
           />
           <Image
             style={{width: window_width, height: window_height}}
@@ -68,8 +67,8 @@ export default class Voting extends React.Component {
              title="Vote for this drawing"
              color="blue"
              onPress={() => {
-               this.props.navigation.navigate('Winner', {winningImage: imageUri[2]})}
-             }
+               {this.navigateToWinner(imageUri[2], playerList[2])}
+             }}
            />
           <Image
             style={{width: window_width, height: window_height}}
@@ -82,8 +81,8 @@ export default class Voting extends React.Component {
              title="Vote for this drawing"
              color="blue"
              onPress={() => {
-               this.props.navigation.navigate('Winner', {winningImage: imageUri[3]})}
-             }
+               {this.navigateToWinner(imageUri[3], playerList[3])}
+             }}
            />
           <Image
             style={{width: window_width, height: window_height}}

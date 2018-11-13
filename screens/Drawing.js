@@ -141,12 +141,7 @@ export default class Drawing extends React.Component {
     this.state.completedImages[this.state.playerNum - 1] = uri;
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
-<<<<<<< HEAD
-      this.props.navigation.navigate('InterPlayer',                    //To switch from using interplayer screen to popup, change this line
-        {nextPlayer: this.state.playerList[this.state.playerNum - 1]});
-=======
       this.nextPlayerAlert();
->>>>>>> eadb608c90eb07b689240a8040bef40f12f5b76e
     } else {
       this.clearScreen();
       this.state.playerNum = 0;
@@ -193,7 +188,6 @@ export default class Drawing extends React.Component {
           </View>
           <View>
             <Modal
-<<<<<<< HEAD
               isVisible= {this.state.wheelVisible}
               backdropOpacity={.50}
               onBackdropPress={() => this.launchColorWheel(false)}
@@ -219,24 +213,6 @@ export default class Drawing extends React.Component {
                     onPress={() => this.launchInterPlayer(false)}
                   />
                 </View>
-=======
-              visible= {this.state.wheelVisible}
-              transparent= {true}
-              animationType='fade'
-              onRequestClose={() => null}
-              >
-                      <ColorWheel
-                      initialColor="#eeeeee"
-                      onColorChange={color => {this.handleColorWheelChange(color)}}
-                      style={{ padding: 5}}
-                       />
-                      <Button
-                        title = 'Close Wheel'
-                        onPress={() => {
-                          {this.launchColorWheel(false)}
-                        }}
-                      />
->>>>>>> eadb608c90eb07b689240a8040bef40f12f5b76e
             </Modal>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>

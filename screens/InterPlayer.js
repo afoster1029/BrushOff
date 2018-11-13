@@ -17,9 +17,11 @@ export default class InterPlayer extends React.Component {
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Time is up! {player}s turn</Text>
         <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <View style={{width: 60, height: 80, backgroundColor: 'steelblue'}} >
+          <View style={{width: 120, height: 40}} >
             <Button
               title="Next Player"
+              color="green"
+              accessibilityLabel="Move to the next player's turn!"
               onPress={() => {
                 /* 1. Navigate to the Details route with params */
                 this.props.navigation.navigate('Drawing', {
@@ -27,18 +29,12 @@ export default class InterPlayer extends React.Component {
               }}
             />
           </View>
-<<<<<<< HEAD
-          <View style={{width: 60, height: 40, backgroundColor: 'red'}} >
-            <Button
-              title="Quit"
-=======
 
           <View style={{width: 60, height: 40}} >
             <Button
               title="Quit"
               color="blue"
               accessibilityLabel="Stop the game, lose all variables, and return to the main menu."
->>>>>>> eadb608c90eb07b689240a8040bef40f12f5b76e
               onPress={() => {
                 /* 1. Navigate to the Details route with params */
                 this.props.navigation.navigate('Home', {
@@ -46,16 +42,14 @@ export default class InterPlayer extends React.Component {
               }}
             />
           </View>
+
         </View>
       </View>
     )
   }
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> eadb608c90eb07b689240a8040bef40f12f5b76e
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -14,7 +14,7 @@ export default class Voting extends React.Component {
     const winner = this.props.navigation.getParam('winnerName', 'nothing passed')
     return (
       <View style = {styles.container}>
-        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Congrats {winner}</Text>
+        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Congrats {winner['name']}</Text>
         <Image
           style={{width: 200, height: 200}}
           source={{uri: winnerUri}}

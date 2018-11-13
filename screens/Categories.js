@@ -18,7 +18,7 @@ const animalWordList = ['cow', 'dog', 'chicken', 'starfish', 'octopus', 'whale',
 export default class CategoriesScreen extends React.Component {
   constructor(props) {
     super(props);
-    var players = this.props.navigation.getParam('playerList', 'nothing passed');
+    const players = this.props.navigation.getParam('playerList', 'nothing passed');
     console.log(players);
     this.state = {
       playerList: players

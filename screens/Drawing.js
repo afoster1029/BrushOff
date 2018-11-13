@@ -86,7 +86,7 @@ export default class Drawing extends React.Component {
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
   }
 
-  componentWillUnmount() {     //maybe add timer.clearTimeout(this); to this function?
+  componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
   }
 
@@ -110,8 +110,13 @@ export default class Drawing extends React.Component {
     this.setState({wheelVisible: bool})
   }
 
-  launchInterPlayer(bool) {
-    this.setState({interPlayerVisible: bool})
+  launchInterPlayer() {
+    this.setState({interPlayerVisible: true})
+  }
+
+  closeInterPlayer() {
+    this.clearScreen()
+    this.setState({interPlayerVisible: false})
   }
 
   handleColorWheelChange(newColor) {
@@ -143,7 +148,7 @@ export default class Drawing extends React.Component {
     this.state.completedImages[this.state.playerNum - 1] = uri;
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
-      this.nextPlayerAlert();
+      this.launchInterPlayer();
     } else {
       this.clearScreen();
       this.state.playerNum = 1;
@@ -156,7 +161,6 @@ export default class Drawing extends React.Component {
   onReady = () => {
     console.log('ready!');
     console.log(everything)
-    timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
     console.log('word of the day is', this.state.word);
   };
 
@@ -207,7 +211,6 @@ export default class Drawing extends React.Component {
           <View>
             <Modal
               isVisible= {this.state.interPlayerVisible}
-              onBackdropPress={() => this.launchInterPlayer(false)}
               backdropOpacity={.50}>
                 <View style= {styles.interPlayerPopUp}>
                   <Text> Interplayer </Text>
@@ -215,7 +218,7 @@ export default class Drawing extends React.Component {
                   <Text> Next Player: {this.state.playerList[this.state.playerNum - 1]} </Text>
                   <Button
                     title="Next Player"
-                    onPress={() => this.launchInterPlayer(false)}
+                    onPress={() => this.closeInterPlayer()}
                   />
                 </View>
             </Modal>
@@ -259,15 +262,6 @@ export default class Drawing extends React.Component {
                 {this.setState({
                   strokeColor: 0x000000,
                 })}
-              }}>
-              <Image
-                style={styles.colorButton}
-                source={require('./img/blackbutton.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                {this.launchInterPlayer(true)}
               }}>
               <Image
                 style={styles.colorButton}

@@ -30,6 +30,17 @@ export default class Home extends React.Component {
                     });
                   }}
                 />
+                <Button
+                  title="Don't Press"
+                  color="green"
+                  accessibilityLabel="Testing for Jane and her stupid emulator"
+                  onPress={() => {
+                    /* 1. Navigate to the Details route with params */
+                    this.props.navigation.navigate('Categories', {
+
+                    });
+                  }}
+                />
 
                 <Button
                   title="Settings"

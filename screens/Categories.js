@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, StyleSheet } from 'react-native';
+import { Button, View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 
@@ -40,55 +40,58 @@ export default class CategoriesScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
+      <ImageBackground
+        source={require('./img/paint_splatters.jpg')}
+        imageStyle={{resizeMode: 'stretch'}}
+        style={{flex: 1}}
+      >
+        <View style = {styles.container}>
+          <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
+            <View style={{width: 70, height: 40}} >
+              <Button
+                title="Sports"
+                color="black"
+                onPress={() => {
+                  {this.navigateToDrawing(sportsWordList)}
+                }}
 
-      <View style = {styles.container}>
-        <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <View style={{width: 70, height: 40}} >
-            <Button
-              title="Sports"
-              color="black"
-              onPress={() => {
-                {this.navigateToDrawing(sportsWordList)}
-              }}
+              />
+            </View>
 
-            />
+            <View style={{width: 50, height: 50}} >
+              <Button
+                title="Art"
+                color="black"
+                onPress={() => {
+                  {this.navigateToDrawing(artsWordList)}
+                }}
+
+              />
+            </View>
+
+            <View style={{width: 140, height: 50}} >
+              <Button
+                title="Animals"
+                color="black"
+                onPress={() => {
+                  {this.navigateToDrawing(animalWordList)}
+                }}
+              />
+            </View>
+
+            <View style={{width: 140, height: 50}} >
+              <Button
+                title="Random"
+                color="black"
+                onPress={() => {
+                  {this.navigateToDrawing(randomWordList)}
+                }}
+              />
+            </View>
+
           </View>
-
-          <View style={{width: 50, height: 50}} >
-            <Button
-              title="Art"
-              color="black"
-              onPress={() => {
-                {this.navigateToDrawing(artsWordList)}
-              }}
-
-            />
-          </View>
-
-          <View style={{width: 140, height: 50}} >
-            <Button
-              title="Animals"
-              color="black"
-              onPress={() => {
-                {this.navigateToDrawing(animalWordList)}
-              }}
-            />
-          </View>
-
-          <View style={{width: 140, height: 50}} >
-            <Button
-              title="Random"
-              color="black"
-              onPress={() => {
-                {this.navigateToDrawing(randomWordList)}
-              }}
-            />
-          </View>
-
         </View>
-      </View>
-
-
+      </ImageBackground>
     )
   }
 }
@@ -97,7 +100,7 @@ export default class CategoriesScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },

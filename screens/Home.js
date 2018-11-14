@@ -6,7 +6,14 @@ import { createStackNavigator } from 'react-navigation';
 
 export default class Home extends React.Component {
     static navigationOptions = {
-        title: 'Home Screen'
+        title: 'Home Screen',
+        headerStyle: {
+        backgroundColor: '#f4511e',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
     };
     render() {
         const { navigate } = this.props.navigation;

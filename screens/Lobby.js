@@ -12,24 +12,9 @@ export default class LobbyScreen extends React.Component {
     super(props)
     //const { navigate } = this.props.navigation;
     this.state = {
-      PickerValue : '',
       numPlayers: '',
-      p1: '',
-      p2: '',
-      p3: '',
-      p4: '',
-      playerNames: [],
-      addPlayer: 0,
-      test: false,
-      testArray: [1,2,3,4,5]
+      playerNames: [{'name':''},{'name':''},{'name':''}], // preset to 3 since we need at least 3
     }
-    global.names = this.p1;
-
-    this.getPlayerNames = this.getPlayerNames.bind(this);
-  }
-
-  getPlayerNames() {
-    return this.state.p1.toString()
   }
 
   startGame() {
@@ -37,40 +22,30 @@ export default class LobbyScreen extends React.Component {
     LobbyScreen.names = this.state.playerNames;
   }
 
-  addItemsToArray() {
-    //Alert.alert(this.state.playerNames.toString());
+  handleAddPlayer () {
     this.setState({
-      playerNames : []
+      playerNames: this.state.playerNames.concat([{'name': ''}])
     });
-    this.state.playerNames.push( this.state.p1.toString() );
-    this.state.playerNames.push( this.state.p2.toString() );
-    this.state.playerNames.push( this.state.p3.toString() );
-    this.state.playerNames.push( this.state.p4.toString() );
-
-    Alert.alert(this.state.playerNames.toString());
   }
 
+  handleRemovePlayer = (idx) => () => {
+    this.setState({
+      playerNames: this.state.playerNames.filter((s, sidx) => idx !== sidx)
+    });
 
-  addPlayerInput() {
-    return(
-      <View>
-        {this.state.testArray.map((prop, key) => {
-          return (
-            <Text> {prop} </Text>
-          );
-        })}
-      </View>
-    )
   }
 
-  showText () {
-    this.setState({test:true});
+  handlePlayerNameChange = (idx) => (evt) => {
+    const newPlayerNames = this.state.playerNames.map((playerName, sidx) => {
+      if (idx !== sidx) {
+        return playerName;
+      }
+      return { ...playerName, name: evt };
+    });
+    this.setState({ playerNames: newPlayerNames });
   }
 
   render() {
-
-
-
     return (
       <ImageBackground
         source={require('./img/paint_splatters.jpg')}
@@ -79,36 +54,28 @@ export default class LobbyScreen extends React.Component {
       >
         <View style = {styles.container}>
           <View style={{padding: 140}}>
-            <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Enter Player Names</Text>
+            <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center'}}> Enter Player Names</Text>
 
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              placeholder = 'Player 1'
-              onChangeText={text0 => this.setState({ p1 : text0 }) }
+            {this.state.playerNames.map((playerName, idx)=> (
 
-              //value={this.state.text}
+              <TextInput
+                type='text'
+                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                placeholder = {'Player '+idx}
+                value = {playerName.name}
+                onChangeText={this.handlePlayerNameChange(idx)}
+              />
+
+
+            ))}
+
+            <Button
+              title="Add Player"
+              color="green"
+              accessibilityLabel= ""
+              onPress={() => {this.handleAddPlayer()}}
             />
 
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              placeholder = 'Player 2'
-              onChangeText={(text1) => this.setState({p2: text1})}
-              //value={this.state.text}
-            />
-
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              placeholder = 'Player 3'
-              onChangeText={(text2) => this.setState({p3: text2})}
-              //value={this.state.text}
-            />
-
-            <TextInput
-              style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-              placeholder = 'Player 4'
-              onChangeText={(text3) => this.setState({p4: text3})}
-             // value={this.state.text}
-            />
 
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
               <View style={{width: 180, height: 50}} >
@@ -117,28 +84,72 @@ export default class LobbyScreen extends React.Component {
                   color="gray"
                   accessibilityLabel="Display the entered names for test/preview purposes."
                   //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
-                  onPress={() => { this.addItemsToArray() }}
+                  onPress={() => {console.log(this.state.playerNames)}}
                 />
               </View>
 
               <View style={{width: 140, height: 50}} >
                 <Button
                   title="Start Game"
-                  color="green"
+                  color="blue"
                   accessibilityLabel="Start the game with the given player names!"
                   onPress={() => { this.startGame() }}
                 />
               </View>
 
             </View>
-
-
           </View>
         </View>
       </ImageBackground>
     )
   }
 }
+
+// // 5 conditional text inputs for names
+// { this.state.addPlayerCount >= 1 ?
+// <TextInput
+//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+//   placeholder = 'Player 4'
+//   onChangeText={(text3) => this.setState({p3: text2})}
+//   //value={this.state.text}
+// /> : null
+// }
+//
+// { this.state.addPlayerCount >= 2 ?
+// <TextInput
+//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+//   placeholder = 'Player 5'
+//   onChangeText={(text3) => this.setState({p3: text2})}
+//   //value={this.state.text}
+// /> : null
+// }
+//
+// { this.state.addPlayerCount >= 3 ?
+// <TextInput
+//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+//   placeholder = 'Player 6'
+//   onChangeText={(text3) => this.setState({p3: text2})}
+//   //value={this.state.text}
+// /> : null
+// }
+//
+// { this.state.addPlayerCount >= 4 ?
+// <TextInput
+//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+//   placeholder = 'Player 7'
+//   onChangeText={(text3) => this.setState({p3: text2})}
+//   //value={this.state.text}
+// /> : null
+// }
+//
+// { this.state.addPlayerCount >= 5 ?
+// <TextInput
+//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+//   placeholder = 'Player 8'
+//   onChangeText={(text3) => this.setState({p3: text2})}
+//   //value={this.state.text}
+// /> : null
+// }
 
 
 

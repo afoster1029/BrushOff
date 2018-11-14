@@ -3,12 +3,12 @@ import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage, Modal,StatusBar } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import TimerCountdown from 'react-native-timer-countdown';
 import { ColorWheel } from 'react-native-color-wheel';
-import {BlurView, VibrancyView} from 'react-native-blur';
+import Modal from "react-native-modal";
 <script src="https://unpkg.com/colorsys@1.0.11/colorsys.js"></script>
 import * as everything from './Lobby.js'
 
@@ -52,6 +52,7 @@ export default class Drawing extends React.Component {
       word: wordList[Math.floor(Math.random() * wordList.length)],
       playerList: players,
       wheelVisible: false,
+      interPlayerVisible: false,
     }
   }
   static navigationOptions = {
@@ -85,7 +86,7 @@ export default class Drawing extends React.Component {
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
   }
 
-  componentWillUnmount() {     //maybe add timer.clearTimeout(this); to this function?
+  componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
   }
 
@@ -109,6 +110,15 @@ export default class Drawing extends React.Component {
     this.setState({wheelVisible: bool})
   }
 
+  launchInterPlayer() {
+    this.setState({interPlayerVisible: true})
+  }
+
+  closeInterPlayer() {
+    this.clearScreen()
+    this.setState({interPlayerVisible: false})
+  }
+
   handleColorWheelChange(newColor) {
     newColorString = String(colorsys.hsvToHex(newColor));
     newColorHexForm = "0x" +newColorString.substring(1,7);
@@ -120,7 +130,7 @@ export default class Drawing extends React.Component {
 
   nextPlayerAlert() {
     Alert.alert(
-      'Next player',
+      this.state.playerList[this.state.playerNum - 1]['name'] + ' is next',
       '',
       [
         {text: 'GO', onPress: () => {this.clearScreen()}},
@@ -138,7 +148,7 @@ export default class Drawing extends React.Component {
     this.state.completedImages[this.state.playerNum - 1] = uri;
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
-      this.nextPlayerAlert();
+      this.launchInterPlayer();
     } else {
       this.clearScreen();
       this.state.playerNum = 1;
@@ -151,7 +161,6 @@ export default class Drawing extends React.Component {
   onReady = () => {
     console.log('ready!');
     console.log(everything)
-    timer.setTimeout(this,'round over',() => console.log('time is up!'), 30000);
     console.log('word of the day is', this.state.word);
   };
 
@@ -188,22 +197,30 @@ export default class Drawing extends React.Component {
           </View>
           <View>
             <Modal
-              visible= {this.state.wheelVisible}
-              transparent= {true}
-              animationType='fade'
-              onRequestClose={() => null}
-              >
-                      <ColorWheel
-                      initialColor="#eeeeee"
-                      onColorChange={color => {this.handleColorWheelChange(color)}}
-                      style={{ padding: 5}}
-                       />
-                      <Button
-                        title = 'Close Wheel'
-                        onPress={() => {
-                          {this.launchColorWheel(false)}
-                        }}
-                      />
+              isVisible= {this.state.wheelVisible}
+              backdropOpacity={.50}
+              onBackdropPress={() => this.launchColorWheel(false)}
+              style={styles.colorWheel}>
+                  <ColorWheel
+                  initialColor="#eeeeee"
+                  onColorChange={color => {this.handleColorWheelChange(color)}}
+
+                   />
+            </Modal>
+          </View>
+          <View>
+            <Modal
+              isVisible= {this.state.interPlayerVisible}
+              backdropOpacity={.50}>
+                <View style= {styles.interPlayerPopUp}>
+                  <Text> Interplayer </Text>
+                  <Text> Time is up! </Text>
+                  <Text> Next Player: {this.state.playerList[this.state.playerNum - 1]} </Text>
+                  <Button
+                    title="Next Player"
+                    onPress={() => this.closeInterPlayer()}
+                  />
+                </View>
             </Modal>
           </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
@@ -326,5 +343,18 @@ const styles = StyleSheet.create({
   colorButton: {
     height: 30,
     width: 30,
+  },
+  colorWheel: {
+    height:180,
+    width: 180,
+    position: 'absolute',
+    top: 200,
+    right:50
+  },
+  interPlayerPopUp: {
+    width:280,
+     height: 380,
+     backgroundColor: 'purple',
+    borderRadius:10
   },
 });

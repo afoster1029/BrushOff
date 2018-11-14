@@ -51,8 +51,8 @@ export default class Voting extends React.Component {
               title="Vote for this drawing"
               color="blue"
               onPress={() => {
-                this.props.navigation.navigate('Winner', {winningImage: imageUri[idx]})}
-              }
+                {this.navigateToWinner(imageUri[idx], playerList[idx])}
+              }}
             />
             <Image
               style={styles.BorderClass}
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
 
     // Set border color.
-    borderColor: '#00000',
+    borderColor: '#000000',
   },
   voteButton: {
     width: '100%',

@@ -19,19 +19,29 @@ export default class LobbyScreen extends React.Component {
   }
 
   checkIfPlayerNamesEntered(){
-    {this.state.playerNames.map((playerName, idx)=> (
-      if (playerName['name'].trim.length === 0){
-        console.log('working')
+    // var namesEntered =
+    this.state.playerNames.map((playerName, idx)=> {
+
+      if (playerName['name'].length == 0){
+        console.log('names NOT entered'+ playerName['name'].length+this.state.enteredPlayerNames);
+        namesEntered = false;
       }else{
-        console.log('not working')
+        console.log('names entered'+this.state.enteredPlayerNames);
+        namesEntered = true;
       }
-    ))}
+    })
+    // console.log('namedEntered value: '+namesEntered + ' enteredPlayerNames value:'+this.state.enteredPlayerNames)
+    // this.setState({ enteredPlayerNames: namesEntered });
+    //
+    // console.log('final value: '+this.state.enteredPlayerNames)
+    return namesEntered
   }
 
   startGame() {
-    this.checkIfPlayerNamesEntered();
+    const namesEntered = this.checkIfPlayerNamesEntered();
+    console.log('namesEntered in start game value: '+namesEntered);
 
-    if (this.state.enteredPlayerNames) {
+    if (namesEntered) {
       this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
       LobbyScreen.names = this.state.playerNames;
     }else{

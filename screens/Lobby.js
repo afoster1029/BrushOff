@@ -13,33 +13,25 @@ export default class LobbyScreen extends React.Component {
     //const { navigate } = this.props.navigation;
     this.state = {
       numPlayers: '',
+      emptyPlayer: {'name':'', 'img':'', 'isJudge': false, 'score': 0},
       playerNames: [{'name':''},{'name':''},{'name':''}], // preset to 3 since we need at least 3
       enteredPlayerNames: false,
     }
   }
 
   checkIfPlayerNamesEntered(){
-    // var namesEntered =
     this.state.playerNames.map((playerName, idx)=> {
-
       if (playerName['name'].length == 0){
-        console.log('names NOT entered'+ playerName['name'].length+this.state.enteredPlayerNames);
         namesEntered = false;
       }else{
-        console.log('names entered'+this.state.enteredPlayerNames);
         namesEntered = true;
       }
     })
-    // console.log('namedEntered value: '+namesEntered + ' enteredPlayerNames value:'+this.state.enteredPlayerNames)
-    // this.setState({ enteredPlayerNames: namesEntered });
-    //
-    // console.log('final value: '+this.state.enteredPlayerNames)
     return namesEntered
   }
 
   startGame() {
     const namesEntered = this.checkIfPlayerNamesEntered();
-    console.log('namesEntered in start game value: '+namesEntered);
 
     if (namesEntered) {
       this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
@@ -54,12 +46,11 @@ export default class LobbyScreen extends React.Component {
         { cancelable: false }
       )
     }
-
   }
 
   handleAddPlayer () {
     this.setState({
-      playerNames: this.state.playerNames.concat([{'name': ''}])
+      playerNames: this.state.playerNames.concat([this.state.emptyPlayer])
     });
   }
 
@@ -92,7 +83,6 @@ export default class LobbyScreen extends React.Component {
             <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center'}}> Enter Player Names</Text>
 
             {this.state.playerNames.map((playerName, idx)=> (
-
               <TextInput
                 type='text'
                 style={{height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -100,8 +90,6 @@ export default class LobbyScreen extends React.Component {
                 value = {playerName.name}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
-
-
             ))}
 
             <Button
@@ -111,18 +99,7 @@ export default class LobbyScreen extends React.Component {
               onPress={() => {this.handleAddPlayer()}}
             />
 
-
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-              <View style={{width: 180, height: 50}} >
-                <Button
-                  title="Display Names"
-                  color="gray"
-                  accessibilityLabel="Display the entered names for test/preview purposes."
-                  //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
-                  onPress={() => {console.log(this.state.playerNames)}}
-                />
-              </View>
-
               <View style={{width: 140, height: 50}} >
                 <Button
                   title="Start Game"

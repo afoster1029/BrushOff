@@ -6,6 +6,8 @@ import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react
 export default class Voting extends React.Component {
   static navigationOptions = {
     title: 'Winner',
+    headerLeft: null, // this disables the option to go back to the previous screen.
+    gesturesEnabled: false,
   };
 
   render() {

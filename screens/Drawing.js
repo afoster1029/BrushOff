@@ -57,7 +57,8 @@ export default class Drawing extends React.Component {
   }
   static navigationOptions = {
     title: 'BrushOff',
-    headerLeft: null // this disables the option to go back to the previous screen.
+    headerLeft: null, // this disables the option to go back to the previous screen.
+    gesturesEnabled: false,
   };
 
   handleAppStateChangeAsync = nextAppState => {

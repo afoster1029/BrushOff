@@ -13,18 +13,44 @@ export default class LobbyScreen extends React.Component {
     //const { navigate } = this.props.navigation;
     this.state = {
       numPlayers: '',
+      emptyPlayer: {'name':'', 'img':'', 'isJudge': false, 'score': 0},
       playerNames: [{'name':''},{'name':''},{'name':''}], // preset to 3 since we need at least 3
+      enteredPlayerNames: false,
     }
   }
 
+  checkIfPlayerNamesEntered(){
+    this.state.playerNames.map((playerName, idx)=> {
+      if (playerName['name'].length == 0){
+        namesEntered = false;
+      }else{
+        namesEntered = true;
+      }
+    })
+    return namesEntered
+  }
+
   startGame() {
-    this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
-    LobbyScreen.names = this.state.playerNames;
+    const namesEntered = this.checkIfPlayerNamesEntered();
+
+    if (namesEntered) {
+      this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
+      LobbyScreen.names = this.state.playerNames;
+    }else{
+      Alert.alert(
+        'Please fill out all the inputs with names',
+        '',
+        [
+          {text: 'Okay', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        ],
+        { cancelable: false }
+      )
+    }
   }
 
   handleAddPlayer () {
     this.setState({
-      playerNames: this.state.playerNames.concat([{'name': ''}])
+      playerNames: this.state.playerNames.concat([this.state.emptyPlayer])
     });
   }
 
@@ -57,7 +83,6 @@ export default class LobbyScreen extends React.Component {
             <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center'}}> Enter Player Names</Text>
 
             {this.state.playerNames.map((playerName, idx)=> (
-
               <TextInput
                 type='text'
                 style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'silver'}}
@@ -65,8 +90,6 @@ export default class LobbyScreen extends React.Component {
                 value = {playerName.name}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
-
-
             ))}
 
             <Button
@@ -76,18 +99,7 @@ export default class LobbyScreen extends React.Component {
               onPress={() => {this.handleAddPlayer()}}
             />
 
-
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-              <View style={{width: 180, height: 50}} >
-                <Button
-                  title="Display Names"
-                  color="gray"
-                  accessibilityLabel="Display the entered names for test/preview purposes."
-                  //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
-                  onPress={() => {console.log(this.state.playerNames)}}
-                />
-              </View>
-
               <View style={{width: 140, height: 50}} >
                 <Button
                   title="Start Game"
@@ -105,51 +117,7 @@ export default class LobbyScreen extends React.Component {
   }
 }
 
-// // 5 conditional text inputs for names
-// { this.state.addPlayerCount >= 1 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 4'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
-//
-// { this.state.addPlayerCount >= 2 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 5'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
-//
-// { this.state.addPlayerCount >= 3 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 6'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
-//
-// { this.state.addPlayerCount >= 4 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 7'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
-//
-// { this.state.addPlayerCount >= 5 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 8'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
+
 
 
 

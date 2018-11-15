@@ -59,10 +59,6 @@ export default class Voting extends React.Component {
               source={{uri: imageUri[idx]}}
             />
 
-
-
-
-
           </View>
 
         ))}

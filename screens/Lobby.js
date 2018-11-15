@@ -14,12 +14,37 @@ export default class LobbyScreen extends React.Component {
     this.state = {
       numPlayers: '',
       playerNames: [{'name':''},{'name':''},{'name':''}], // preset to 3 since we need at least 3
+      enteredPlayerNames: false,
     }
   }
 
+  checkIfPlayerNamesEntered(){
+    {this.state.playerNames.map((playerName, idx)=> (
+      if (playerName['name'].trim.length === 0){
+        console.log('working')
+      }else{
+        console.log('not working')
+      }
+    ))}
+  }
+
   startGame() {
-    this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
-    LobbyScreen.names = this.state.playerNames;
+    this.checkIfPlayerNamesEntered();
+
+    if (this.state.enteredPlayerNames) {
+      this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
+      LobbyScreen.names = this.state.playerNames;
+    }else{
+      Alert.alert(
+        'Please fill out all the inputs with names',
+        '',
+        [
+          {text: 'Okay', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        ],
+        { cancelable: false }
+      )
+    }
+
   }
 
   handleAddPlayer () {

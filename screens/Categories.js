@@ -19,7 +19,7 @@ export default class CategoriesScreen extends React.Component {
   constructor(props) {
     super(props);
     const players = this.props.navigation.getParam('playerList', 'nothing passed');
-    console.log(players);
+    //console.log(players);
     this.state = {
       playerList: players
   };

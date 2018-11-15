@@ -53,12 +53,13 @@ export default class Drawing extends React.Component {
       playerList: players,
       wheelVisible: false,
       interPlayerVisible: false,
+      colorModalVisible: false,
     }
   }
   static navigationOptions = {
     title: 'BrushOff',
     headerLeft: null, // this disables the option to go back to the previous screen.
-    gesturesEnabled: false,
+    //header: { visible:false },
   };
 
   handleAppStateChangeAsync = nextAppState => {
@@ -107,7 +108,12 @@ export default class Drawing extends React.Component {
     }
   }
 
+  launchColorModal(bool) {
+    this.setState({colorModalVisible: bool})
+  }
+
   launchColorWheel(bool) {
+    this.launchColorModal(false);
     this.setState({wheelVisible: bool})
   }
 
@@ -127,17 +133,6 @@ export default class Drawing extends React.Component {
     this.setState({
       strokeColor: newColorInt,
     })
-  }
-
-  nextPlayerAlert() {
-    Alert.alert(
-      this.state.playerList[this.state.playerNum - 1]['name'] + ' is next',
-      '',
-      [
-        {text: 'GO', onPress: () => {this.clearScreen()}},
-      ],
-      { cancelable: false }
-    )
   }
 
   saveImage = async () => {
@@ -170,16 +165,7 @@ export default class Drawing extends React.Component {
     console.log("DEBUGGINNG -------"+ this.state.playerNum);
     return (
       <View style={styles.container}>
-        <TimerCountdown
-          initialSecondsRemaining={1000 * 60}
-          onTick={secondsRemaining => console.log("tick", secondsRemaining)}
-          onTimeElapsed={() => {this.saveImage()}}
-          allowFontScaling={true}
-          style={{ fontSize: 20 }}
-        />
-
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-
         {this.state.playerList[this.state.playerNum - 1]['name']} Draw a {this.state.word} </Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
@@ -214,9 +200,8 @@ export default class Drawing extends React.Component {
               isVisible= {this.state.interPlayerVisible}
               backdropOpacity={.50}>
                 <View style= {styles.interPlayerPopUp}>
-                  <Text> Interplayer </Text>
-                  <Text> Time is up! </Text>
-                  <Text> Next Player: {this.state.playerList[this.state.playerNum - 1]} </Text>
+                  <Text style = {{fontSize: 24, fontWeight: 'bold'}}> That was a spectacular drawing! </Text>
+                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerList[this.state.playerNum - 1]['name']} </Text>
                   <Button
                     title="Next Player"
                     onPress={() => this.closeInterPlayer()}
@@ -224,90 +209,113 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
+          <View>
+            <Modal
+              isVisible= {this.state.colorModalVisible}
+              backdropOpacity={0}
+              onBackdropPress={() => this.launchColorModal(false)}
+              >
+                <View style= {styles.colorModal}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      {this.setState({
+                        strokeColor: 0x0000ff,
+                      })}
+                    }}>
+                    <Image
+                      style={styles.colorButton}
+                      source={require('./img/bluebutton.png')}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      {this.setState({
+                        strokeColor: 0xff0000,
+                      })}
+                    }}>
+                    <Image
+                      style={styles.colorButton}
+                      source={require('./img/redbutton.png')}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      {this.setState({
+                        strokeColor: 0x00ff00,
+                      })}
+                    }}>
+                    <Image
+                      style={styles.colorButton}
+                      source={require('./img/greenbutton.png')}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      {this.setState({
+                        strokeColor: 0x000000,
+                      })}
+                    }}>
+                    <Image
+                      style={styles.colorButton}
+                      source={require('./img/blackbutton.png')}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      this.launchColorWheel(true);
+                    }}>
+                    <Image
+                      style={styles.colorButton}
+                      source={require('./img/color_palette.png')} //<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+                    />
+                  </TouchableOpacity>
+                </View>
+            </Modal>
+          </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
-            <TouchableOpacity
-              onPress={() => {
-                {this.setState({
-                  strokeColor: 0x0000ff,
-                })}
+            <TouchableOpacity onPress={() => {
+                this.launchColorModal(true);
               }}>
               <Image
                 style={styles.colorButton}
-                source={require('./img/bluebutton.png')}
+                source={require('./img/brushicon.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                {this.setState({
-                  strokeColor: 0xff0000,
-                })}
+                this.sketch.undo();
               }}>
-              <Image
-                style={styles.colorButton}
-                source={require('./img/redbutton.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                {this.setState({
-                  strokeColor: 0x00ff00,
-                })}
-              }}>
-              <Image
-                style={styles.colorButton}
-                source={require('./img/greenbutton.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                {this.setState({
-                  strokeColor: 0x000000,
-                })}
-              }}>
-              <Image
-                style={styles.colorButton}
-                source={require('./img/blackbutton.png')}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                {this.launchColorWheel(true)}
-              }}>
-              <Image
-                style={styles.colorButton}
-                source={require('./img/color_palette.png')} //<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-            onPress={() => {
-              this.sketch.undo();
-            }}>
               <Image
                 style={styles.colorButton}
                 source={require('./img/undo-arrow.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
               />
             </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.saveImage();
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/submiticon.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.clearAlert();
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/trashicon.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
+              />
+            </TouchableOpacity>
           </View>
-          <Button
-            color={'red'}
-            title="Clear"
-            style={styles.button}
-            onPress={() => {
-              {this.clearAlert()}
-            }}
-          />
-          <Button
-            color={'green'}
-            title="Submit"
-            style={styles.button}
-            onPress= { ()=> {
-              {this.saveImage()}
-            }}
-          />
       </View>
     );
   }
 }
+
+const height = Dimensions.get('window').height;
+const width =  Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
@@ -353,9 +361,18 @@ const styles = StyleSheet.create({
     right:50
   },
   interPlayerPopUp: {
-    width:280,
-     height: 380,
-     backgroundColor: 'purple',
+    width: width - 50,
+    height: height - 200,
+    backgroundColor: '#D9C4DA',
     borderRadius:10
   },
+  colorModal: {
+    flexDirection: 'row',
+    width: 160,
+    height: 35,
+    justifyContent: 'space-between',
+    position: 'absolute',
+    top: 565,
+    right: 210,
+  }
 });

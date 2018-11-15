@@ -27,6 +27,8 @@ export default class Voting extends React.Component {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
+    headerLeft: null,
+    gesturesEnabled: false,
   };
 
   navigateToWinner(image, playerName) {

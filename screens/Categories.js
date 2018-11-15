@@ -47,7 +47,7 @@ export default class CategoriesScreen extends React.Component {
       >
         <View style = {styles.container}>
           <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-            <View style={{width: 70, height: 40}} >
+            <View style={{width: 80, height: 45}} >
               <Button
                 title="Sports"
                 color="black"
@@ -69,7 +69,7 @@ export default class CategoriesScreen extends React.Component {
               />
             </View>
 
-            <View style={{width: 140, height: 50}} >
+            <View style={{width: 98, height: 50}} >
               <Button
                 title="Animals"
                 color="black"
@@ -79,7 +79,7 @@ export default class CategoriesScreen extends React.Component {
               />
             </View>
 
-            <View style={{width: 140, height: 50}} >
+            <View style={{width: 98, height: 50}} >
               <Button
                 title="Random"
                 color="black"

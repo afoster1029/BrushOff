@@ -60,7 +60,7 @@ export default class LobbyScreen extends React.Component {
 
               <TextInput
                 type='text'
-                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'silver'}}
                 placeholder = {'Player '+idx}
                 value = {playerName.name}
                 onChangeText={this.handlePlayerNameChange(idx)}

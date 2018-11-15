@@ -23,8 +23,9 @@ const Navigation = createStackNavigator({
     Voting: {screen: VotingScreen},
     Winner: {screen: WinnerScreen},
     Categories: {screen: CategoriesScreen}
-
-})
+  },
+    { headerMode: 'none' }
+)
 
 export default class App extends React.Component {
     render() {

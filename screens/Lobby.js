@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, View, StyleSheet, Text, TextInput, Picker } from 'react-native';
+import { Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -71,105 +71,74 @@ export default class LobbyScreen extends React.Component {
   }
 
   render() {
-
     return (
-      <View style={{padding: 140}}>
-        <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center'}}> Enter Player Names</Text>
+      <ImageBackground
+        source={require('./img/paint_splatters.jpg')}
+        imageStyle={{resizeMode: 'stretch'}}
+        style={{flex: 1}}
+      >
+        <View style = {styles.container}>
+          <View style={{padding: 140}}>
+            <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center'}}> Enter Player Names</Text>
 
-        {this.state.playerNames.map((playerName, idx)=> (
+            {this.state.playerNames.map((playerName, idx)=> (
 
-          <TextInput
-            type='text'
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            placeholder = {'Player '+idx}
-            value = {playerName.name}
-            onChangeText={this.handlePlayerNameChange(idx)}
-          />
-
-
-        ))}
-
-        <Button
-          title="Add Player"
-          color="green"
-          accessibilityLabel= ""
-          onPress={() => {this.handleAddPlayer()}}
-        />
+              <TextInput
+                type='text'
+                style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                placeholder = {'Player '+idx}
+                value = {playerName.name}
+                onChangeText={this.handlePlayerNameChange(idx)}
+              />
 
 
-        <Button
-          title="Start Game"
-          color="blue"
-          accessibilityLabel="Start the game with the given player names!"
-          onPress={() => { this.startGame() }}
-        />
-        <Button
-          title="Display Player Names"
-          color="green"
-          accessibilityLabel= ""
-          onPress={() => {console.log(this.state.playerNames)}}
-        />
-      </View>
+            ))}
+
+            <Button
+              title="Add Player"
+              color="green"
+              accessibilityLabel= ""
+              onPress={() => {this.handleAddPlayer()}}
+            />
+
+
+            <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
+              <View style={{width: 180, height: 50}} >
+                <Button
+                  title="Display Names"
+                  color="gray"
+                  accessibilityLabel="Display the entered names for test/preview purposes."
+                  //onPress={() => { Alert.alert(this.state.playerNames.toString()); }}
+                  onPress={() => {console.log(this.state.playerNames)}}
+                />
+              </View>
+
+              <View style={{width: 140, height: 50}} >
+                <Button
+                  title="Start Game"
+                  color="blue"
+                  accessibilityLabel="Start the game with the given player names!"
+                  onPress={() => { this.startGame() }}
+                />
+              </View>
+
+            </View>
+          </View>
+        </View>
+      </ImageBackground>
     )
   }
-
-
 }
 
-// // 5 conditional text inputs for names
-// { this.state.addPlayerCount >= 1 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 4'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
-//
-// { this.state.addPlayerCount >= 2 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 5'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
-//
-// { this.state.addPlayerCount >= 3 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 6'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
-//
-// { this.state.addPlayerCount >= 4 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 7'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
-//
-// { this.state.addPlayerCount >= 5 ?
-// <TextInput
-//   style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-//   placeholder = 'Player 8'
-//   onChangeText={(text3) => this.setState({p3: text2})}
-//   //value={this.state.text}
-// /> : null
-// }
 
 
-/*
+
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
 });
-*/

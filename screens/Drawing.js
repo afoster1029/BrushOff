@@ -146,7 +146,7 @@ export default class Drawing extends React.Component {
       format: 'png'
     });
     console.log('DEBUGG - '+this.state.playerNum, this.state.numPlayers)
-    this.state.completedImages[this.state.playerNum - 1] = uri;
+    this.state.playerList['img'][this.state.playerNum - 1] = uri;
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
       this.launchInterPlayer();
@@ -154,7 +154,7 @@ export default class Drawing extends React.Component {
       this.clearScreen();
       this.state.playerNum = 1;
       this.props.navigation.navigate('Voting',
-        {images : this.state.completedImages, playerList: this.state.playerList});
+        {playerList: this.state.playerList});
     }
 
   }

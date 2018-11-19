@@ -52,7 +52,6 @@ export default class LobbyScreen extends React.Component {
   }
 
   handleAddPlayer () {
-    console.log(this.state.playerNames.length)
     if (this.state.numPlayerInputs <= 8) {
       newPlayer = this.state.emptyPlayer;
       newPlayer['key'] = this.state.numPlayerInputs;
@@ -73,12 +72,23 @@ export default class LobbyScreen extends React.Component {
   }
 
   handleRemovePlayer () {
-    const len = this.state.playerNames.length;
-    updatePlayerNames = this.state.playerNames.splice(0,len-1);
-    console.log(updatePlayerNames)
-    this.setState({
-      playerNames: updatePlayerNames
-    });
+    if (this.state.numPlayerInputs > 3) {
+      const len = this.state.playerNames.length;
+      updatePlayerNames = this.state.playerNames.splice(0,len-1);
+      this.setState({
+        playerNames: updatePlayerNames
+      });
+      this.setState({
+        numPlayerInputs: this.state.numPlayerInputs-1
+      });
+    }else{
+      Alert.alert(
+        'Minimum Number of Players',
+        '',
+        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel'},], { cancelable: false }
+      )
+    }
   }
 
   handlePlayerNameChange = (idx) => (evt) => {
@@ -103,11 +113,12 @@ export default class LobbyScreen extends React.Component {
             <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center'}}> Enter Player Names</Text>
 
             {this.state.playerNames.map((playerName, idx)=> (
+
               <TextInput
                 key = {idx}
                 type='text'
                 style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'silver'}}
-                placeholder = {'Player '+idx}
+                placeholder = {'Player '+parseInt(parseInt(idx,10)+1,10)}
                 value = {playerName.name}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
@@ -122,7 +133,7 @@ export default class LobbyScreen extends React.Component {
 
             <Button
               title="Remove Player"
-              color="green"
+              color="red"
               accessibilityLabel= ""
               onPress={() => {this.handleRemovePlayer()}}
             />

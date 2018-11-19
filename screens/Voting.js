@@ -38,7 +38,7 @@ export default class Voting extends React.Component {
     const playerList = this.props.navigation.getParam('playerList', 'nothing passed');
     console.log('in voting.js! '+ playerList);
     const imageUri = this.props.navigation.getParam('images', 'no image');
-
+    console.log(imageUri.length);
     const image1 = imageUri[0];
     return (
       <Swiper
@@ -48,6 +48,10 @@ export default class Voting extends React.Component {
 
         {imageUri.map((image, idx)=> (
           <View key = {idx}>
+            <Image
+              style={styles.BorderClass}
+              source={{uri: imageUri[idx]}}
+            />
             <Button
               style = {styles.button}
               title="Vote for this drawing"
@@ -56,11 +60,6 @@ export default class Voting extends React.Component {
                 {this.navigateToWinner(imageUri[idx], playerList[idx])}
               }}
             />
-            <Image
-              style={styles.BorderClass}
-              source={{uri: imageUri[idx]}}
-            />
-
           </View>
 
         ))}

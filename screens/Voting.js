@@ -36,9 +36,6 @@ export default class Voting extends React.Component {
   render() {
 
     const playerList = this.props.navigation.getParam('playerList', 'nothing passed');
-    console.log('in voting.js! '+ playerList);
-    const imageUri = this.props.navigation.getParam('images', 'no image');
-    console.log(imageUri.length);
     const image1 = imageUri[0];
     return (
       <Swiper

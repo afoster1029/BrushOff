@@ -146,7 +146,7 @@ export default class Drawing extends React.Component {
       format: 'png'
     });
     console.log('DEBUGG - '+this.state.playerNum, this.state.numPlayers)
-    this.state.playerDict['img'][this.state.playerNum - 1] = uri;
+    this.state.playerDict[this.state.playerNum - 1]['img'] = uri;
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
       this.launchInterPlayer();

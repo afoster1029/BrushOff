@@ -1,13 +1,12 @@
 import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, ImageBackground } from 'react-native';
 
 export default class Voting extends React.Component {
   static navigationOptions = {
     title: 'Winner',
-    headerLeft: null, // this disables the option to go back to the previous screen.
-    gesturesEnabled: false,
+    header: null
   };
 
   render() {
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -13,9 +13,14 @@ export default class LobbyScreen extends React.Component {
     //const { navigate } = this.props.navigation;
     this.state = {
       numPlayers: '',
-      emptyPlayer: {'name':'', 'img':'', 'isJudge': false, 'score': 0},
-      playerNames: [{'name':''},{'name':''},{'name':''}], // preset to 3 since we need at least 3
+      emptyPlayer: {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 0},
+      playerNames: [
+        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 0},
+        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 1},
+        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 2}], // preset to 3 since we need at least 3
       enteredPlayerNames: false,
+      numPlayerInputs: 3,
+      test:[0,1,2,3,4,5],
     }
   }
 
@@ -40,25 +45,40 @@ export default class LobbyScreen extends React.Component {
       Alert.alert(
         'Please fill out all the inputs with names',
         '',
-        [
-          {text: 'Okay', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-        ],
-        { cancelable: false }
+        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
+         style: 'cancel'},],{ cancelable: false }
       )
     }
   }
 
   handleAddPlayer () {
-    this.setState({
-      playerNames: this.state.playerNames.concat([this.state.emptyPlayer])
-    });
+    console.log(this.state.playerNames.length)
+    if (this.state.numPlayerInputs <= 8) {
+      newPlayer = this.state.emptyPlayer;
+      newPlayer['key'] = this.state.numPlayerInputs;
+      this.setState({
+        playerNames: this.state.playerNames.concat([this.state.emptyPlayer])
+      });
+      this.setState({
+        numPlayerInputs: this.state.numPlayerInputs+1
+      })
+    }else{
+      Alert.alert(
+        'Maximum Number of Players',
+        '',
+        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel'},], { cancelable: false }
+      )
+    }
   }
 
-  handleRemovePlayer = (idx) => () => {
+  handleRemovePlayer () {
+    const len = this.state.playerNames.length;
+    updatePlayerNames = this.state.playerNames.splice(0,len-1);
+    console.log(updatePlayerNames)
     this.setState({
-      playerNames: this.state.playerNames.filter((s, sidx) => idx !== sidx)
+      playerNames: updatePlayerNames
     });
-
   }
 
   handlePlayerNameChange = (idx) => (evt) => {
@@ -84,6 +104,7 @@ export default class LobbyScreen extends React.Component {
 
             {this.state.playerNames.map((playerName, idx)=> (
               <TextInput
+                key = {idx}
                 type='text'
                 style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'silver'}}
                 placeholder = {'Player '+idx}
@@ -98,6 +119,14 @@ export default class LobbyScreen extends React.Component {
               accessibilityLabel= ""
               onPress={() => {this.handleAddPlayer()}}
             />
+
+            <Button
+              title="Remove Player"
+              color="green"
+              accessibilityLabel= ""
+              onPress={() => {this.handleRemovePlayer()}}
+            />
+
 
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
               <View style={{width: 140, height: 50}} >

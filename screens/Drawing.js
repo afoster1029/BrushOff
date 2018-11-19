@@ -3,7 +3,7 @@ import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import TimerCountdown from 'react-native-timer-countdown';
@@ -54,6 +54,7 @@ export default class Drawing extends React.Component {
       wheelVisible: false,
       interPlayerVisible: false,
       colorModalVisible: false,
+      strokeSliderVisible: false,
     }
   }
   static navigationOptions = {
@@ -97,7 +98,7 @@ export default class Drawing extends React.Component {
 
     this.setState({
       image: { uri },
-      strokeWidth: 20,
+      //strokeWidth: 20,
       count: this.state.count + 1
     });
   };
@@ -115,6 +116,10 @@ export default class Drawing extends React.Component {
   launchColorWheel(bool) {
     this.launchColorModal(false);
     this.setState({wheelVisible: bool})
+  }
+
+  launchStrokeModal(bool) {
+    this.setState({strokeSliderVisible: bool})
   }
 
   launchInterPlayer() {
@@ -165,6 +170,8 @@ export default class Drawing extends React.Component {
     console.log("DEBUGGINNG -------"+ this.state.playerNum);
     return (
       <View style={styles.container}>
+        <Text> </Text>
+        <Text> </Text>
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
         {this.state.playerList[this.state.playerNum - 1]['name']} Draw a {this.state.word} </Text>
           <View style={styles.container}>
@@ -187,6 +194,7 @@ export default class Drawing extends React.Component {
               isVisible= {this.state.wheelVisible}
               backdropOpacity={.50}
               onBackdropPress={() => this.launchColorWheel(false)}
+              thumbStyle={{ height: 30, width: 30, borderRadius: 30}}
               style={styles.colorWheel}>
                   <ColorWheel
                   initialColor="#eeeeee"
@@ -272,6 +280,23 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
+          <View>
+            <Modal
+              isVisible= {this.state.strokeSliderVisible}
+              backdropOpacity={0}
+              onBackdropPress={() => this.launchStrokeModal(false)}
+              >
+                <View style= {styles.colorModal}>
+                  <Slider style = {{ width: 300 }}
+                    step={1}
+                    minimumValue={1}
+                    maximumValue={100}
+                    value = {this.state.strokeWidth}
+                    onSlidingComplete={val => this.setState({ strokeWidth: val })}
+                  />
+                </View>
+            </Modal>
+          </View>
           <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
             <TouchableOpacity onPress={() => {
                 this.launchColorModal(true);
@@ -279,6 +304,14 @@ export default class Drawing extends React.Component {
               <Image
                 style={styles.colorButton}
                 source={require('./img/brushicon.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+                this.launchStrokeModal(true);
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/strokewidthicon.png')}
               />
             </TouchableOpacity>
             <TouchableOpacity
@@ -354,11 +387,12 @@ const styles = StyleSheet.create({
     width: 30,
   },
   colorWheel: {
-    height:180,
-    width: 180,
+    height:300,
+    width: 300,
     position: 'absolute',
     top: 200,
-    right:50
+    right:50,
+    padding:40
   },
   interPlayerPopUp: {
     width: width - 50,

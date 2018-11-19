@@ -35,8 +35,7 @@ export default class Drawing extends React.Component {
   constructor(props){
     super(props)
     var wordList = this.props.navigation.state.params.list
-    var players = this.props.navigation.getParam('playerDict', 'nothing passed')
-    // console.log(players[0]['name']) // check that players is loaded in correctly.
+    const players = this.props.navigation.getParam('playerInfo', 'nothing passed')
     this.state = {
       image: null,
       strokeColor: 0xff0000,
@@ -50,7 +49,7 @@ export default class Drawing extends React.Component {
       playerNum: 1,
       completedImages: imageList,
       word: wordList[Math.floor(Math.random() * wordList.length)],
-      playerDict: players,
+      playerInfo: players,
       wheelVisible: false,
       interPlayerVisible: false,
       colorModalVisible: false,
@@ -146,34 +145,34 @@ export default class Drawing extends React.Component {
       format: 'png'
     });
     console.log('DEBUGG - '+this.state.playerNum, this.state.numPlayers)
-    this.state.playerDict['img'][this.state.playerNum - 1] = uri;
+    this.state.playerInfo[this.state.playerNum - 1]['img'] = uri;
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
       this.launchInterPlayer();
     } else {
       this.clearScreen();
       this.state.playerNum = 1;
-      this.props.navigation.navigate('Voting',
-        {playerDict: this.state.playerDict});
+      this.props.navigation.navigate('Voting', {playerInfo: this.state.playerInfo});
     }
 
   }
 
   onReady = () => {
-    console.log('ready!');
-    console.log(everything)
+
+    console.log('ready! ');
     console.log('word of the day is', this.state.word);
-    console.log(this.state.playerList[this.state.playerNum - 1]['name']+ ' Draw a' +this.state.word);
+    console.log('drawing screen! '+this.state.playerInfo)
   };
 
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
+
         <Text> </Text>
         <Text> </Text>
         <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-        {this.state.playerDict[this.state.playerNum - 1]['name']} Draw a {this.state.word} </Text>
+        {this.state.playerInfo[this.state.playerNum - 1]['name']} Draw a {this.state.word} </Text>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch
@@ -209,7 +208,7 @@ export default class Drawing extends React.Component {
               backdropOpacity={.50}>
                 <View style= {styles.interPlayerPopUp}>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> That was a spectacular drawing! </Text>
-                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerDict[this.state.playerNum - 1]['name']} </Text>
+                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
                   <Button
                     title="Next Player"
                     onPress={() => this.closeInterPlayer()}

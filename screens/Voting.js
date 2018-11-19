@@ -35,29 +35,27 @@ export default class Voting extends React.Component {
 
   render() {
 
-    const playerList = this.props.navigation.getParam('playerList', 'nothing passed');
-    console.log('in voting.js! '+ playerList);
-    const imageUri = this.props.navigation.getParam('images', 'no image');
-    console.log(imageUri.length);
-    const image1 = imageUri[0];
+    const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
+    console.log('in voting.js! '+ playerInfo);
+
     return (
       <Swiper
         loop={false}
         showsPagination={true}
         index={0}>
 
-        {imageUri.map((image, idx)=> (
+        {playerInfo.map((player, idx)=> (
           <View key = {idx}>
             <Image
               style={styles.BorderClass}
-              source={{uri: imageUri[idx]}}
+              source={{uri: playerInfo[idx]['img']}}
             />
             <Button
               style = {styles.button}
               title="Vote for this drawing"
               color="blue"
               onPress={() => {
-                {this.navigateToWinner(imageUri[idx], playerList[idx])}
+                {this.navigateToWinner(playerInfo[idx]['img'], playerInfo[idx]['name'])}
               }}
             />
           </View>

@@ -145,8 +145,12 @@ export default class Drawing extends React.Component {
       result: 'file',
       format: 'png'
     });
+<<<<<<< HEAD
     console.log('DEBUGG - '+this.state.playerNum, this.state.numPlayers)
     this.state.playerDict['img'][this.state.playerNum - 1] = uri;
+=======
+    this.state.completedImages[this.state.playerNum - 1] = uri;
+>>>>>>> 47e11aab87064146e83641fd803cffc3d32cecd3
     if(this.state.playerNum < this.state.numPlayers) {
       this.state.playerNum += 1;
       this.launchInterPlayer();
@@ -163,11 +167,11 @@ export default class Drawing extends React.Component {
     console.log('ready!');
     console.log(everything)
     console.log('word of the day is', this.state.word);
+    console.log(this.state.playerList[this.state.playerNum - 1]['name']+ ' Draw a' +this.state.word);
   };
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log("DEBUGGINNG -------"+ this.state.playerNum);
     return (
       <View style={styles.container}>
         <Text> </Text>

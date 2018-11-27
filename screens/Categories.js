@@ -18,10 +18,10 @@ const animalWordList = ['cow', 'dog', 'chicken', 'starfish', 'octopus', 'whale',
 export default class CategoriesScreen extends React.Component {
   constructor(props) {
     super(props);
-    const players = this.props.navigation.getParam('playerList', 'nothing passed');
-    //console.log(players);
+    const players = this.props.navigation.getParam('playerInfo', 'nothing passed');
+    console.log(players);
     this.state = {
-      playerList: players
+      playerInfo: players
   };
 }
 
@@ -34,7 +34,7 @@ export default class CategoriesScreen extends React.Component {
   }
 
   navigateToDrawing(categoryList) {
-    this.props.navigation.navigate('Drawing', {list: categoryList, playerList: this.state.playerList});
+    this.props.navigation.navigate('Drawing', {list: categoryList, playerInfo: this.state.playerInfo});
   }
 
   render() {

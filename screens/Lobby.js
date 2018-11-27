@@ -14,18 +14,17 @@ export default class LobbyScreen extends React.Component {
     this.state = {
       numPlayers: '',
       emptyPlayer: {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 0},
-      playerNames: [
+      playerInfo: [
         {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 0},
         {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 1},
         {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 2}], // preset to 3 since we need at least 3
       enteredPlayerNames: false,
       numPlayerInputs: 3,
-      test:[0,1,2,3,4,5],
     }
   }
 
   checkIfPlayerNamesEntered(){
-    this.state.playerNames.map((playerName, idx)=> {
+    this.state.playerInfo.map((playerName, idx)=> {
       if (playerName['name'].length == 0){
         namesEntered = false;
       }else{
@@ -39,8 +38,8 @@ export default class LobbyScreen extends React.Component {
     const namesEntered = this.checkIfPlayerNamesEntered();
 
     if (namesEntered) {
-      this.props.navigation.navigate('Categories', {playerList: this.state.playerNames});
-      LobbyScreen.names = this.state.playerNames;
+      this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
+      LobbyScreen.names = this.state.playerInfo;
     }else{
       Alert.alert(
         'Please fill out all the inputs with names',
@@ -57,7 +56,7 @@ export default class LobbyScreen extends React.Component {
       newPlayer = this.state.emptyPlayer;
       newPlayer['key'] = this.state.numPlayerInputs;
       this.setState({
-        playerNames: this.state.playerNames.concat([this.state.emptyPlayer])
+        playerInfo: this.state.playerInfo.concat([this.state.emptyPlayer])
       });
       this.setState({
         numPlayerInputs: this.state.numPlayerInputs+1
@@ -73,22 +72,33 @@ export default class LobbyScreen extends React.Component {
   }
 
   handleRemovePlayer () {
-    const len = this.state.playerNames.length;
-    updatePlayerNames = this.state.playerNames.splice(0,len-1);
-    console.log(updatePlayerNames)
-    this.setState({
-      playerNames: updatePlayerNames
-    });
+    if (this.state.numPlayerInputs > 3) {
+      const len = this.state.playerInfo.length;
+      updatePlayerInfo = this.state.playerInfo.splice(0,len-1);
+      this.setState({
+        playerInfo: updatePlayerInfo
+      });
+      this.setState({
+        numPlayerInputs: this.state.numPlayerInputs-1
+      });
+    }else{
+      Alert.alert(
+        'Minimum Number of Players',
+        '',
+        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel'},], { cancelable: false }
+      )
+    }
   }
 
   handlePlayerNameChange = (idx) => (evt) => {
-    const newPlayerNames = this.state.playerNames.map((playerName, sidx) => {
+    const newPlayerInfo = this.state.playerInfo.map((playerName, sidx) => {
       if (idx !== sidx) {
         return playerName;
       }
       return { ...playerName, name: evt };
     });
-    this.setState({ playerNames: newPlayerNames });
+    this.setState({ playerInfo: newPlayerInfo });
   }
 
   render() {

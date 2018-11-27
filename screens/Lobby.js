@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground } from 'react-native';
+import { Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -53,7 +53,7 @@ export default class LobbyScreen extends React.Component {
 
   handleAddPlayer () {
     console.log(this.state.playerNames.length)
-    if (this.state.numPlayerInputs <= 8) {
+    if (this.state.numPlayerInputs <= 7) {
       newPlayer = this.state.emptyPlayer;
       newPlayer['key'] = this.state.numPlayerInputs;
       this.setState({
@@ -99,47 +99,52 @@ export default class LobbyScreen extends React.Component {
         style={{flex: 1}}
       >
         <View style = {styles.container}>
-          <View style={{padding: 140}}>
-            <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center'}}> Enter Player Names</Text>
-
+          <View style={{padding: 60}}>
+            <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center', fontFamily: 'Avenir'}}> Enter Player Names</Text>
             {this.state.playerNames.map((playerName, idx)=> (
               <TextInput
                 key = {idx}
                 type='text'
-                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'silver'}}
+                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white'}}
                 placeholder = {'Player '+idx}
                 value = {playerName.name}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}
 
-            <Button
-              title="Add Player"
-              color="green"
-              accessibilityLabel= ""
-              onPress={() => {this.handleAddPlayer()}}
-            />
 
-            <Button
-              title="Remove Player"
-              color="green"
-              accessibilityLabel= ""
-              onPress={() => {this.handleRemovePlayer()}}
-            />
 
 
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-              <View style={{width: 140, height: 50}} >
+                <View style = {{flexDirection: 'row'}}>
+                  <View style= {styles.changePlayerButton}>
+                  <Button
+                    title="Add "
+                    color="grey"
+                    accessibilityLabel= ""
+                    onPress={() => {this.handleAddPlayer()}}
+                  />
+                  </View>
+                  <View style= {styles.changePlayerButton}>
+                  <Button
+                    title="Remove"
+                    color="grey"
+                    accessibilityLabel= ""
+                    onPress={() => {this.handleRemovePlayer()}}
+                  />
+                  </View>
+                </View>
+              </View>
+              <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 50}}>
                 <Button
                   title="Start Game"
-                  color="blue"
-                  accessibilityLabel="Start the game with the given player names!"
-                  onPress={() => { this.startGame() }}
+                  color="grey"
+                  accessibilityLabel= ""
+                  onPress={() => {this.startGame()}}
                 />
               </View>
-
             </View>
-          </View>
+
         </View>
       </ImageBackground>
     )
@@ -155,6 +160,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
+  },
+  buttonImage: {
+    resizeMode: 'contain',
+    flex: 1,
+    width: 140,
+    height: 40,
+  },
+  changePlayerButton: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    width: 100,
+    height:36,
   },
 });

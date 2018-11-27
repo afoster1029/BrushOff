@@ -1,7 +1,7 @@
 import React from 'react';
 import Expo from 'expo';
 import FileSystem from 'expo';
-import { Button, View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { Button, View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image , Dimensions} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 export default class Home extends React.Component {
@@ -12,48 +12,38 @@ export default class Home extends React.Component {
         const { navigate } = this.props.navigation;
         return (
           <ImageBackground
-            source={require('./img/paint_splatters_logo.png')}
+            source={require('./img/new-home.jpg')}
             imageStyle={{resizeMode: 'stretch'}}
             style={{flex: 1}}
           >
             <View style = {styles.container}>
-              <View style = {{flex: 1, flexDirection: 'column', backgroundColor: 'transparent', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                <View style={{width: 70, height: 50}} >
-                  <Button
-                    title="Lobby"
-                    color="green"
-                    accessibilityLabel="Set up a game with up to five players!"
-                    onPress={() => {
-                      /* 1. Navigate to the Details route with params */
-                      this.props.navigation.navigate('Lobby', {});
-                    }}
-                  />
-                </View>
+              <View style = {styles.buttonBackground}>
 
-                <View style={{width: 90, height: 50}} >
-                  <Button
-                    title="Play Game"
-                    color="blue"
-                    accessibilityLabel="Jump straight into messing around on a canvas!"
+                <View style={styles.fillerButton} >
+                  <TouchableOpacity
                     onPress={() => {
                       /* 1. Navigate to the Details route with params */
-                      this.props.navigation.navigate('Categories', {
+                      this.props.navigation.navigate('Lobby', {
                       });
-                    }}
-                  />
+                    }}>
+                    <Image
+                      style={styles.buttonImage}
+                      source={require('./img/playgamebutton.png')}
+                    />
+                  </TouchableOpacity>
                 </View>
-
-                <View style={{width: 90, height: 50}} >
-                  <Button
-                    title="Settings"
-                    color="gray"
-                    accessibilityLabel="Adjust the time each player had to draw the prompt!"
+                <View style={styles.fillerButton} >
+                  <TouchableOpacity
                     onPress={() => {
                       /* 1. Navigate to the Details route with params */
                       this.props.navigation.navigate('Settings', {
                       });
-                    }}
-                  />
+                    }}>
+                    <Image
+                      style={styles.buttonImage}
+                      source={require('./img/settingsbutton.png')}
+                    />
+                  </TouchableOpacity>
                 </View>
 
               </View>
@@ -63,11 +53,42 @@ export default class Home extends React.Component {
     }
 }
 
+const windowHeight = Dimensions.get('window').height;
+const windowWidth =  Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    width: windowWidth - 110,
+    height: windowHeight - 200,
+    borderRadius: 10,
+    marginBottom: 200,
+    marginTop: 200,
+    borderColor: 'grey',
+    borderWidth: 2,
+    opacity: .85,
+  },
+  buttonBackground: {
+    flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  button: {
+    flex: 1,
+    height: 30,
+    width: 170,
+  },
+  buttonImage: {
+    resizeMode: 'contain',
+    flex: 1,
+    width: 170,
+    height: 40,
+  },
+  fillerButton: {
+    flex:1,
   },
 });

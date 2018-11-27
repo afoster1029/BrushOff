@@ -208,12 +208,18 @@ export default class Drawing extends React.Component {
               isVisible= {this.state.interPlayerVisible}
               backdropOpacity={.50}>
                 <View style= {styles.interPlayerPopUp}>
-                  <Text style = {{fontSize: 24, fontWeight: 'bold'}}> That was a spectacular drawing! </Text>
+
+                  <Text style = {{fontSize: 24, fontWeight: 'bold'}}> That was a  </Text>
+                  <Text style = {{fontSize: 24, fontWeight: 'bold'}}> spectacular drawing! </Text>
+
                   <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerList[this.state.playerNum - 1]['name']} </Text>
+                  <View style= {{marginTop: 200, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                   <Button
                     title="Next Player"
+                    color= "grey"
                     onPress={() => this.closeInterPlayer()}
                   />
+                  </View>
                 </View>
             </Modal>
           </View>
@@ -398,7 +404,10 @@ const styles = StyleSheet.create({
     width: width - 50,
     height: height - 200,
     backgroundColor: '#D9C4DA',
-    borderRadius:10
+    borderRadius:10,
+    flexDirection: 'column',
+    alignItems: 'center',
+    
   },
   colorModal: {
     flexDirection: 'row',

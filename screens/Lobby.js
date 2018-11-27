@@ -51,7 +51,7 @@ export default class LobbyScreen extends React.Component {
   }
 
   handleAddPlayer () {
-    console.log(this.state.playerNames.length)
+    console.log(this.state.playerInfo.length)
     if (this.state.numPlayerInputs <= 7) {
       newPlayer = this.state.emptyPlayer;
       newPlayer['key'] = this.state.numPlayerInputs;
@@ -111,7 +111,7 @@ export default class LobbyScreen extends React.Component {
         <View style = {styles.container}>
           <View style={{padding: 60}}>
             <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center', fontFamily: 'Avenir'}}> Enter Player Names</Text>
-            {this.state.playerNames.map((playerName, idx)=> (
+            {this.state.playerInfo.map((playerName, idx)=> (
               <TextInput
                 key = {idx}
                 type='text'

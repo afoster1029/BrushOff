@@ -211,7 +211,7 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> That was a  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> spectacular drawing! </Text>
 
-                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerList[this.state.playerNum - 1]['name']} </Text>
+                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
                   <View style= {{marginTop: 200, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                   <Button
                     title="Next Player"
@@ -406,7 +406,7 @@ const styles = StyleSheet.create({
     borderRadius:10,
     flexDirection: 'column',
     alignItems: 'center',
-    
+
   },
   colorModal: {
     flexDirection: 'row',

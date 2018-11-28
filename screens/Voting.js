@@ -14,7 +14,7 @@ export default class Voting extends React.Component {
       height: 200,
       width: 200,
       window_height: Dimensions.get('window').height,
-      window_width: Dimensions.get('window').width
+      window_width: Dimensions.get('window').width,
     }
   }
 
@@ -35,33 +35,31 @@ export default class Voting extends React.Component {
 
   render() {
 
-    const playerList = this.props.navigation.getParam('playerList', 'nothing passed');
-    const image1 = imageUri[0];
+    const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
+    console.log('in voting.js! '+ playerInfo);
+
     return (
       <Swiper
         loop={false}
         showsPagination={true}
         index={0}>
 
-        {imageUri.map((image, idx)=> (
-          <View key = {idx}>
-            <Image
-              style={styles.BorderClass}
-              source={{uri: imageUri[idx]}}
-            />
-            <Button
-              style = {styles.button}
-              title="Vote for this drawing"
-              color="blue"
-              onPress={() => {
-                {this.navigateToWinner(imageUri[idx], playerList[idx])}
-              }}
-            />
-          </View>
-
-        ))}
-
-
+        {playerInfo.map((player, idx)=> (
+            <View key = {idx}>
+              <Image
+                style={styles.BorderClass}
+                source={{uri: playerInfo[idx]['img']}}
+              />
+              <Button
+                style = {styles.button}
+                title="Vote for this drawing"
+                color="blue"
+                onPress={() => {
+                  {this.navigateToWinner(playerInfo[idx]['img'], playerInfo[idx]['name'])}
+                }}
+              />
+            </View>
+          ))}
       </Swiper>
     )
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { Button, View, Text, StyleSheet, ImageBackground, Alert } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 
@@ -18,10 +18,10 @@ const animalWordList = ['cow', 'dog', 'chicken', 'starfish', 'octopus', 'whale',
 export default class CategoriesScreen extends React.Component {
   constructor(props) {
     super(props);
-    const players = this.props.navigation.getParam('playerList', 'nothing passed');
-    //console.log(players);
+    const players = this.props.navigation.getParam('playerInfo', 'nothing passed');
+    console.log(players);
     this.state = {
-      playerList: players
+      playerInfo: players
   };
 }
 
@@ -34,9 +34,24 @@ export default class CategoriesScreen extends React.Component {
   }
 
   navigateToDrawing(categoryList) {
-    this.props.navigation.navigate('Drawing', {list: categoryList, playerList: this.state.playerList});
+    this.state.playerInfo[0]['isJudge'] = true;
+    this.judgeAlert(categoryList);
+
+
   }
 
+  judgeAlert(categoryList) {
+    Alert.alert(
+      this.state.playerInfo[0]['name'] + ' is the current judge',
+      '',
+      [
+        {text: 'Start!', onPress: () => this.props.navigation.navigate('Drawing',
+        {list: categoryList, playerInfo: this.state.playerInfo})},
+      ],
+      { cancelable: false }
+    )
+
+  }
   render() {
     const { navigate } = this.props.navigation;
     return (

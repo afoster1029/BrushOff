@@ -5,7 +5,8 @@ import ModalDropdown from 'react-native-modal-dropdown';
 
 export default class LobbyScreen extends React.Component {
   static navigationOptions = {
-    title: 'Lobby'
+    title: 'Lobby',
+    gesturesEnabled: false,
   };
 
   constructor(props) {

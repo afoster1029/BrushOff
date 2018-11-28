@@ -6,7 +6,8 @@ import { Image, Button, Platform, AppState, StyleSheet, Text, View, ImageBackgro
 export default class Voting extends React.Component {
   static navigationOptions = {
     title: 'Winner',
-    header: null
+    header: null,
+    gesturesEnabled:false,
   };
 
   render() {

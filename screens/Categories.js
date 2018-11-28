@@ -26,7 +26,8 @@ export default class CategoriesScreen extends React.Component {
 }
 
   static navigationOptions = {
-    title: 'Categories'
+    title: 'Categories',
+    gesturesEnabled: false,
   };
 
   getValue() {

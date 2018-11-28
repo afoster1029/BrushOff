@@ -27,6 +27,7 @@ export default class Voting extends React.Component {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
+    gesturesEnabled:false,
   };
 
   navigateToWinner(image, playerName) {
@@ -50,14 +51,16 @@ export default class Voting extends React.Component {
               style={styles.BorderClass}
               source={{uri: playerInfo[idx]['img']}}
             />
-            <Button
-              style = {styles.button}
-              title="Vote for this drawing"
-              color="blue"
-              onPress={() => {
-                {this.navigateToWinner(playerInfo[idx]['img'], playerInfo[idx]['name'])}
-              }}
-            />
+            <View style={{borderRadius:10, borderColor: 'grey', borderWidth: 2,marginTop: 2,marginHorizontal:20}}>
+              <Button
+                style = {styles.button}
+                title="Vote for this drawing"
+                color="grey"
+                onPress={() => {
+                  {this.navigateToWinner(playerInfo[idx]['img'], playerInfo[idx]['name'])}
+                }}
+              />
+            </View>
           </View>
 
         ))}
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
   BorderClass:{
     height: Dimensions.get('window').height-100,
     width: Dimensions.get('window').width-10,
-
+    alignSelf: 'center',
     // Set border width.
     borderWidth: 1,
 

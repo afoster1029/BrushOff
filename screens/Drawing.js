@@ -38,7 +38,7 @@ export default class Drawing extends React.Component {
     const players = this.props.navigation.getParam('playerInfo', 'nothing passed')
     this.state = {
       image: null,
-      strokeColor: 0xff0000,
+      strokeColor: 0x000000,
       backgroundColor: 0x000000,
       transparent: false,
       strokeWidth: 20,
@@ -62,6 +62,7 @@ export default class Drawing extends React.Component {
     title: 'BrushOff',
     headerLeft: null, // this disables the option to go back to the previous screen.
     //header: { visible:false },
+    gesturesEnabled: false,
   };
 
   handleAppStateChangeAsync = nextAppState => {
@@ -134,7 +135,7 @@ export default class Drawing extends React.Component {
 
   closeInterPlayer() {
     this.clearScreen()
-    this.setState({interPlayerVisible: false})
+    this.setState({interPlayerVisible: false, strokeColor: 0x000000, strokeWidth:20})
   }
 
   handleColorWheelChange(newColor) {
@@ -176,10 +177,12 @@ export default class Drawing extends React.Component {
     return (
       <View style={styles.container}>
 
-        <Text> </Text>
-        <Text> </Text>
-        <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-        {this.state.playerInfo[this.state.playerNum]['name']} Draw a {this.state.word} </Text>
+        <View style= {styles.upperText}>
+          <View style={{marginTop:25}}>
+            <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
+            {this.state.playerInfo[this.state.playerNum]['name']}, {this.state.word} </Text>
+          </View>
+        </View>
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch
@@ -214,12 +217,18 @@ export default class Drawing extends React.Component {
               isVisible= {this.state.interPlayerVisible}
               backdropOpacity={.50}>
                 <View style= {styles.interPlayerPopUp}>
-                  <Text style = {{fontSize: 24, fontWeight: 'bold'}}> That was a spectacular drawing! </Text>
-                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
-                  <Button
-                    title="Next Player"
-                    onPress={() => this.closeInterPlayer()}
-                  />
+
+                  <Text style = {{fontSize: 24, fontWeight: 'bold', color: 'grey',}}> That was a  </Text>
+                  <Text style = {{fontSize: 24, fontWeight: 'bold', color: 'grey'}}> spectacular drawing! </Text>
+
+                  <Text style = {{fontSize: 18, fontWeight: 'bold', color: 'grey'}}> Next Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
+                  <View style= {{marginTop: 200, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
+                    <Button
+                      title="Next Player"
+                      color= "grey"
+                      onPress={() => this.closeInterPlayer()}
+                    />
+                  </View>
                 </View>
             </Modal>
           </View>
@@ -303,7 +312,7 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom:1}}>
+          <View style={styles.iconBar}>
             <TouchableOpacity onPress={() => {
                 this.launchColorModal(true);
               }}>
@@ -331,20 +340,20 @@ export default class Drawing extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                this.saveImage();
-              }}>
-              <Image
-                style={styles.colorButton}
-                source={require('./img/submiticon.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
                 this.clearAlert();
               }}>
               <Image
                 style={styles.colorButton}
                 source={require('./img/trashicon.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                this.saveImage();
+              }}>
+              <Image
+                style={styles.colorButton}
+                source={require('./img/submiticon.png')} //Credit:Dave Gandy on FLATICON: https://www.flaticon.com/free-icon/undo-arrow_25249
               />
             </TouchableOpacity>
           </View>
@@ -404,7 +413,10 @@ const styles = StyleSheet.create({
     width: width - 50,
     height: height - 200,
     backgroundColor: '#D9C4DA',
-    borderRadius:10
+    borderRadius:10,
+    flexDirection: 'column',
+    alignItems: 'center',
+
   },
   colorModal: {
     flexDirection: 'row',
@@ -414,5 +426,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 565,
     right: 210,
-  }
+  },
+  upperText: {
+    borderBottomColor: 'grey',
+    borderWidth: 2,
+    borderColor: 'transparent',
+    backgroundColor: '#D9C4DA',
+  },
+  iconBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginBottom:2,
+    borderTopColor: 'grey',
+    borderColor: 'transparent',
+    borderWidth: 2,
+  },
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, StyleSheet, ImageBackground, Alert } from 'react-native';
+import { Button, View, Text, StyleSheet, ImageBackground, Dimensions , TouchableOpacity, Image, Alert} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 
@@ -26,7 +26,8 @@ export default class CategoriesScreen extends React.Component {
 }
 
   static navigationOptions = {
-    title: 'Categories'
+    title: 'Categories',
+    gesturesEnabled: false,
   };
 
   getValue() {
@@ -61,49 +62,43 @@ export default class CategoriesScreen extends React.Component {
         style={{flex: 1}}
       >
         <View style = {styles.container}>
-          <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
-            <View style={{width: 80, height: 45}} >
-              <Button
-                title="Sports"
-                color="black"
-                onPress={() => {
-                  {this.navigateToDrawing(sportsWordList)}
-                }}
-
-              />
+          <View style = {styles.buttonBackground}>
+            <View style={styles.fillerButton} >
+              <TouchableOpacity
+                onPress={() => {this.navigateToDrawing(sportsWordList)}}>
+                <Image
+                  style={styles.buttonImage}
+                  source={require('./img/sportsbutton.png')}
+                />
+              </TouchableOpacity>
             </View>
-
-            <View style={{width: 50, height: 50}} >
-              <Button
-                title="Art"
-                color="black"
-                onPress={() => {
-                  {this.navigateToDrawing(artsWordList)}
-                }}
-
-              />
+            <View style={styles.fillerButton} >
+              <TouchableOpacity
+                onPress={() => {this.navigateToDrawing(artsWordList)}}>
+                <Image
+                  style={styles.buttonImage}
+                  source={require('./img/artbutton.png')}
+                />
+              </TouchableOpacity>
             </View>
-
-            <View style={{width: 98, height: 50}} >
-              <Button
-                title="Animals"
-                color="black"
-                onPress={() => {
-                  {this.navigateToDrawing(animalWordList)}
-                }}
-              />
+            <View style={styles.fillerButton} >
+              <TouchableOpacity
+                onPress={() => {this.navigateToDrawing(animalWordList)}}>
+                <Image
+                  style={styles.buttonImage}
+                  source={require('./img/animalsbutton.png')}
+                />
+              </TouchableOpacity>
             </View>
-
-            <View style={{width: 98, height: 50}} >
-              <Button
-                title="Random"
-                color="black"
-                onPress={() => {
-                  {this.navigateToDrawing(randomWordList)}
-                }}
-              />
+            <View style={styles.fillerButton} >
+              <TouchableOpacity
+                onPress={() => {this.navigateToDrawing(randomWordList)}}>
+                <Image
+                  style={styles.buttonImage}
+                  source={require('./img/randombutton.png')}
+                />
+              </TouchableOpacity>
             </View>
-
           </View>
         </View>
       </ImageBackground>
@@ -111,12 +106,36 @@ export default class CategoriesScreen extends React.Component {
   }
 }
 
+const windowHeight = Dimensions.get('window').height;
+const windowWidth =  Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    width: windowWidth - 110,
+    height: windowHeight - 200,
+    borderRadius: 10,
+    marginBottom: 150,
+    marginTop: 150,
+    borderColor: 'grey',
+    borderWidth: 2,
+    opacity: .85,
+  },
+  buttonBackground: {
+    flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonImage: {
+    resizeMode: 'contain',
+    flex: 1,
+    width: 170,
+    height: 40,
+  },
+  fillerButton: {
+    flex:1,
   },
 });

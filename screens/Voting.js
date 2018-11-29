@@ -27,6 +27,7 @@ export default class Voting extends React.Component {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
+    gesturesEnabled:false,
   };
 
   navigateToWinner(image, playerName) {
@@ -38,6 +39,7 @@ export default class Voting extends React.Component {
     const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
     console.log('in voting.js! '+ playerInfo);
 
+
     return (
       <Swiper
         loop={false}
@@ -45,21 +47,26 @@ export default class Voting extends React.Component {
         index={0}>
 
         {playerInfo.map((player, idx)=> (
-            <View key = {idx}>
-              <Image
-                style={styles.BorderClass}
-                source={{uri: playerInfo[idx]['img']}}
-              />
+          <View key = {idx}>
+            <Image
+              style={styles.BorderClass}
+              source={{uri: playerInfo[idx]['img']}}
+            />
+            <View style={{borderRadius:10, borderColor: 'grey', borderWidth: 2,marginTop: 2,marginHorizontal:20}}>
               <Button
                 style = {styles.button}
                 title="Vote for this drawing"
-                color="blue"
+                color="grey"
                 onPress={() => {
                   {this.navigateToWinner(playerInfo[idx]['img'], playerInfo[idx]['name'])}
                 }}
               />
             </View>
-          ))}
+          </View>
+
+        ))}
+
+
       </Swiper>
     )
   }
@@ -69,7 +76,7 @@ const styles = StyleSheet.create({
   BorderClass:{
     height: Dimensions.get('window').height-100,
     width: Dimensions.get('window').width-10,
-
+    alignSelf: 'center',
     // Set border width.
     borderWidth: 1,
 

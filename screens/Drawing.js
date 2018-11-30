@@ -46,7 +46,7 @@ export default class Drawing extends React.Component {
       appState: AppState.currentState,
       makeDir: true,
       numPlayers: players.length,
-      playerNum: 1,
+      playerNum: 1, // tracks which player is to be selected to starting drawing first. Set to 1 so that it skips first player (judge)
       round: 1,
       completedImages: imageList,
       word: wordList[Math.floor(Math.random() * wordList.length)],

@@ -166,7 +166,6 @@ export default class Drawing extends React.Component {
   }
 
   onReady = () => {
-
     console.log('ready! ');
     console.log('word of the day is', this.state.word);
     console.log('drawing screen! '+this.state.playerInfo)

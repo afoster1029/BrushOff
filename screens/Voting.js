@@ -50,7 +50,7 @@ export default class Voting extends React.Component {
           <View key = {idx}>
             <Image
               style={styles.BorderClass}
-              source={{uri: playerInfo[idx]['img']}}
+              source={{uri: player[idx]['img']}}
             />
             <View style={{borderRadius:10, borderColor: 'grey', borderWidth: 2,marginTop: 2,marginHorizontal:20}}>
               <Button
@@ -58,7 +58,7 @@ export default class Voting extends React.Component {
                 title="Vote for this drawing"
                 color="grey"
                 onPress={() => {
-                  {this.navigateToWinner(playerInfo[idx]['img'], playerInfo[idx]['name'])}
+                  {this.navigateToWinner(player[idx]['img'], player[idx]['name'])}
                 }}
               />
             </View>

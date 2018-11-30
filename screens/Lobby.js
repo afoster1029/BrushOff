@@ -122,10 +122,6 @@ export default class LobbyScreen extends React.Component {
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}
-
-
-
-
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
                 <View style = {{flexDirection: 'row'}}>
                   <View style= {styles.changePlayerButton}>

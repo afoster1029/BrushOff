@@ -30,8 +30,8 @@ export default class Voting extends React.Component {
     gesturesEnabled:false,
   };
 
-  navigateToWinner(image, playerName) {
-    this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName})
+  navigateToWinner(image, playerName, playerInfo) {
+    this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName, playerInfo: playerInfo})
   }
 
   render() {
@@ -39,18 +39,17 @@ export default class Voting extends React.Component {
     const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
     console.log('in voting.js! '+ playerInfo);
 
-
     return (
       <Swiper
         loop={false}
         showsPagination={true}
         index={0}>
 
-        {playerInfo.map((player, idx)=> (
+        {playerInfo.filter((player) => !player.isJudge).map((player, idx)=> (
           <View key = {idx}>
             <Image
               style={styles.BorderClass}
-              source={{uri: player[idx]['img']}}
+              source={{uri: player.img}}
             />
             <View style={{borderRadius:10, borderColor: 'grey', borderWidth: 2,marginTop: 2,marginHorizontal:20}}>
               <Button
@@ -58,11 +57,12 @@ export default class Voting extends React.Component {
                 title="Vote for this drawing"
                 color="grey"
                 onPress={() => {
-                  {this.navigateToWinner(player[idx]['img'], player[idx]['name'])}
+                  {this.navigateToWinner(player.img, player.name, playerInfo)}
                 }}
               />
             </View>
           </View>
+         // */}
 
         ))}
 

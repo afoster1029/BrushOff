@@ -14,7 +14,7 @@ export default class Voting extends React.Component {
       height: 200,
       width: 200,
       window_height: Dimensions.get('window').height,
-      window_width: Dimensions.get('window').width
+      window_width: Dimensions.get('window').width,
     }
   }
 
@@ -38,6 +38,7 @@ export default class Voting extends React.Component {
 
     const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
     console.log('in voting.js! '+ playerInfo);
+
 
     return (
       <Swiper

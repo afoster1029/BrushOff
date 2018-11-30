@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, View, Text, StyleSheet, ImageBackground, Dimensions , TouchableOpacity, Image} from 'react-native';
+import { Button, View, Text, StyleSheet, ImageBackground, Dimensions , TouchableOpacity, Image, Alert} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 
@@ -35,9 +35,24 @@ export default class CategoriesScreen extends React.Component {
   }
 
   navigateToDrawing(categoryList) {
-    this.props.navigation.navigate('Drawing', {list: categoryList, playerInfo: this.state.playerInfo});
+    this.state.playerInfo[0]['isJudge'] = true;
+    this.judgeAlert(categoryList);
+
+
   }
 
+  judgeAlert(categoryList) {
+    Alert.alert(
+      this.state.playerInfo[0]['name'] + ' is the current judge',
+      '',
+      [
+        {text: 'Start!', onPress: () => this.props.navigation.navigate('Drawing',
+        {list: categoryList, playerInfo: this.state.playerInfo})},
+      ],
+      { cancelable: false }
+    )
+
+  }
   render() {
     const { navigate } = this.props.navigation;
     return (

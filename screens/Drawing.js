@@ -45,6 +45,7 @@ export default class Drawing extends React.Component {
       makeDir: true,
       numPlayers: players.length,
       playerNum: 1,
+      round: 1,
       completedImages: imageList,
       word: wordList[Math.floor(Math.random() * wordList.length)],
       playerInfo: players,
@@ -54,6 +55,7 @@ export default class Drawing extends React.Component {
       strokeSliderVisible: false,
       preGameModalVisible: true,
     }
+    this.handleJudge();
   }
   static navigationOptions = {
     title: 'BrushOff',
@@ -72,6 +74,11 @@ export default class Drawing extends React.Component {
     this.setState({ appState: nextAppState });
   };
 
+  handleJudge() {
+    if(this.state.playerInfo[this.state.playerNum]['isJudge']) {
+      this.state.playerNum++;
+    }
+  }
   clearAlert() {
     Alert.alert(
       'Are you sure you want to clear?',
@@ -148,17 +155,17 @@ export default class Drawing extends React.Component {
       result: 'file',
       format: 'png'
     });
-    console.log('DEBUGG - '+this.state.playerNum, this.state.numPlayers)
-    this.state.playerInfo[this.state.playerNum - 1]['img'] = uri;
-    if(this.state.playerNum < this.state.numPlayers) {
+    console.log('DEBUGG - '+ this.state.playerNum, this.state.numPlayers)
+    this.state.playerInfo[this.state.playerNum]['img'] = uri;
+    if(this.state.playerNum < this.state.numPlayers - 1) {
       this.state.playerNum += 1;
+      this.handleJudge();
       this.launchInterPlayer();
     } else {
       this.clearScreen();
-      this.state.playerNum = 1;
+      this.state.playerNum = 0;
       this.props.navigation.navigate('Voting', {playerInfo: this.state.playerInfo});
     }
-
   }
 
   onReady = () => {
@@ -218,8 +225,13 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> That was a  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> spectacular drawing! </Text>
 
+<<<<<<< HEAD
                   <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
                   <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
+=======
+                  <Text style = {{fontSize: 18, fontWeight: 'bold', color: 'grey'}}> Next Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
+                  <View style= {{marginTop: 200, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
+>>>>>>> 34c5e410f01cff6508161440ca18ca259a7f1711
                     <Button
                       title="Next Player"
                       color= "grey"
@@ -404,8 +416,8 @@ const styles = StyleSheet.create({
     minHeight: 48,
   },
   colorButton: {
-    height: 30,
-    width: 30,
+    height: 35,
+    width: 35,
   },
   colorWheel: {
     height:300,

@@ -44,7 +44,7 @@ export default class Drawing extends React.Component {
       appState: AppState.currentState,
       makeDir: true,
       numPlayers: players.length,
-      playerNum: 1, // tracks which player is to be selected to starting drawing first. Set to 1 so that it skips first player (judge)
+      playerNum: 0, // tracks which player is to be selected to starting drawing first. Set to 1 so that it skips first player (judge)
       round: 1,
       completedImages: imageList,
       word: wordList[Math.floor(Math.random() * wordList.length)],
@@ -57,6 +57,7 @@ export default class Drawing extends React.Component {
     }
     this.handleJudge();
   }
+
   static navigationOptions = {
     title: 'BrushOff',
     headerLeft: null, // this disables the option to go back to the previous screen.
@@ -75,10 +76,20 @@ export default class Drawing extends React.Component {
   };
 
   handleJudge() {
-    if(this.state.playerInfo[this.state.playerNum]['isJudge']) {
-      this.state.playerNum++;
+    const playerInfo = this.state.playerInfo;
+    for(var i = 0; i < playerInfo.length; i++) {
+      if(playerInfo[i].isJudge) {
+        if(i == this.state.playerNum) {
+          if(i < this.state.playerInfo.length - 1) {
+            this.state.playerNum++;
+          } else {
+            this.state.playerNum = 0;
+          }
+        }
+      }
     }
   }
+
   clearAlert() {
     Alert.alert(
       'Are you sure you want to clear?',
@@ -157,7 +168,8 @@ export default class Drawing extends React.Component {
     });
     console.log('DEBUGG - '+ this.state.playerNum, this.state.numPlayers)
     this.state.playerInfo[this.state.playerNum]['img'] = uri;
-    if(this.state.playerNum < this.state.numPlayers - 1) {
+    if(this.state.playerNum < this.state.numPlayers - 1 &&
+        !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {
       this.state.playerNum += 1;
       this.handleJudge();
       this.launchInterPlayer();
@@ -302,7 +314,7 @@ export default class Drawing extends React.Component {
                     }}>
                     <Image
                       style={styles.colorButton}
-                      source={require('./img/color_palette.png')} //<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+                      source={require('./img/color_palette.png')}
                     />
                   </TouchableOpacity>
                 </View>

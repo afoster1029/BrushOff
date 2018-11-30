@@ -225,13 +225,8 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> That was a  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> spectacular drawing! </Text>
 
-<<<<<<< HEAD
-                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
-                  <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
-=======
                   <Text style = {{fontSize: 18, fontWeight: 'bold', color: 'grey'}}> Next Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
-                  <View style= {{marginTop: 200, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
->>>>>>> 34c5e410f01cff6508161440ca18ca259a7f1711
+                  <View style= {{marginTop: 15, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                     <Button
                       title="Next Player"
                       color= "grey"

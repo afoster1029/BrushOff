@@ -105,13 +105,13 @@ export default class LobbyScreen extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('./img/paint_splatters.jpg')}
+        source={require('./img/player-names-back.jpg')}
         imageStyle={{resizeMode: 'stretch'}}
         style={{flex: 1}}
       >
         <View style = {styles.container}>
           <View style={{padding: 60}}>
-            <Text style= {{fontSize:20, fontWeight:'bold',textAlign:'center', fontFamily: 'Avenir'}}> Enter Player Names</Text>
+            <View style={{marginTop:60}}>
             {this.state.playerInfo.map((playerName, idx)=> (
               <TextInput
                 key = {idx}
@@ -122,6 +122,7 @@ export default class LobbyScreen extends React.Component {
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}
+            </View>
 
 
 

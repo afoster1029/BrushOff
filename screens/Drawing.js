@@ -17,9 +17,7 @@ const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
 var imageList = ['','','','']
 var colorsys = require('colorsys')
-// const wordList = ['cat', 'dog', 'rifle', 'butter', 'vase', 'tail', 'monkey', 'stream', 'shoe', 'deer', 'library', 'thumb', 'baby', 'yard', 'jeans', 'rice', 'tiger',
-// 'snail', 'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'bee', 'basketball', 'wool', 'milk', 'dress', 'horse', 'cow', 'friction', 'cake',
-// 'soup', 'fog', 'toothpaste', 'jellyfish', 'money', 'zebra', 'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'chickens', 'cheese']
+
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -54,6 +52,7 @@ export default class Drawing extends React.Component {
       interPlayerVisible: false,
       colorModalVisible: false,
       strokeSliderVisible: false,
+      preGameModalVisible: true,
     }
   }
   static navigationOptions = {
@@ -131,6 +130,10 @@ export default class Drawing extends React.Component {
     this.setState({interPlayerVisible: false, strokeColor: 0x000000, strokeWidth:20})
   }
 
+  closePreGame() {
+    this.setState({preGameModalVisible: false})
+  }
+
   handleColorWheelChange(newColor) {
     newColorString = String(colorsys.hsvToHex(newColor));
     newColorHexForm = "0x" +newColorString.substring(1,7);
@@ -173,7 +176,8 @@ export default class Drawing extends React.Component {
         <View style= {styles.upperText}>
           <View style={{marginTop:25}}>
             <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-            {this.state.playerInfo[this.state.playerNum - 1]['name']}, {this.state.word} </Text>
+           {this.state.word} </Text>
+           <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
           </View>
         </View>
           <View style={styles.container}>
@@ -211,15 +215,35 @@ export default class Drawing extends React.Component {
               backdropOpacity={.50}>
                 <View style= {styles.interPlayerPopUp}>
 
-                  <Text style = {{fontSize: 24, fontWeight: 'bold', color: 'grey',}}> That was a  </Text>
-                  <Text style = {{fontSize: 24, fontWeight: 'bold', color: 'grey'}}> spectacular drawing! </Text>
+                  <Text style = {{fontSize: 24, fontWeight: 'bold',}}> That was a  </Text>
+                  <Text style = {{fontSize: 24, fontWeight: 'bold'}}> spectacular drawing! </Text>
 
-                  <Text style = {{fontSize: 18, fontWeight: 'bold', color: 'grey'}}> Next Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
-                  <View style= {{marginTop: 200, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
+                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> Next Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
+                  <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                     <Button
                       title="Next Player"
                       color= "grey"
                       onPress={() => this.closeInterPlayer()}
+                    />
+                  </View>
+                </View>
+            </Modal>
+          </View>
+          <View>
+            <Modal
+              isVisible= {this.state.preGameModalVisible}
+              backdropOpacity={.50}>
+                <View style= {styles.interPlayerPopUp}>
+
+                  <Text style = {{fontSize: 24, fontWeight: 'bold',}}> Let the  </Text>
+                  <Text style = {{fontSize: 24, fontWeight: 'bold'}}> games begin! </Text>
+
+                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> First Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
+                  <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
+                    <Button
+                      title="Begin"
+                      color= "grey"
+                      onPress={() => this.closePreGame()}
                     />
                   </View>
                 </View>
@@ -238,10 +262,7 @@ export default class Drawing extends React.Component {
                         strokeColor: 0x0000ff,
                       })}
                     }}>
-                    <Image
-                      style={styles.colorButton}
-                      source={require('./img/bluebutton.png')}
-                    />
+                    <View style= {[styles.colorButtonView, {backgroundColor: '#0000FF'}]}> </View>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
@@ -249,10 +270,7 @@ export default class Drawing extends React.Component {
                         strokeColor: 0xff0000,
                       })}
                     }}>
-                    <Image
-                      style={styles.colorButton}
-                      source={require('./img/redbutton.png')}
-                    />
+                    <View style= {[styles.colorButtonView, {backgroundColor: '#FF0000'}]}> </View>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
@@ -260,10 +278,7 @@ export default class Drawing extends React.Component {
                         strokeColor: 0x00ff00,
                       })}
                     }}>
-                    <Image
-                      style={styles.colorButton}
-                      source={require('./img/greenbutton.png')}
-                    />
+                    <View style= {[styles.colorButtonView, {backgroundColor: '#00FF00'}]}> </View>
                   </TouchableOpacity>
                   <TouchableOpacity
                     onPress={() => {
@@ -271,11 +286,9 @@ export default class Drawing extends React.Component {
                         strokeColor: 0x000000,
                       })}
                     }}>
-                    <Image
-                      style={styles.colorButton}
-                      source={require('./img/blackbutton.png')}
-                    />
+                    <View style= {[styles.colorButtonView, {backgroundColor: '#000000'}]}> </View>
                   </TouchableOpacity>
+
                   <TouchableOpacity
                     onPress={() => {
                       this.launchColorWheel(true);
@@ -404,7 +417,7 @@ const styles = StyleSheet.create({
   },
   interPlayerPopUp: {
     width: width - 50,
-    height: height - 200,
+    height: height - 500,
     backgroundColor: '#D9C4DA',
     borderRadius:10,
     flexDirection: 'column',
@@ -418,13 +431,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     position: 'absolute',
     top: 565,
-    right: 210,
+    right: 195,
   },
   upperText: {
     borderBottomColor: 'grey',
     borderWidth: 2,
     borderColor: 'transparent',
     backgroundColor: '#D9C4DA',
+    padding:2,
   },
   iconBar: {
     flexDirection: 'row',
@@ -433,5 +447,13 @@ const styles = StyleSheet.create({
     borderTopColor: 'grey',
     borderColor: 'transparent',
     borderWidth: 2,
+    padding:2,
   },
+  colorButtonView: {
+    width:30,
+    height:30,
+    borderRadius: 4,
+
+
+  }
 });

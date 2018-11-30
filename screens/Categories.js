@@ -5,15 +5,15 @@ import { createStackNavigator } from 'react-navigation';
 
 //import Drawing from '/Users/johnpellegrini/BrushOff/screens/Drawing.js';
 
-const randomWordList = [ 'rifle', 'butter', 'vase', 'tail',  'stream', 'shoe',  'library', 'thumb', 'baby', 'yard', 'jeans', 'rice',
-'quilt', 'crown', 'son', 'tax', 'swing', 'needle', 'grapes', 'doctor', 'grass', 'van', 'basketball', 'wool', 'milk', 'dress', 'friction', 'cake',
-'soup', 'fog', 'toothpaste',  'money',  'corn', 'hammer', 'grandmother', 'fangs', 'vacation', 'cheese']
+const randomWordList = [ 'Rifle', 'Butter', 'Vase', 'Tail',  'Stream', 'Shoe',  'Library', 'Thumb', 'Baby', 'Yard', 'Jeans', 'Rice',
+'Quilt', 'Crown', 'Son', 'Tax', 'Swing', 'Needle', 'Grapes', 'Doctor', 'Grass', 'Van', 'Basketball', 'Wool', 'Milk', 'Dress', 'Friction', 'Cake',
+'Soup', 'Fog', 'Toothpaste',  'Money',  'Corn', 'Hammer', 'Grandmother', 'Fangs', 'Vacation', 'Cheese']
 
-const sportsWordList = ['basketball', 'baseball', 'touchdown', 'goal', 'homerun']
+const sportsWordList = ['Basketball', 'Baseball', 'Touchdown', 'Goal', 'Homerun']
 
 const artsWordList = ['Monet', 'Impressionism', 'Starry Night', 'Salvador Dali', ]
 
-const animalWordList = ['cow', 'dog', 'chicken', 'starfish', 'octopus', 'whale','jellyfish','bee', 'horse']
+const animalWordList = ['Cow', 'Dog', 'Chicken', 'Starfish', 'Octopus', 'Whale','Jellyfish','Bee', 'Horse']
 
 export default class CategoriesScreen extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ export default class CategoriesScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <ImageBackground
-        source={require('./img/paint_splatters.jpg')}
+        source={require('./img/categories-back.jpg')}
         imageStyle={{resizeMode: 'stretch'}}
         style={{flex: 1}}
       >

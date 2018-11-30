@@ -15,29 +15,41 @@ export default class Voting extends React.Component {
     const winnerUri = this.props.navigation.getParam('winningImage', 'no image');
     const winner = this.props.navigation.getParam('winnerName', 'nothing passed')
     return (
+
       <View style = {styles.container}>
-        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Congrats {winner['name']}</Text>
-        <Image
-          style={{width: 200, height: 200}}
-          source={{uri: winnerUri}}
-        />
-        <Button
-          title="Next Round"
-          onPress={() => {
-            /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Categories', {
-            });
-          }}
-        />
-        <Button
-          title="Quit"
-          onPress={() => {
-            /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Home', {
-            });
-          }}
-        />
+        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner['name']}</Text>
+        <View style={{borderWidth:2, borderColor:'black', alignSelf: 'center'}}>
+          <Image
+            style={{width: 220, height: 280}}
+            source={{uri: winnerUri}}
+          />
+        </View>
+        <View style= {{flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
+          <View style={styles.button}>
+            <Button
+              title="Next Round"
+              color='grey'
+              onPress={() => {
+                /* 1. Navigate to the Details route with params */
+                this.props.navigation.navigate('Categories', {
+                });
+              }}
+            />
+          </View>
+          <View style={styles.button}>
+            <Button
+              title="Quit"
+              color='grey'
+              onPress={() => {
+                /* 1. Navigate to the Details route with params */
+                this.props.navigation.navigate('Home', {
+                });
+              }}
+            />
+          </View>
       </View>
+      </View>
+
     )
   }
 }
@@ -45,10 +57,14 @@ export default class Voting extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  button: {
+    borderRadius:10,
+    borderColor: 'grey',
+    borderWidth: 2,
+    backgroundColor: 'white',
+    width: 120,
+  }
 });

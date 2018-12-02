@@ -62,7 +62,6 @@ export default class Voting extends React.Component {
               />
             </View>
           </View>
-         // */}
 
         ))}
 

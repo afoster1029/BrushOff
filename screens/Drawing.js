@@ -55,7 +55,7 @@ export default class Drawing extends React.Component {
       colorModalVisible: false,
       strokeSliderVisible: false,
       preGameModalVisible: true,
-      timer: 60,
+      timer: 10,
     }
     this.handleJudge();
   }
@@ -113,7 +113,7 @@ export default class Drawing extends React.Component {
 
   resetTimer() {
     TimerMixin.clearInterval(this.interval)
-    this.state.timer = 60;
+    this.state.timer = 10;
   }
 
   componentDidMount() {

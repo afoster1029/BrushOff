@@ -39,6 +39,7 @@ export default class LobbyScreen extends React.Component {
     const namesEntered = this.checkIfPlayerNamesEntered();
 
     if (namesEntered) {
+      this.state.playerInfo[0].isJudge = true;
       this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
       LobbyScreen.names = this.state.playerInfo;
     }else{
@@ -123,10 +124,6 @@ export default class LobbyScreen extends React.Component {
               />
             ))}
             </View>
-
-
-
-
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
                 <View style = {{flexDirection: 'row'}}>
                   <View style= {styles.changePlayerButton}>

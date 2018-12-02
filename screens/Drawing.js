@@ -9,6 +9,7 @@ import { createStackNavigator, NavigationActions } from 'react-navigation';
 import TimerCountdown from 'react-native-timer-countdown';
 import { ColorWheel } from 'react-native-color-wheel';
 import Modal from "react-native-modal";
+import TimerMixin from 'react-timer-mixin';
 <script src="https://unpkg.com/colorsys@1.0.11/colorsys.js"></script>
 import * as everything from './Lobby.js'
 
@@ -54,6 +55,7 @@ export default class Drawing extends React.Component {
       colorModalVisible: false,
       strokeSliderVisible: false,
       preGameModalVisible: true,
+      timer: 60,
     }
     this.handleJudge();
   }
@@ -102,12 +104,34 @@ export default class Drawing extends React.Component {
     )
   }
 
+  startTimer() {
+    this.interval = TimerMixin.setInterval(
+      () => this.setState((prevState)=> ({ timer: prevState.timer - 1 })),
+      1000
+    );
+  }
+
+  resetTimer() {
+    TimerMixin.clearInterval(this.interval)
+    this.state.timer = 60;
+  }
+
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
+    //console.log(this.state.timerOn);
+
+  }
+
+  componentDidUpdate(){
+    if(this.state.timer === 0 ){
+      this.resetTimer();
+      this.saveImage();
+    }
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
+    TimerMixin.clearInterval(this.interval)
   }
 
   onChangeAsync = async () => {
@@ -145,11 +169,14 @@ export default class Drawing extends React.Component {
 
   closeInterPlayer() {
     this.clearScreen()
-    this.setState({interPlayerVisible: false, strokeColor: 0x000000, strokeWidth:20})
+    this.startTimer()
+    this.setState({interPlayerVisible: false, timerOn: true, strokeColor: 0x000000, strokeWidth:20})
   }
 
   closePreGame() {
-    this.setState({preGameModalVisible: false})
+    this.startTimer()
+    this.setState({preGameModalVisible: false, timerOn: true})
+
   }
 
   handleColorWheelChange(newColor) {
@@ -166,7 +193,6 @@ export default class Drawing extends React.Component {
       result: 'file',
       format: 'png'
     });
-    console.log('DEBUGG - '+ this.state.playerNum, this.state.numPlayers)
     this.state.playerInfo[this.state.playerNum]['img'] = uri;
     if(this.state.playerNum < this.state.numPlayers - 1 &&
         !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {
@@ -193,9 +219,9 @@ export default class Drawing extends React.Component {
 
         <View style= {styles.upperText}>
           <View style={{marginTop:25}}>
-            <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-           {this.state.word} </Text>
-           <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
+            <Text style= {{fontSize: 14, fontWeight: 'bold', textAlign: 'right'}}> {this.state.timer} </Text>
+            <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
+            <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>
         </View>
           <View style={styles.container}>
@@ -374,6 +400,7 @@ export default class Drawing extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                this.resetTimer();
                 this.saveImage();
               }}>
               <Image

@@ -36,23 +36,11 @@ export default class CategoriesScreen extends React.Component {
 
   navigateToDrawing(categoryList) {
     this.state.playerInfo[0]['isJudge'] = true;
-    this.judgeAlert(categoryList);
-
-
-  }
-
-  judgeAlert(categoryList) {
-    Alert.alert(
-      this.state.playerInfo[0]['name'] + ' is the current judge',
-      '',
-      [
-        {text: 'Start!', onPress: () => this.props.navigation.navigate('Drawing',
-        {list: categoryList, playerInfo: this.state.playerInfo})},
-      ],
-      { cancelable: false }
-    )
+    this.props.navigation.navigate('Drawing',{list: categoryList, playerInfo: this.state.playerInfo});
 
   }
+
+
   render() {
     const { navigate } = this.props.navigation;
     return (

@@ -17,6 +17,8 @@ const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
 var imageList = ['','','','']
 var colorsys = require('colorsys')
+const colorButtonList= ['#FFFFFF', '#C0C0C0', '#808080', '#000000', '#FF0000', '#800000', '#FFFF00', '#808000',
+'#00FF00', '#008000','#00FFFF', '#008080', '#0000FF', '#000080','#FF00FF', '#800080']
 
 
 function uuidv4() {
@@ -36,7 +38,7 @@ export default class Drawing extends React.Component {
     const players = this.props.navigation.getParam('playerInfo', 'nothing passed')
     this.state = {
       image: null,
-      strokeColor: 0x000000,
+      strokeColor: 0x00000003,
       backgroundColor: 0x000000,
       transparent: false,
       strokeWidth: 20,
@@ -141,6 +143,8 @@ export default class Drawing extends React.Component {
     this.setState({preGameModalVisible: false})
   }
 
+
+
   handleColorWheelChange(newColor) {
     newColorString = String(colorsys.hsvToHex(newColor));
     newColorHexForm = "0x" +newColorString.substring(1,7);
@@ -184,7 +188,7 @@ export default class Drawing extends React.Component {
           <View style={{marginTop:25}}>
             <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
            {this.state.word} </Text>
-           <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
+           <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>
         </View>
           <View style={styles.container}>
@@ -225,7 +229,7 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> That was a  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> spectacular drawing! </Text>
 
-                  <Text style = {{fontSize: 18, fontWeight: 'bold', color: 'grey'}}> Next Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
+                  <Text style = {{fontSize: 18}}> Next Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
                   <View style= {{marginTop: 15, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                     <Button
                       title="Next Player"
@@ -245,7 +249,8 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> Let the  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> games begin! </Text>
 
-                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> First Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
+                  <Text style = {{fontSize: 18}}> {this.state.playerInfo[0]['name']} is the judge of this round</Text>
+                  <Text style = {{fontSize: 18}}> First Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
                   <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                     <Button
                       title="Begin"
@@ -263,39 +268,13 @@ export default class Drawing extends React.Component {
               onBackdropPress={() => this.launchColorModal(false)}
               >
                 <View style= {styles.colorModal}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      {this.setState({
-                        strokeColor: 0x0000ff,
-                      })}
-                    }}>
-                    <View style= {[styles.colorButtonView, {backgroundColor: '#0000FF'}]}> </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      {this.setState({
-                        strokeColor: 0xff0000,
-                      })}
-                    }}>
-                    <View style= {[styles.colorButtonView, {backgroundColor: '#FF0000'}]}> </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      {this.setState({
-                        strokeColor: 0x00ff00,
-                      })}
-                    }}>
-                    <View style= {[styles.colorButtonView, {backgroundColor: '#00FF00'}]}> </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      {this.setState({
-                        strokeColor: 0x000000,
-                      })}
-                    }}>
-                    <View style= {[styles.colorButtonView, {backgroundColor: '#000000'}]}> </View>
-                  </TouchableOpacity>
-
+                {colorButtonList.map((rgb, idx)=> (
+                  <View
+                    key = {idx}
+                    style={styles.colorButtonView}
+                  >
+                  </View>
+                ))}
                   <TouchableOpacity
                     onPress={() => {
                       this.launchColorWheel(true);

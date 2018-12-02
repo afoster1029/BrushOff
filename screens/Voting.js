@@ -39,8 +39,8 @@ export default class Voting extends React.Component {
     const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
     console.log('in voting.js! '+ playerInfo);
 
-console.log(playerInfo.map((player) => player.isJudge))
-console.log(playerInfo.filter((player) => !player.isJudge))
+// console.log(playerInfo.map((player) => player.isJudge))
+// console.log(playerInfo.filter((player) => !player.isJudge))
 
     return (
       <Swiper

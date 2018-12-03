@@ -189,10 +189,17 @@ export default class Drawing extends React.Component {
   }
 
   saveImage = async () => {
-    const { uri } = await this.sketch.takeSnapshotAsync({
-      result: 'file',
-      format: 'png'
-    });
+    try {
+      const { uri } = await this.sketch.takeSnapshotAsync({
+        result: 'file',
+        format: 'png'
+      });
+    } catch(err) {
+      const uri =
+      console.log('Nothing drawn')
+      console.log(err)
+    }
+
     this.state.playerInfo[this.state.playerNum]['img'] = uri;
     if(this.state.playerNum < this.state.numPlayers - 1 &&
         !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {

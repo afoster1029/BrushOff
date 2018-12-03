@@ -50,20 +50,11 @@ export default class Voting extends React.Component {
     const { navigate } = this.props.navigation;
     const winnerUri = this.props.navigation.getParam('winningImage', 'no image')
     const winner = this.props.navigation.getParam('winnerName', 'nothing passed')
-<<<<<<< HEAD
-    const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
-    console.log('in Winner.js! '+ playerInfo);
-
-    return (
-
-      <View style = {styles.container}
-        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner['name']}</Text>
-=======
     const playerInfo = this.state.playerInfo;
+
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner}</Text>
->>>>>>> ca25c3c55b5876bcb37036799344f64f49e21d60
         <View style={{borderWidth:2, borderColor:'black', alignSelf: 'center'}}>
           <View style = {styles.leaderboard}>
             {playerInfo.map((player, idx)=> (
@@ -93,8 +84,6 @@ export default class Voting extends React.Component {
               }}
             />
           </View>
-<<<<<<< HEAD
-=======
         </View>
         <Text style= {{fontSize: 24, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}> Scoreboard </Text>
         {playerInfo.map((player, idx)=> (
@@ -104,8 +93,6 @@ export default class Voting extends React.Component {
             </Text>
           </View>
         ))}
->>>>>>> ca25c3c55b5876bcb37036799344f64f49e21d60
-      </View>
 
     )
   }

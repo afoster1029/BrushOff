@@ -85,9 +85,11 @@ export default class Voting extends React.Component {
         </View>
         <Text style= {{fontSize: 24, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}> Scoreboard </Text>
         {playerInfo.map((player, idx)=> (
-          <Text style= {{fontSize: 18, fontWeight: 'bold', textAlign: 'left', alignSelf: 'center'}}>
-            {player.name}: {player.score}
-          </Text>
+          <View key = {idx}>
+            <Text style= {{fontSize: 18, fontWeight: 'bold', textAlign: 'left', alignSelf: 'center'}}>
+              {player.name}: {player.score}
+            </Text>
+          </View>
         ))}
       </View>
 

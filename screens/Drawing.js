@@ -18,6 +18,8 @@ const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
 var imageList = ['','','','']
 var colorsys = require('colorsys')
+const colorButtonList= ['#FFFFFF', '#C0C0C0', '#808080', '#000000', '#FF0000', '#800000', '#FFFF00', '#808000',
+'#00FF00', '#008000','#00FFFF', '#008080', '#0000FF', '#000080','#FF00FF', '#800080', '#D2691E']
 
 
 function uuidv4() {
@@ -55,7 +57,7 @@ export default class Drawing extends React.Component {
       colorModalVisible: false,
       strokeSliderVisible: false,
       preGameModalVisible: true,
-      timer: 10,
+      timer: 60,
     }
     this.handleJudge();
   }
@@ -113,7 +115,7 @@ export default class Drawing extends React.Component {
 
   resetTimer() {
     TimerMixin.clearInterval(this.interval)
-    this.state.timer = 10;
+    this.state.timer = 60;
   }
 
   componentDidMount() {
@@ -154,9 +156,18 @@ export default class Drawing extends React.Component {
     this.setState({colorModalVisible: bool})
   }
 
-  launchColorWheel(bool) {
+  toggleColorWheel(bool) {
     this.launchColorModal(false);
-    this.setState({wheelVisible: bool})
+    console.log(this.state.wheelVisible);
+    //this.setState({wheelVisible: bool});
+    this.state.wheelVisible = bool;
+    console.log('toggle color wheel called ' + bool + ': ' + this.state.wheelVisible);
+  }
+
+  launchColorWheel() {
+    this.launchColorModal(false);
+    this.setState({wheelVisible: true});
+    console.log('launch color wheel called')
   }
 
   launchStrokeModal(bool) {
@@ -179,6 +190,8 @@ export default class Drawing extends React.Component {
 
   }
 
+
+
   handleColorWheelChange(newColor) {
     newColorString = String(colorsys.hsvToHex(newColor));
     newColorHexForm = "0x" +newColorString.substring(1,7);
@@ -188,11 +201,27 @@ export default class Drawing extends React.Component {
     })
   }
 
+  handleColorButtonPress(newColor) {
+    newColorHexForm = "0x" +newColor.substring(1,7);
+    newColorInt = parseInt(newColorHexForm);
+    this.setState({
+      strokeColor: newColorInt,
+      colorModalVisible: false,
+    })
+  }
+
   saveImage = async () => {
-    const { uri } = await this.sketch.takeSnapshotAsync({
-      result: 'file',
-      format: 'png'
-    });
+    try {
+      const { uri } = await this.sketch.takeSnapshotAsync({
+        result: 'file',
+        format: 'png'
+      });
+    } catch(err) {
+      const uri =
+      console.log('Nothing drawn')
+      console.log(err)
+    }
+
     this.state.playerInfo[this.state.playerNum]['img'] = uri;
     if(this.state.playerNum < this.state.numPlayers - 1 &&
         !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {
@@ -243,7 +272,7 @@ export default class Drawing extends React.Component {
             <Modal
               isVisible= {this.state.wheelVisible}
               backdropOpacity={.50}
-              onBackdropPress={() => this.launchColorWheel(false)}
+              onBackdropPress={() => this.toggleColorWheel(false)}
               thumbStyle={{ height: 30, width: 30, borderRadius: 30}}
               style={styles.colorWheel}>
                   <ColorWheel
@@ -262,7 +291,7 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> That was a  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> spectacular drawing! </Text>
 
-                  <Text style = {{fontSize: 18, fontWeight: 'bold', color: 'grey'}}> Next Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
+                  <Text style = {{fontSize: 18}}> Next Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
                   <View style= {{marginTop: 15, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                     <Button
                       title="Next Player"
@@ -282,8 +311,8 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> Let the  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> games begin! </Text>
 
-                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> First Player: {this.state.playerInfo[this.state.playerNum
-                  ]['name']} </Text>
+                  <Text style = {{fontSize: 18}}> {this.state.playerInfo[0]['name']} is the judge of this round</Text>
+                  <Text style = {{fontSize: 18}}> First Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
                   <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                     <Button
                       title="Begin"
@@ -301,42 +330,19 @@ export default class Drawing extends React.Component {
               onBackdropPress={() => this.launchColorModal(false)}
               >
                 <View style= {styles.colorModal}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      {this.setState({
-                        strokeColor: 0x0000ff,
-                      })}
-                    }}>
-                    <View style= {[styles.colorButtonView, {backgroundColor: '#0000FF'}]}> </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      {this.setState({
-                        strokeColor: 0xff0000,
-                      })}
-                    }}>
-                    <View style= {[styles.colorButtonView, {backgroundColor: '#FF0000'}]}> </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      {this.setState({
-                        strokeColor: 0x00ff00,
-                      })}
-                    }}>
-                    <View style= {[styles.colorButtonView, {backgroundColor: '#00FF00'}]}> </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      {this.setState({
-                        strokeColor: 0x000000,
-                      })}
-                    }}>
-                    <View style= {[styles.colorButtonView, {backgroundColor: '#000000'}]}> </View>
-                  </TouchableOpacity>
+                  {colorButtonList.map((rgb, idx)=> (
+                    <View key = {idx}>
+                      <TouchableOpacity
+                        onPress={() => {this.handleColorButtonPress(rgb)}}>
 
+                        <View style= {[styles.colorButtonView, {backgroundColor: rgb}] }>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  ))}
                   <TouchableOpacity
                     onPress={() => {
-                      this.launchColorWheel(true);
+                      {this.toggleColorWheel(true)};
                     }}>
                     <Image
                       style={styles.colorButton}
@@ -352,7 +358,7 @@ export default class Drawing extends React.Component {
               backdropOpacity={0}
               onBackdropPress={() => this.launchStrokeModal(false)}
               >
-                <View style= {styles.colorModal}>
+                <View style= {styles.sliderModal}>
                   <Slider style = {{ width: 300 }}
                     step={1}
                     minimumValue={1}
@@ -472,12 +478,21 @@ const styles = StyleSheet.create({
   },
   colorModal: {
     flexDirection: 'row',
-    width: 160,
-    height: 35,
+    width: 214,
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    borderWidth: 2,
+    borderColor: 'grey',
+    borderRadius:5,
+    backgroundColor: 'white',
     position: 'absolute',
-    top: 565,
-    right: 195,
+    top: 380,
+  },
+  sliderModal: {
+    position: 'absolute',
+    top: 410,
+    alignSelf: 'center',
+
   },
   upperText: {
     borderBottomColor: 'grey',
@@ -496,10 +511,11 @@ const styles = StyleSheet.create({
     padding:2,
   },
   colorButtonView: {
-    width:30,
-    height:30,
+    width:35,
+    height:35,
     borderRadius: 4,
 
+    padding: 2,
 
   }
 });

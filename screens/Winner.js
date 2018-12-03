@@ -20,7 +20,7 @@ export default class Voting extends React.Component {
   };
 
 
-  //Adds +1 to score of winner, iterates to next judge in order, returns to categories screen
+  //Adds +1 to score of winner, iterates to next judge in order
   completeRound(winner) {
     var setJudge = true;
     const playerInfo = this.state.playerInfo;
@@ -66,7 +66,6 @@ export default class Voting extends React.Component {
               title="Next Round"
               color='grey'
               onPress={() => {
-                /* 1. Navigate to the Details route with params */
                 this.nextRound()
               }}
             />

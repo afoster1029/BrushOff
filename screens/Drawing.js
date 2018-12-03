@@ -56,7 +56,7 @@ export default class Drawing extends React.Component {
       interPlayerVisible: false,
       colorModalVisible: false,
       strokeSliderVisible: false,
-      preGameModalVisible: false,
+      preGameModalVisible: true,
       timer: 60,
     }
     this.handleJudge();

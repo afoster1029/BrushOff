@@ -7,9 +7,11 @@ export default class Voting extends React.Component {
   constructor(props) {
     super(props)
     const players = this.props.navigation.getParam('playerInfo', 'nothing passed')
+    const winner = this.props.navigation.getParam('winnerName', 'nothing passed')
     this.state = {
       playerInfo: players,
     }
+    this.completeRound(winner)
   }
   static navigationOptions = {
     title: 'Winner',
@@ -19,7 +21,7 @@ export default class Voting extends React.Component {
 
 
   //Adds +1 to score of winner, iterates to next judge in order, returns to categories screen
-  nextRound(winner) {
+  completeRound(winner) {
     var setJudge = true;
     const playerInfo = this.state.playerInfo;
     for(var i = 0; i < playerInfo.length; i++) {
@@ -37,7 +39,10 @@ export default class Voting extends React.Component {
       }
       console.log(playerInfo[i].name + ': ' + playerInfo[i].score);
     }
-    this.props.navigation.navigate('Categories', {playerInfo: playerInfo});
+  }
+
+  nextRound() {
+    this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
   }
 
   render() {
@@ -45,6 +50,7 @@ export default class Voting extends React.Component {
     const { navigate } = this.props.navigation;
     const winnerUri = this.props.navigation.getParam('winningImage', 'no image')
     const winner = this.props.navigation.getParam('winnerName', 'nothing passed')
+    const playerInfo = this.state.playerInfo;
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner}</Text>
@@ -61,7 +67,7 @@ export default class Voting extends React.Component {
               color='grey'
               onPress={() => {
                 /* 1. Navigate to the Details route with params */
-                this.nextRound(winner)
+                this.nextRound()
               }}
             />
           </View>
@@ -76,7 +82,15 @@ export default class Voting extends React.Component {
               }}
             />
           </View>
-      </View>
+        </View>
+        <Text style= {{fontSize: 24, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}> Scoreboard </Text>
+        {playerInfo.map((player, idx)=> (
+          <View key = {idx}>
+            <Text style= {{fontSize: 18, fontWeight: 'bold', textAlign: 'left', alignSelf: 'center'}}>
+              {player.name}: {player.score}
+            </Text>
+          </View>
+        ))}
       </View>
 
     )

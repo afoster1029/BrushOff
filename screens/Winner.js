@@ -51,18 +51,15 @@ export default class Voting extends React.Component {
     const winnerUri = this.props.navigation.getParam('winningImage', 'no image')
     const winner = this.props.navigation.getParam('winnerName', 'nothing passed')
     const playerInfo = this.state.playerInfo;
-
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner}</Text>
         <View style={{borderWidth:2, borderColor:'black', alignSelf: 'center'}}>
-          <View style = {styles.leaderboard}>
-            {playerInfo.map((player, idx)=> (
-              <View key = {idx}>
-                <Text> player.name + 'has ' + player.score + ' points!'</Text>
-              </View>
-            ))}
-          </View>
+          <Image
+            style={{width: 220, height: 280}}
+            source={{uri: winnerUri}}
+          />
+        </View>
         <View style= {{flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
           <View style={styles.button}>
             <Button
@@ -93,6 +90,7 @@ export default class Voting extends React.Component {
             </Text>
           </View>
         ))}
+      </View>
 
     )
   }
@@ -101,20 +99,8 @@ export default class Voting extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: windowWidth - 110,
-    height: windowHeight - 200,
-    borderRadius: 10,
-    marginBottom: 200,
-    marginTop: 200,
-    borderColor: 'grey',
-    borderWidth: 2,
-    opacity: .85,
-  },
-  leaderboard: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
   },
   button: {
     borderRadius:10,

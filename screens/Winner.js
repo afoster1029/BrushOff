@@ -18,32 +18,42 @@ export default class Voting extends React.Component {
     console.log('in Winner.js! '+ playerInfo);
 
     return (
-      <View style = {styles.container}>
-        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center'}}>Congrats {winner['name']}</Text>
-        <View style = {styles.leaderboard}>
-          {playerInfo.map((player, idx)=> (
-            <View key = {idx}>
-              <Text> player.name + 'has ' + player.score + ' points!'</Text>
-            </View>
-          ))}
-        </View>
 
-        <Button
-          title="Next Round"
-          onPress={() => {
-            this.props.navigation.navigate('Categories', {
-            });
-          }}
-        />
-        <Button
-          title="Quit"
-          onPress={() => {
-            this.props.navigation.navigate('Home', {
-            });
-          }}
-        />
-
+      <View style = {styles.container}
+        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner['name']}</Text>
+        <View style={{borderWidth:2, borderColor:'black', alignSelf: 'center'}}>
+          <View style = {styles.leaderboard}>
+            {playerInfo.map((player, idx)=> (
+              <View key = {idx}>
+                <Text> player.name + 'has ' + player.score + ' points!'</Text>
+              </View>
+            ))}
+          </View>
+        <View style= {{flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
+          <View style={styles.button}>
+            <Button
+              title="Next Round"
+              color='grey'
+              onPress={() => {
+                /* 1. Navigate to the Details route with params */
+                this.props.navigation.navigate('Categories', {
+                });
+              }}
+            />
+          </View>
+          <View style={styles.button}>
+            <Button
+              title="Quit"
+              color='grey'
+              onPress={() => {
+                /* 1. Navigate to the Details route with params */
+                this.props.navigation.navigate('Home', {
+                });
+              }}
+            />
+          </View>
       </View>
+
     )
   }
 }
@@ -66,4 +76,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  button: {
+    borderRadius:10,
+    borderColor: 'grey',
+    borderWidth: 2,
+    backgroundColor: 'white',
+    width: 120,
+  }
 });

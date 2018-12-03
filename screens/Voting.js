@@ -30,17 +30,14 @@ export default class Voting extends React.Component {
     gesturesEnabled:false,
   };
 
-  navigateToWinner(image, playerName) {
-    this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName})
+  navigateToWinner(image, playerName, playerInfo) {
+    this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName, playerInfo: playerInfo})
   }
 
   render() {
 
     const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
     console.log('in voting.js! '+ playerInfo);
-
-console.log(playerInfo.map((player) => player.isJudge))
-console.log(playerInfo.filter((player) => !player.isJudge))
 
     return (
       <Swiper
@@ -60,12 +57,11 @@ console.log(playerInfo.filter((player) => !player.isJudge))
                 title="Vote for this drawing"
                 color="grey"
                 onPress={() => {
-                  {this.navigateToWinner(player.img, player.name)}
+                  {this.navigateToWinner(player.img, player.name, playerInfo)}
                 }}
               />
             </View>
           </View>
-         // */}
 
         ))}
 

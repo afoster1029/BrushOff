@@ -9,6 +9,7 @@ import { createStackNavigator, NavigationActions } from 'react-navigation';
 import TimerCountdown from 'react-native-timer-countdown';
 import { ColorWheel } from 'react-native-color-wheel';
 import Modal from "react-native-modal";
+import TimerMixin from 'react-timer-mixin';
 <script src="https://unpkg.com/colorsys@1.0.11/colorsys.js"></script>
 import * as everything from './Lobby.js'
 
@@ -44,7 +45,7 @@ export default class Drawing extends React.Component {
       appState: AppState.currentState,
       makeDir: true,
       numPlayers: players.length,
-      playerNum: 1, // tracks which player is to be selected to starting drawing first. Set to 1 so that it skips first player (judge)
+      playerNum: 0, // tracks which player is to be selected to starting drawing first. Set to 1 so that it skips first player (judge)
       round: 1,
       completedImages: imageList,
       word: wordList[Math.floor(Math.random() * wordList.length)],
@@ -54,9 +55,11 @@ export default class Drawing extends React.Component {
       colorModalVisible: false,
       strokeSliderVisible: false,
       preGameModalVisible: true,
+      timer: 10,
     }
     this.handleJudge();
   }
+
   static navigationOptions = {
     title: 'BrushOff',
     headerLeft: null, // this disables the option to go back to the previous screen.
@@ -75,10 +78,20 @@ export default class Drawing extends React.Component {
   };
 
   handleJudge() {
-    if(this.state.playerInfo[this.state.playerNum]['isJudge']) {
-      this.state.playerNum++;
+    const playerInfo = this.state.playerInfo;
+    for(var i = 0; i < playerInfo.length; i++) {
+      if(playerInfo[i].isJudge) {
+        if(i == this.state.playerNum) {
+          if(i < this.state.playerInfo.length - 1) {
+            this.state.playerNum++;
+          } else {
+            this.state.playerNum = 0;
+          }
+        }
+      }
     }
   }
+
   clearAlert() {
     Alert.alert(
       'Are you sure you want to clear?',
@@ -91,12 +104,34 @@ export default class Drawing extends React.Component {
     )
   }
 
+  startTimer() {
+    this.interval = TimerMixin.setInterval(
+      () => this.setState((prevState)=> ({ timer: prevState.timer - 1 })),
+      1000
+    );
+  }
+
+  resetTimer() {
+    TimerMixin.clearInterval(this.interval)
+    this.state.timer = 10;
+  }
+
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
+    //console.log(this.state.timerOn);
+
+  }
+
+  componentDidUpdate(){
+    if(this.state.timer === 0 ){
+      this.resetTimer();
+      this.saveImage();
+    }
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
+    TimerMixin.clearInterval(this.interval)
   }
 
   onChangeAsync = async () => {
@@ -134,11 +169,14 @@ export default class Drawing extends React.Component {
 
   closeInterPlayer() {
     this.clearScreen()
-    this.setState({interPlayerVisible: false, strokeColor: 0x000000, strokeWidth:20})
+    this.startTimer()
+    this.setState({interPlayerVisible: false, timerOn: true, strokeColor: 0x000000, strokeWidth:20})
   }
 
   closePreGame() {
-    this.setState({preGameModalVisible: false})
+    this.startTimer()
+    this.setState({preGameModalVisible: false, timerOn: true})
+
   }
 
   handleColorWheelChange(newColor) {
@@ -155,9 +193,9 @@ export default class Drawing extends React.Component {
       result: 'file',
       format: 'png'
     });
-    console.log('DEBUGG - '+ this.state.playerNum, this.state.numPlayers)
     this.state.playerInfo[this.state.playerNum]['img'] = uri;
-    if(this.state.playerNum < this.state.numPlayers - 1) {
+    if(this.state.playerNum < this.state.numPlayers - 1 &&
+        !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {
       this.state.playerNum += 1;
       this.handleJudge();
       this.launchInterPlayer();
@@ -169,7 +207,6 @@ export default class Drawing extends React.Component {
   }
 
   onReady = () => {
-
     console.log('ready! ');
     console.log('word of the day is', this.state.word);
     console.log('drawing screen! '+this.state.playerInfo)
@@ -182,9 +219,9 @@ export default class Drawing extends React.Component {
 
         <View style= {styles.upperText}>
           <View style={{marginTop:25}}>
-            <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>
-           {this.state.word} </Text>
-           <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
+            <Text style= {{fontSize: 14, fontWeight: 'bold', textAlign: 'right'}}> {this.state.timer} </Text>
+            <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
+            <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>
         </View>
           <View style={styles.container}>
@@ -245,7 +282,8 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> Let the  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> games begin! </Text>
 
-                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> First Player: {this.state.playerInfo[this.state.playerNum - 1]['name']} </Text>
+                  <Text style = {{fontSize: 18, fontWeight: 'bold'}}> First Player: {this.state.playerInfo[this.state.playerNum
+                  ]['name']} </Text>
                   <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                     <Button
                       title="Begin"
@@ -302,7 +340,7 @@ export default class Drawing extends React.Component {
                     }}>
                     <Image
                       style={styles.colorButton}
-                      source={require('./img/color_palette.png')} //<div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+                      source={require('./img/color_palette.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -362,6 +400,7 @@ export default class Drawing extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                this.resetTimer();
                 this.saveImage();
               }}>
               <Image

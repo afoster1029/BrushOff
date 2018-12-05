@@ -19,11 +19,11 @@ export default class LobbyScreen extends React.Component {
     //const { navigate } = this.props.navigation;
     this.state = {
       // this is a default player. Will be used to initialize an additional player.
-      emptyPlayer: {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 0},
+      emptyPlayer: {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 0},
       // preset to 3 players since we need at least 3 players for the game.
       playerInfo: [
-        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 0},
-        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 1},
+        {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 0},
+        {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 1},
         {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 2}],
       enteredPlayerNames: false,
       numPlayerInputs: 3,
@@ -62,13 +62,25 @@ export default class LobbyScreen extends React.Component {
       // LobbyScreen.names = this.state.playerInfo;
     }else{
       Alert.alert(
-        'Please fill out all the inputs with names',
+        'Do you want to enter player names?',
         '',
-        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
-         style: 'cancel'},],{ cancelable: false }
+        [{text: 'No', onPress: () => this.startWithNoNames(),
+          style: 'cancel'},
+          {text: 'Yes', onPress: () => console.log('Cancel Pressed'),
+           style: 'cancel'}
+       ],{ cancelable: false }
       )
     }
   }
+
+  startWithNoNames() {
+    this.state.playerInfo.map((player, idx)=> (
+      player.name = 'Player '+parseInt(idx+1)
+    ))
+    this.state.playerInfo[0].isJudge = true;
+    this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
+  }
+
 
   /*
   Allows players to add an additional TextInput for another player name.

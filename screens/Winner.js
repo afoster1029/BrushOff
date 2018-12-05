@@ -52,40 +52,47 @@ export default class Voting extends React.Component {
     const winner = this.props.navigation.getParam('winnerName', 'nothing passed')
     const playerInfo = this.state.playerInfo;
     return (
-      <View style = {styles.container}>
-        <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner}</Text>
-        <View style= {{flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
-          <View style={styles.button}>
-            <Button
-              title="Next Round"
-              color='grey'
-              onPress={() => {
-                this.nextRound()
-              }}
-            />
+      <ImageBackground
+        source={require('./img/categories-back.jpg')}
+        imageStyle={{resizeMode: 'stretch'}}
+        style={{flex: 1}}
+      >
+        <View style = {styles.container}>
+          <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner}</Text>
+          <View style= {{flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
+            <View style={styles.button}>
+              <Button
+                title="Next Round"
+                color='grey'
+                onPress={() => {
+                  this.nextRound()
+                }}
+              />
+            </View>
+            <View style={styles.button}>
+              <Button
+                title="Quit"
+                color='grey'
+                onPress={() => {
+                  /* 1. Navigate to the Details route with params */
+                  this.props.navigation.navigate('Home', {
+                  });
+                }}
+              />
+            </View>
           </View>
-          <View style={styles.button}>
-            <Button
-              title="Quit"
-              color='grey'
-              onPress={() => {
-                /* 1. Navigate to the Details route with params */
-                this.props.navigation.navigate('Home', {
-                });
-              }}
-            />
+          <View style = {styles.leaderboard}>
+            <Text style= {{fontSize: 24, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}> Scoreboard </Text>
+            {playerInfo.map((player, idx)=> (
+              <View key = {idx}>
+                <Text style= {{fontSize: 18, fontWeight: 'bold', textAlign: 'left', alignSelf: 'center'}}>
+                  {player.name}: {player.score}
+                </Text>
+              </View>
+            ))}
           </View>
         </View>
-        <Text style= {{fontSize: 24, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}> Scoreboard </Text>
-        {playerInfo.map((player, idx)=> (
-          <View key = {idx}>
-            <Text style= {{fontSize: 18, fontWeight: 'bold', textAlign: 'left', alignSelf: 'center'}}>
-              {player.name}: {player.score}
-            </Text>
-          </View>
-        ))}
-      </View>
-
+      </ImageBackground>
     )
   }
 }
@@ -102,5 +109,18 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: 'white',
     width: 120,
+  },
+  leaderboard: {
+    flex: 1,
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    width: windowWidth - 110,
+    height: windowHeight - 200,
+    borderRadius: 10,
+    marginBottom: 150,
+    marginTop: 150,
+    borderColor: 'grey',
+    borderWidth: 2,
+    opacity: .85,
   }
 });

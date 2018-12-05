@@ -53,7 +53,7 @@ export default class Voting extends React.Component {
     const playerInfo = this.state.playerInfo;
     return (
       <ImageBackground
-        source={require('./img/categories-back.jpg')}
+        source={require('./img/paint_splatters.jpg')}
         imageStyle={{resizeMode: 'stretch'}}
         style={{flex: 1}}
       >

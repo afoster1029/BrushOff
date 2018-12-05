@@ -54,12 +54,6 @@ export default class Voting extends React.Component {
     return (
       <View style = {styles.container}>
         <Text style= {{fontSize: 60, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner}</Text>
-        <View style={{borderWidth:2, borderColor:'black', alignSelf: 'center'}}>
-          <Image
-            style={{width: 220, height: 280}}
-            source={{uri: winnerUri}}
-          />
-        </View>
         <View style= {{flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
           <View style={styles.button}>
             <Button

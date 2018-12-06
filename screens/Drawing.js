@@ -3,7 +3,7 @@ import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import TimerCountdown from 'react-native-timer-countdown';
@@ -211,16 +211,25 @@ export default class Drawing extends React.Component {
   }
 
   saveImage = async () => {
-    try {
-      const { uri } = await this.sketch.takeSnapshotAsync({
-        result: 'file',
-        format: 'png'
-      });
-    } catch(err) {
-      const uri =
-      console.log('Nothing drawn')
-      console.log(err)
-    }
+    const targetPixelCount = 720; // If you want full HD pictures
+    const pixelRatio = PixelRatio.get(); // The pixel ratio of the device
+    const pixels = targetPixelCount / pixelRatio;
+    console.log(pixelRatio)
+    console.log(pixels)
+
+
+
+
+    const { uri } = await this.sketch.takeSnapshotAsync({
+      result: 'file',
+      format: 'png',
+      // width: PixelRatio.getPixelSizeForLayoutSize(100),
+      // height: PixelRatio.getPixelSizeForLayoutSize(100),
+    });
+
+    const width = uri.width;
+    const height = uri.height;
+    console.log(width + ' : ' + height)
 
     this.state.playerInfo[this.state.playerNum]['img'] = uri;
     if(this.state.playerNum < this.state.numPlayers - 1 &&

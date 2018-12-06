@@ -2,18 +2,17 @@ import React, { Component } from 'react';
 import { Button, View, Text, StyleSheet, ImageBackground, Dimensions , TouchableOpacity, Image, Alert} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+import prompts from './prompts.json';
+
+
 
 //import Drawing from '/Users/johnpellegrini/BrushOff/screens/Drawing.js';
 
-const randomWordList = [ 'Rifle', 'Butter', 'Vase', 'Tail',  'Stream', 'Shoe',  'Library', 'Thumb', 'Baby', 'Yard', 'Jeans', 'Rice',
-'Quilt', 'Crown', 'Son', 'Tax', 'Swing', 'Needle', 'Grapes', 'Doctor', 'Grass', 'Van', 'Basketball', 'Wool', 'Milk', 'Dress', 'Friction', 'Cake',
-'Soup', 'Fog', 'Toothpaste',  'Money',  'Corn', 'Hammer', 'Grandmother', 'Fangs', 'Vacation', 'Cheese']
 
-const sportsWordList = ['Basketball', 'Baseball', 'Touchdown', 'Goal', 'Homerun']
-
-const artsWordList = ['Monet', 'Impressionism', 'Starry Night', 'Salvador Dali', ]
-
-const animalWordList = ['Cow', 'Dog', 'Chicken', 'Starfish', 'Octopus', 'Whale','Jellyfish','Bee', 'Horse']
+const animalWordList = prompts.animals
+const artsWordList = prompts.art
+const randomWordList = prompts.random
+const sportsWordList = prompts.sports
 
 export default class CategoriesScreen extends React.Component {
   constructor(props) {
@@ -22,7 +21,7 @@ export default class CategoriesScreen extends React.Component {
     console.log(players);
     this.state = {
       playerInfo: players
-  };
+    };
 }
 
   static navigationOptions = {

@@ -4,6 +4,13 @@ import FileSystem from 'expo';
 import { Button, View, Text, StyleSheet, ImageBackground, TouchableOpacity, Image , Dimensions} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+/*
+This files creates the homescreen for the game. When the game starts up
+it automatically navigates to this screen. Players are provided two options:
+Play Game or Settings. 
+*/
+
+
 export default class Home extends React.Component {
     static navigationOptions = {
         title: 'Home Screen'

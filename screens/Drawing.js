@@ -1,4 +1,3 @@
-
 import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
@@ -210,28 +209,22 @@ export default class Drawing extends React.Component {
     })
   }
 
+  updateDimensions(width, height) {
+    this.state.playerInfo[this.state.playerNum].width = width
+    this.state.playerInfo[this.state.playerNum].height = height
+  }
+
   saveImage = async () => {
-    const targetPixelCount = 720; // If you want full HD pictures
-    const pixelRatio = PixelRatio.get(); // The pixel ratio of the device
-    const pixels = targetPixelCount / pixelRatio;
-    console.log(pixelRatio)
-    console.log(pixels)
-
-
-
-
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
-      format: 'png',
-      // width: PixelRatio.getPixelSizeForLayoutSize(100),
-      // height: PixelRatio.getPixelSizeForLayoutSize(100),
+      format: 'png'
     });
+   // console.log(Image.getSize(uri, (width, height))
+    this.state.playerInfo[this.state.playerNum].img = uri;
+    Image.getSize(uri, (width, height) => {this.updateDimensions(width, height)})
+    // console.log(Image.getSize(uri) + 'yeeeet')
 
-    const width = uri.width;
-    const height = uri.height;
-    console.log(width + ' : ' + height)
 
-    this.state.playerInfo[this.state.playerNum]['img'] = uri;
     if(this.state.playerNum < this.state.numPlayers - 1 &&
         !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {
       this.state.playerNum += 1;

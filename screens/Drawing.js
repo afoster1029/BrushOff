@@ -2,7 +2,7 @@ import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import TimerCountdown from 'react-native-timer-countdown';

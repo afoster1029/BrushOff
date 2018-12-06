@@ -217,7 +217,9 @@ export default class Drawing extends React.Component {
   saveImage = async () => {
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
-      format: 'png'
+      format: 'png',
+      height: Dimensions.get('window').height * 0.85,
+      width: Dimensions.get('window').width
     });
    // console.log(Image.getSize(uri, (width, height))
     this.state.playerInfo[this.state.playerNum].img = uri;

@@ -97,6 +97,9 @@ export default class Voting extends React.Component {
   }
 }
 
+const windowHeight = Dimensions.get('window').height;
+const windowWidth =  Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

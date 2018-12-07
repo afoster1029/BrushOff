@@ -2,26 +2,17 @@ import React, { Component } from 'react';
 import { Button, View, Text, StyleSheet, ImageBackground, Dimensions , TouchableOpacity, Image, Alert} from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+import prompts from './prompts.json';
+
+
 
 //import Drawing from '/Users/johnpellegrini/BrushOff/screens/Drawing.js';
 
-const randomWordList = [ 'Rifle', 'Butter', 'Vase', 'Tail',  'Stream', 'Shoe',  'Library', 'Thumb', 'Baby', 'Yard', 'Jeans', 'Rice',
-'Quilt', 'Crown', 'Son', 'Tax', 'Swing', 'Needle', 'Grapes', 'Doctor', 'Grass', 'Van', 'Basketball', 'Wool', 'Milk', 'Dress', 'Friction', 'Cake',
-'Soup', 'Fog', 'Toothpaste',  'Money',  'Corn', 'Hammer', 'Grandmother', 'Fangs', 'Vacation', 'Cheese']
 
-const sportsWordList = ['Basketball', 'Baseball', 'Touchdown', 'Goal', 'Homerun','Field Goal', 'Team', 'Penalty', 'Foul', 'Goalie', 'Pitcher',
-'Catcher', 'Teferee', 'Bad Call', 'Free Kick', 'Free Throw', 'Fans', 'NBA', 'NFL', 'NHL', 'MLS', 'Champions', 'Winners', 'Losers', 'Field', 'Court',
-'Ball', 'Grand Slam', 'Hail Mary', 'Tennis', 'Olympics', 'FIFA', 'Rookie', 'Commentators', 'Stadium', 'Home Game']
-
-const artsWordList = ['Monet', 'Impressionism', 'Starry Night', 'Salvador Dali', 'Baroque', 'Abstract', 'Expressionism', 'Abstract Expressionism', 'Renaissance',
-'Scuplture', 'Theater', 'Movie', 'Oscars', 'Easel', 'Paintbrush', 'Canvas', 'Brocade', 'Screenplay', 'Author', 'Writing', 'Museum', 'Frame', 'Camera', 'Photo', 'Natuaralism',
-'Ceramis', 'Choreography', 'Ballet', 'Conductor', 'Opera', 'Concert', 'Orchestra', 'Monologue', 'Classicism', 'Collage', 'Costume', 'Cubism', 'Grotesque', 'Performance', 'Director',
-'Actor', 'Exhibit', 'Mona Lisa', 'Van Gogh']
-
-const animalWordList = ['Cow', 'Dog', 'Chicken', 'Starfish', 'Octopus', 'Whale','Jellyfish', 'Bee', 'Horse', 'Zebra', 'Pig', 'Cat', 'Deer', 'Raccoon', 'Possum', 'Coyote', 'Wolf', 'Bear',
-'Dik-Dik', 'Lion', 'Tiger', 'Eagle', 'Hawk', 'Bird', 'Robin', 'Greyhound', 'Zoo', 'Farm', 'Koala', 'Kangaroo', 'Spider', 'Beetle', 'Ant', 'Bug', 'Shark', 'Mouse', 'Rat', 'Rodent',
-'Weasel', 'Otter', 'Beaver', 'Fish', 'Rabbit', 'Fox', 'Egg', 'Gazelle', 'Lemur', 'Elephant', 'Baboon', 'Chimpanzee', 'Gorilla', 'Monkey', 'Toucan', 'Giraffe', 'Hyena', 'Snake', 'Lizard',
-'Steak', 'Bull', 'Pigeon']
+const animalWordList = prompts.animals
+const artsWordList = prompts.art
+const randomWordList = prompts.random
+const sportsWordList = prompts.sports
 
 export default class CategoriesScreen extends React.Component {
   constructor(props) {
@@ -30,7 +21,7 @@ export default class CategoriesScreen extends React.Component {
     console.log(players);
     this.state = {
       playerInfo: players
-  };
+    };
 }
 
   static navigationOptions = {

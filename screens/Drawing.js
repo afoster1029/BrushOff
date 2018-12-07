@@ -300,7 +300,7 @@ export default class Drawing extends React.Component {
             <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>
         </View>
-          // View that contains the area for sketching
+          {/*View that contains the area for sketching*/}
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch
@@ -315,7 +315,7 @@ export default class Drawing extends React.Component {
               />
             </View>
           </View>
-          // Color wheel modal
+          {/*Color wheel modal*/}
           <View>
             <Modal
               isVisible= {this.state.wheelVisible}
@@ -330,7 +330,7 @@ export default class Drawing extends React.Component {
                    />
             </Modal>
           </View>
-          // Inter player modal
+          {/*Inter player modal*/}
           <View>
             <Modal
               isVisible= {this.state.interPlayerVisible}
@@ -351,16 +351,14 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
-          // Modal that is shown at beginning of round
+          {/*Modal that is shown at beginning of round*/}
           <View>
             <Modal
               isVisible= {this.state.preGameModalVisible}
               backdropOpacity={.50}>
                 <View style= {styles.interPlayerPopUp}>
-
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> Let the  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> games begin! </Text>
-
                   <Text style = {{fontSize: 18}}> {this.state.playerInfo[0]['name']} is the judge of this round</Text>
                   <Text style = {{fontSize: 18}}> First Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
                   <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
@@ -373,10 +371,10 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
-          /*
+          {/*
           * Modal that maps through list of rgb values to display buttons that
           * can be selected to change colors
-          */
+          */}
           <View>
             <Modal
               isVisible= {this.state.colorModalVisible}
@@ -406,7 +404,7 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
-          // Stroke width slider modal
+          {/*Stroke width slider modal*/}
           <View>
             <Modal
               isVisible= {this.state.strokeSliderVisible}
@@ -424,10 +422,10 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
-          /*
+          {/*
           * Buttons at bottom of screen for selecting colors, editing stroke width,
           * undoing a line, clearing a drawing, and submiting a drawing
-          */
+          */}
           <View style={styles.iconBar}>
             <TouchableOpacity onPress={() => {
                 this.launchColorModal(true);

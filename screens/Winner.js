@@ -20,7 +20,9 @@ export default class Voting extends React.Component {
   };
 
 
-  //Adds +1 to score of winner, iterates to next judge in order
+  /*
+  * Adds +1 to score of winner, iterates to next judge in order
+  */
   completeRound(winner) {
     var setJudge = true;
     const playerInfo = this.state.playerInfo;

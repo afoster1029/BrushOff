@@ -36,7 +36,10 @@ export default class CategoriesScreen extends React.Component {
   navigateToDrawing(categoryList) {
     this.judgeAlert(categoryList);
   }
-
+  
+  /*
+  Returns which player is currently the judge for this round of the game.
+  */
   getJudge(playerInfo) {
     var judge;
     for(var i = 0; i < playerInfo.length; i++) {
@@ -47,6 +50,11 @@ export default class CategoriesScreen extends React.Component {
     return judge;
   }
 
+  /*
+  Creates a popup alert at the end of the categories screen after pressing start game
+  and before moving onto the drawing canvas that alerts the user to which player is
+  currently the judge for this round.
+  */
   judgeAlert(categoryList) {
     const judge = this.getJudge(this.state.playerInfo);
     Alert.alert(
@@ -60,6 +68,10 @@ export default class CategoriesScreen extends React.Component {
     )
   }
 
+  /*
+  HTML and CSS code for the Categories screen; the base buttons, styling, and images
+  to make the screen look how it does.
+  */
   render() {
     const { navigate } = this.props.navigation;
     return (

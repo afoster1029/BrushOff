@@ -3,27 +3,38 @@ import { Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackgrou
 import { createStackNavigator } from 'react-navigation';
 import ModalDropdown from 'react-native-modal-dropdown';
 
+/*
+This file allows players to enter in player names. The game will only navigate
+to this screen at the beginning of each game. Not between each round.
+*/
+
 export default class LobbyScreen extends React.Component {
   static navigationOptions = {
     title: 'Lobby',
-    gesturesEnabled: false,
+    gesturesEnabled: true,
   };
 
   constructor(props) {
     super(props)
     //const { navigate } = this.props.navigation;
     this.state = {
-      numPlayers: '',
-      emptyPlayer: {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 0},
+      // this is a default player. Will be used to initialize an additional player.
+      emptyPlayer: {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 0},
+      // preset to 3 players since we need at least 3 players for the game.
       playerInfo: [
-        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 0},
-        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 1},
-        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 2}], // preset to 3 since we need at least 3
+        {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 0},
+        {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 1},
+        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 2}],
       enteredPlayerNames: false,
       numPlayerInputs: 3,
     }
   }
 
+  /*
+  Helper function for startGame() to check if the user entered name into
+  the TextInputs.
+  Returns true of false boolean values
+  */
   checkIfPlayerNamesEntered(){
     this.state.playerInfo.map((playerName, idx)=> {
       if (playerName['name'].length == 0){
@@ -35,23 +46,45 @@ export default class LobbyScreen extends React.Component {
     return namesEntered
   }
 
+  /*
+  Allows the user to move forward in the game. This will navigate the user to
+  the categories page. This method makes sure that the user entered in names
+  before navigating to categories.
+  */
   startGame() {
     const namesEntered = this.checkIfPlayerNamesEntered();
 
+    // This will create the first player name entered to start as the judge.
+    // Also passes along the playerInfo to Categories.js.
     if (namesEntered) {
       this.state.playerInfo[0].isJudge = true;
       this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
-      LobbyScreen.names = this.state.playerInfo;
+      // LobbyScreen.names = this.state.playerInfo;
     }else{
       Alert.alert(
-        'Please fill out all the inputs with names',
+        'Do you want to enter player names?',
         '',
-        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
-         style: 'cancel'},],{ cancelable: false }
+        [{text: 'No', onPress: () => this.startWithNoNames(),
+          style: 'cancel'},
+          {text: 'Yes', onPress: () => console.log('Cancel Pressed'),
+           style: 'cancel'}
+       ],{ cancelable: false }
       )
     }
   }
 
+  startWithNoNames() {
+    this.state.playerInfo.map((player, idx)=> (
+      player.name = 'Player '+parseInt(idx+1)
+    ))
+    this.state.playerInfo[0].isJudge = true;
+    this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
+  }
+
+
+  /*
+  Allows players to add an additional TextInput for another player name.
+  */
   handleAddPlayer () {
     console.log(this.state.playerInfo.length)
     if (this.state.numPlayerInputs <= 7) {
@@ -73,6 +106,10 @@ export default class LobbyScreen extends React.Component {
     }
   }
 
+  /*
+  Allows user to remove TextInputs. This is necessary b/c in order to start the
+  game all TextInputs need to have inputs.
+  */
   handleRemovePlayer () {
     if (this.state.numPlayerInputs > 3) {
       const len = this.state.playerInfo.length;
@@ -93,6 +130,10 @@ export default class LobbyScreen extends React.Component {
     }
   }
 
+  /*
+  This updates the name for each player depending on text being entered into
+  the TextInput.
+  */
   handlePlayerNameChange = (idx) => (evt) => {
     const newPlayerInfo = this.state.playerInfo.map((playerName, sidx) => {
       if (idx !== sidx) {
@@ -110,6 +151,10 @@ export default class LobbyScreen extends React.Component {
         imageStyle={{resizeMode: 'stretch'}}
         style={{flex: 1}}
       >
+        /*
+        Maps through the playerInfo and displays a TextInput for each player
+        in playerInfo.
+        */
         <View style = {styles.container}>
           <View style={{padding: 60}}>
             <View style={{marginTop:60}}>
@@ -118,12 +163,14 @@ export default class LobbyScreen extends React.Component {
                 key = {idx}
                 type='text'
                 style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white'}}
-                placeholder = {'Player '+idx}
+                placeholder = {'Player '+parseInt(idx+1)} // +1 so that the placeHolder starts at 1 instead of 0.
                 value = {playerName.name}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}
             </View>
+
+            // Buttons that allow player to add/remove players and start game.
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
                 <View style = {{flexDirection: 'row'}}>
                   <View style= {styles.changePlayerButton}>

@@ -34,21 +34,36 @@ export default class Voting extends React.Component {
     this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName, playerInfo: playerInfo})
   }
 
+
   render() {
 
     const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
-    console.log('in voting.js! '+ playerInfo);
-
+    // console.log(Image.getSize(playerInfo[0].img) + 'yeeeet')
     return (
+
       <Swiper
         loop={false}
         showsPagination={true}
         index={0}>
 
         {playerInfo.filter((player) => !player.isJudge).map((player, idx)=> (
-          <View key = {idx}>
+          <View
+            key = {idx}
+            style = {{borderTopWidth: Dimensions.get('window').height* 0.075,
+            borderColor: 'transparent'}}
+          >
             <Image
-              style={styles.BorderClass}
+              style={
+                  {height: Dimensions.get('window').height* 0.85,
+                  width: Dimensions.get('window').width * 0.975 ,
+                  alignSelf: 'center',
+                  // Set border width.
+                  borderWidth: 1,
+                  borderTopWidth:200,
+
+                  // Set border color.
+                  borderColor: 'transparent'}
+              }
               source={{uri: player.img}}
             />
             <View style={{borderRadius:10, borderColor: 'grey', borderWidth: 2,marginTop: 2,marginHorizontal:20}}>
@@ -72,16 +87,6 @@ export default class Voting extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  BorderClass:{
-    height: Dimensions.get('window').height-100,
-    width: Dimensions.get('window').width-10,
-    alignSelf: 'center',
-    // Set border width.
-    borderWidth: 1,
-
-    // Set border color.
-    borderColor: '#000000',
-  },
   voteButton: {
     width: '100%',
     height: 100,

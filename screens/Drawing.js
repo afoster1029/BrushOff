@@ -1,9 +1,8 @@
-
 import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import TimerCountdown from 'react-native-timer-countdown';
@@ -222,12 +221,24 @@ export default class Drawing extends React.Component {
     })
   }
 
+  updateDimensions(width, height) {
+    this.state.playerInfo[this.state.playerNum].width = width
+    this.state.playerInfo[this.state.playerNum].height = height
+  }
+
   saveImage = async () => {
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
-      format: 'png'
+      format: 'png',
+      height: Dimensions.get('window').height * 0.85,
+      width: Dimensions.get('window').width
     });
-    this.state.playerInfo[this.state.playerNum]['img'] = uri;
+   // console.log(Image.getSize(uri, (width, height))
+    this.state.playerInfo[this.state.playerNum].img = uri;
+    Image.getSize(uri, (width, height) => {this.updateDimensions(width, height)})
+    // console.log(Image.getSize(uri) + 'yeeeet')
+
+
     if(this.state.playerNum < this.state.numPlayers - 1 &&
         !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {
       this.state.playerNum += 1;

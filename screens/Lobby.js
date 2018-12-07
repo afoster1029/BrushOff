@@ -11,7 +11,7 @@ to this screen at the beginning of each game. Not between each round.
 export default class LobbyScreen extends React.Component {
   static navigationOptions = {
     title: 'Lobby',
-    gesturesEnabled: false,
+    gesturesEnabled: true,
   };
 
   constructor(props) {

@@ -20,7 +20,8 @@ var imageList = ['','','','']
 var colorsys = require('colorsys')
 const colorButtonList= ['#FFFFFF', '#C0C0C0', '#808080', '#000000', '#FF0000', '#800000', '#FFFF00', '#808000',
 '#00FF00', '#008000','#00FFFF', '#008080', '#0000FF', '#000080','#FF00FF', '#800080', '#D2691E']
-
+const height = Dimensions.get('window').height;
+const width =  Dimensions.get('window').width;
 
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
@@ -152,6 +153,16 @@ export default class Drawing extends React.Component {
     }
   }
 
+  getJudge(playerInfo) {
+    var judge;
+    for(var i = 0; i < playerInfo.length; i++) {
+      if(playerInfo[i].isJudge) {
+        judge = playerInfo[i]
+      }
+    }
+    return judge;
+  }
+
   launchColorModal(bool) {
     this.setState({colorModalVisible: bool})
   }
@@ -159,8 +170,9 @@ export default class Drawing extends React.Component {
   toggleColorWheel(bool) {
     this.launchColorModal(false);
     console.log(this.state.wheelVisible);
-    //this.setState({wheelVisible: bool});
-    this.state.wheelVisible = bool;
+
+    this.setState({wheelVisible: bool});
+    //this.state.wheelVisible = bool;
     console.log('toggle color wheel called ' + bool + ': ' + this.state.wheelVisible);
   }
 
@@ -240,9 +252,11 @@ export default class Drawing extends React.Component {
       <View style={styles.container}>
 
         <View style= {styles.upperText}>
-          <View style={{marginTop:25}}>
-            <Text style= {{fontSize: 14, fontWeight: 'bold', textAlign: 'right'}}> {this.state.timer} </Text>
-            <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
+          <View style={{marginTop:20}}>
+            <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+              <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
+              <Text style= {{fontSize: 14, fontWeight: 'bold',position: 'absolute', right: 15}}> {this.state.timer} </Text>
+            </View>
             <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>
         </View>
@@ -304,7 +318,7 @@ export default class Drawing extends React.Component {
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> Let the  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> games begin! </Text>
 
-                  <Text style = {{fontSize: 18}}> {this.state.playerInfo[0]['name']} is the judge of this round</Text>
+                  <Text style = {{fontSize: 18}}> {this.getJudge(this.state.playerInfo).name} is the judge of this round</Text>
                   <Text style = {{fontSize: 18}}> First Player: {this.state.playerInfo[this.state.playerNum]['name']} </Text>
                   <View style= {{marginTop: 18, borderRadius:10, borderColor: 'grey', borderWidth: 2, backgroundColor: 'white', opacity: .7}}>
                     <Button
@@ -413,8 +427,7 @@ export default class Drawing extends React.Component {
   }
 }
 
-const height = Dimensions.get('window').height;
-const width =  Dimensions.get('window').width;
+
 
 const styles = StyleSheet.create({
   container: {

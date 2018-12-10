@@ -147,10 +147,10 @@ export default class LobbyScreen extends React.Component {
         imageStyle={{resizeMode: 'stretch'}}
         style={{flex: 1}}
       >
-        /*
+        {/*
         Maps through the playerInfo and displays a TextInput for each player
         in playerInfo.
-        */
+        */}
         <View style = {styles.container}>
           <View style={{padding: 60}}>
             <View style={{marginTop:60}}>
@@ -159,14 +159,13 @@ export default class LobbyScreen extends React.Component {
                 key = {idx}
                 type='text'
                 style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white'}}
-                placeholder = {'Player '+parseInt(idx+1)} // +1 so that the placeHolder starts at 1 instead of 0.
+                placeholder = {'Player '+parseInt(idx+1)}
                 value = {playerName.name}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}
             </View>
-
-            // Buttons that allow player to add/remove players and start game.
+            {/* Buttons that allow player to add/remove players and start game.*/}
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
                 <View style = {{flexDirection: 'row'}}>
                   <View style= {styles.changePlayerButton}>
@@ -196,7 +195,6 @@ export default class LobbyScreen extends React.Component {
                 />
               </View>
             </View>
-
         </View>
       </ImageBackground>
     )

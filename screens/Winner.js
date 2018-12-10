@@ -1,7 +1,7 @@
 import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, ImageBackground } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, ImageBackground, Dimensions } from 'react-native';
 
 export default class Voting extends React.Component {
   constructor(props) {
@@ -20,7 +20,9 @@ export default class Voting extends React.Component {
   };
 
 
-  //Adds +1 to score of winner, iterates to next judge in order
+  /*
+  * Adds +1 to score of winner, iterates to next judge in order
+  */
   completeRound(winner) {
     var setJudge = true;
     const playerInfo = this.state.playerInfo;
@@ -41,10 +43,18 @@ export default class Voting extends React.Component {
     }
   }
 
+  /*
+  Method that takes us into a new round, retains all current player information and Score,
+  but begins a new drawing round at the categories screen. Switches the judge from last round.
+  */
   nextRound() {
     this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
   }
 
+  /*
+  HTML and CSS code for the Winner screen; the base buttons, styling, and images
+  to make the screen look how it does.
+  */
   render() {
     console.log(this.state.players)
     const { navigate } = this.props.navigation;
@@ -96,6 +106,9 @@ export default class Voting extends React.Component {
     )
   }
 }
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth =  Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {

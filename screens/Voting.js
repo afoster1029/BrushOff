@@ -6,16 +6,17 @@ import { TouchableOpacity, Dimensions, Image, Button, Platform, AppState, StyleS
 import Swiper from 'react-native-swiper'
 
 
+{/*
+  This class displays the players drawings from the current round.
+  The judge will swipe through the drawings and pick their favorite.
+  Once the judge has decided, this screen navigates to winner.js.
+*/}
+
 export default class Voting extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      height: 200,
-      width: 200,
-      window_height: Dimensions.get('window').height,
-      window_width: Dimensions.get('window').width,
-    }
+    this.state = {}
   }
 
   static navigationOptions = {
@@ -27,8 +28,9 @@ export default class Voting extends React.Component {
     headerTitleStyle: {
       fontWeight: 'bold',
     },
-    gesturesEnabled:false,
+    gesturesEnabled:false
   };
+
 
   navigateToWinner(image, playerName, playerInfo) {
     this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName, playerInfo: playerInfo})
@@ -38,7 +40,6 @@ export default class Voting extends React.Component {
   render() {
 
     const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
-    // console.log(Image.getSize(playerInfo[0].img) + 'yeeeet')
     return (
 
       <Swiper
@@ -46,6 +47,11 @@ export default class Voting extends React.Component {
         showsPagination={true}
         index={0}>
 
+        {/*
+          Loops through the players who aren't the judge and displayers there
+          drawing within a React Swiper object. The swiper object allows the
+          user to swipe between images.
+        */}
         {playerInfo.filter((player) => !player.isJudge).map((player, idx)=> (
           <View
             key = {idx}
@@ -60,7 +66,6 @@ export default class Voting extends React.Component {
                   // Set border width.
                   borderWidth: 1,
                   borderTopWidth:200,
-
                   // Set border color.
                   borderColor: 'transparent'}
               }

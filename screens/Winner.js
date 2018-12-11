@@ -69,6 +69,29 @@ export default class Voting extends React.Component {
       >
         <View style = {styles.container}>
           <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner}</Text>
+          <Image
+            style={
+                {height: Dimensions.get('window').height* 0.45,
+                width: Dimensions.get('window').width * 0.55,
+                alignSelf: 'center',
+                // Set border width.
+                borderWidth: 1,
+                borderTopWidth:200,
+                // Set border color.
+                borderColor: 'transparent'}
+            }
+            source={{uri: winner.img}}
+          />
+          <View style = {styles.leaderboard}>
+            <Text style= {{fontSize: 24, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}> Scoreboard </Text>
+            {playerInfo.map((player, idx)=> (
+              <View key = {idx}>
+                <Text style= {{fontSize: 18, fontWeight: 'bold', textAlign: 'left', alignSelf: 'center'}}>
+                  {player.name}: {player.score}
+                </Text>
+              </View>
+            ))}
+          </View>
           <View style= {{flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
             <View style={styles.button}>
               <Button
@@ -90,16 +113,6 @@ export default class Voting extends React.Component {
                 }}
               />
             </View>
-          </View>
-          <View style = {styles.leaderboard}>
-            <Text style= {{fontSize: 24, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}> Scoreboard </Text>
-            {playerInfo.map((player, idx)=> (
-              <View key = {idx}>
-                <Text style= {{fontSize: 18, fontWeight: 'bold', textAlign: 'left', alignSelf: 'center'}}>
-                  {player.name}: {player.score}
-                </Text>
-              </View>
-            ))}
           </View>
         </View>
       </ImageBackground>

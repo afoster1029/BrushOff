@@ -107,8 +107,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: 'white',
     width: 120,
-<<<<<<< HEAD
-=======
   },
   leaderboard: {
     flex: 1,
@@ -122,6 +120,5 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 2,
     opacity: .85,
->>>>>>> 88bb49dc581a671770db107cef585691a09c4401
   }
 });

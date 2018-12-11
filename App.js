@@ -12,8 +12,6 @@ import VotingScreen from './screens/Voting.js'
 import WinnerScreen from './screens/Winner.js'
 import CategoriesScreen from './screens/Categories.js'
 
-
-
 const Navigation = createStackNavigator({
     Home: {screen: HomeScreen},
     Settings: {screen: SettingsScreen},

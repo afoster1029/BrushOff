@@ -264,11 +264,10 @@ export default class Drawing extends React.Component {
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
       format: 'png',
-      height: Dimensions.get('window').height * 0.85,
-      width: Dimensions.get('window').width
+
     });
     this.state.playerInfo[this.state.playerNum].img = uri;
-    Image.getSize(uri, (width, height) => {this.updateDimensions(width, height)})
+    //Image.getSize(uri, (width, height) => {this.updateDimensions(width, height)})
     this.nextPlayer();
   }
 
@@ -543,11 +542,11 @@ const styles = StyleSheet.create({
     borderRadius:5,
     backgroundColor: 'white',
     position: 'absolute',
-    top: 380,
+    top: 470,
   },
   sliderModal: {
     position: 'absolute',
-    top: 410,
+    top: 550,
     alignSelf: 'center',
 
   },

@@ -107,5 +107,21 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     backgroundColor: 'white',
     width: 120,
+<<<<<<< HEAD
+=======
+  },
+  leaderboard: {
+    flex: 1,
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    // width: windowWidth - 110,
+    // height: windowHeight - 200,
+    borderRadius: 10,
+    marginBottom: 150,
+    marginTop: 150,
+    borderColor: 'grey',
+    borderWidth: 2,
+    opacity: .85,
+>>>>>>> 88bb49dc581a671770db107cef585691a09c4401
   }
 });

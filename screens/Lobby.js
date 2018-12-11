@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation';
 import ModalDropdown from 'react-native-modal-dropdown';
 
 /*
-This file allows players to enter in player names. The game will only navigate
+This class allows players to enter in player names. The game will only navigate
 to this screen at the beginning of each game. Not between each round.
 */
 
@@ -30,11 +30,7 @@ export default class LobbyScreen extends React.Component {
     }
   }
 
-  /*
-  Helper function for startGame() to check if the user entered name into
-  the TextInputs.
-  Returns true of false boolean values
-  */
+  
   checkIfPlayerNamesEntered(){
     this.state.playerInfo.map((playerName, idx)=> {
       if (playerName['name'].length == 0){

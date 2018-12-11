@@ -280,7 +280,6 @@ export default class Drawing extends React.Component {
       width: Dimensions.get('window').width
     });
     this.state.playerInfo[this.state.playerNum].img = uri;
-    Image.getSize(uri, (width, height) => {this.updateDimensions(width, height)})
     this.nextPlayer();
   }
 

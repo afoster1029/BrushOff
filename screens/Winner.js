@@ -68,31 +68,26 @@ export default class Voting extends React.Component {
         style={{flex: 1}}
       >
         <View style = {styles.container}>
-          <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Congrats {winner}</Text>
-          <Image
-            style={
-                {height: Dimensions.get('window').height* 0.45,
-                width: Dimensions.get('window').width * 0.55,
-                alignSelf: 'center',
-                // Set border width.
-                borderWidth: 1,
-                borderTopWidth:200,
-                // Set border color.
-                borderColor: 'transparent'}
-            }
-            source={{uri: winner.img}}
-          />
-          <View style = {styles.leaderboard}>
-            <Text style= {{fontSize: 24, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}> Scoreboard </Text>
-            {playerInfo.map((player, idx)=> (
-              <View key = {idx}>
-                <Text style= {{fontSize: 18, fontWeight: 'bold', textAlign: 'left', alignSelf: 'center'}}>
-                  {player.name}: {player.score}
-                </Text>
-              </View>
-            ))}
+          <Text style= {{fontSize: 40, textAlign: 'center', alignSelf: 'center', marginTop:20, color: 'grey'}}>Congrats {winner}</Text>
+          <View style={{borderWidth:2, borderColor:'grey', alignSelf: 'center', backgroundColor: 'white'}}>
+            <Image
+              style={{width: 220, height: 280}}
+              source={{uri: winnerUri}}
+            />
           </View>
-          <View style= {{flexDirection: 'row', justifyContent: 'space-around', marginTop: 20}}>
+          <View style = {styles.leaderboard}>
+            <Text style= {{fontSize: 24, textAlign: 'center', alignSelf: 'center', color: 'grey'}}> Scoreboard </Text>
+              <View style={{flexDirection: 'column', flexWrap: 'wrap', alignItems: 'center'}}>
+                {playerInfo.map((player, idx)=> (
+                  <View key = {idx}>
+                    <Text style= {{fontSize: 18, textAlign: 'left', alignSelf: 'center', color: 'grey', marginHorizontal: 5}}>
+                      {player.name}: {player.score}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+          </View>
+          <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 5}}>
             <View style={styles.button}>
               <Button
                 title="Next Round"
@@ -134,19 +129,21 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 2,
     backgroundColor: 'white',
-    width: 120,
+    width: 145,
   },
   leaderboard: {
     flex: 1,
     alignSelf: 'center',
     backgroundColor: 'white',
     // width: windowWidth - 110,
-    // height: windowHeight - 200,
+    maxHeight: 120,
     borderRadius: 10,
-    marginBottom: 150,
-    marginTop: 150,
+    paddingBottom: 10,
+    marginTop: 15,
     borderColor: 'grey',
     borderWidth: 2,
     opacity: .85,
+    flexDirection: 'column',
+    alignItems: 'center',
   }
 });

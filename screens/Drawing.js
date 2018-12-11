@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
-import TimerCountdown from 'react-native-timer-countdown';
 import { ColorWheel } from 'react-native-color-wheel';
 import Modal from "react-native-modal";
 import TimerMixin from 'react-timer-mixin';
@@ -22,6 +21,9 @@ const colorButtonList= ['#FFFFFF', '#C0C0C0', '#808080', '#000000', '#FF0000', '
 const height = Dimensions.get('window').height;
 const width =  Dimensions.get('window').width;
 
+/*
+* Returns a globally unique identifier
+*/
 function uuidv4() {
   //https://stackoverflow.com/a/2117523/4047926
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -31,7 +33,6 @@ function uuidv4() {
   });
 }
 //Source:   https://github.com/expo/expo-pixi/blob/master/examples/sketch/App.js
-
 export default class Drawing extends React.Component {
   constructor(props){
     super(props)
@@ -69,6 +70,9 @@ export default class Drawing extends React.Component {
     gesturesEnabled: false,
   };
 
+  /*
+  *
+  */
   handleAppStateChangeAsync = nextAppState => {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       if (isAndroid && this.sketch) {
@@ -79,6 +83,10 @@ export default class Drawing extends React.Component {
     this.setState({ appState: nextAppState });
   };
 
+  /*
+  * When cycling between current drawers, this function checks to see if the currentState
+  * player is a judge so it can skip to the next player in order
+  */
   handleJudge() {
     const playerInfo = this.state.playerInfo;
     for(var i = 0; i < playerInfo.length; i++) {
@@ -94,6 +102,9 @@ export default class Drawing extends React.Component {
     }
   }
 
+  /*
+  * Alert message when user presses clear button
+  */
   clearAlert() {
     Alert.alert(
       'Are you sure you want to clear?',
@@ -106,6 +117,9 @@ export default class Drawing extends React.Component {
     )
   }
 
+  /*
+  * Starts the timer and sets its interval to 1 second
+  */
   startTimer() {
     this.interval = TimerMixin.setInterval(
       () => this.setState((prevState)=> ({ timer: prevState.timer - 1 })),
@@ -113,17 +127,25 @@ export default class Drawing extends React.Component {
     );
   }
 
+  /*
+  * Stops the timer, and resets its time to 60 seconds
+  */
   resetTimer() {
     TimerMixin.clearInterval(this.interval)
     this.state.timer = 60;
   }
 
+  /*
+  * Invoked when drawing component is mounted (inserted into tree)
+  */
   componentDidMount() {
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
-    //console.log(this.state.timerOn);
-
   }
 
+  /*
+  * Invoked immediately after updating occurs. When timer reaches 0, timer
+  * is reset and image is saved
+  */
   componentDidUpdate(){
     if(this.state.timer === 0 ){
       this.resetTimer();
@@ -131,21 +153,30 @@ export default class Drawing extends React.Component {
     }
   }
 
+  /*
+  * Invoked immediately before a component is unmounted and destroyed. Clears timer
+  */
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
     TimerMixin.clearInterval(this.interval)
   }
 
+  /*
+  * When ever ExpoPixi sketch is updated, this function takes a snapshot of
+  * the current sketch and sets the state image to the snapshot. Also logs The
+  * number of lines drawn
+  */
   onChangeAsync = async () => {
     const { uri } = await this.sketch.takeSnapshotAsync();
-
     this.setState({
       image: { uri },
-      //strokeWidth: 20,
       count: this.state.count + 1
     });
   };
 
+  /*
+  * Clears all lines drawn
+  */
   clearScreen() {
     for(i = 0; i < this.state.count; i++) {
       this.sketch.undo();
@@ -162,10 +193,16 @@ export default class Drawing extends React.Component {
     return judge;
   }
 
+  /*
+  * Launches color selector modal
+  */
   launchColorModal(bool) {
     this.setState({colorModalVisible: bool})
   }
 
+  /*
+  * Toggles color wheel
+  */
   toggleColorWheel(bool) {
     this.launchColorModal(false);
     console.log(this.state.wheelVisible);
@@ -175,34 +212,41 @@ export default class Drawing extends React.Component {
     console.log('toggle color wheel called ' + bool + ': ' + this.state.wheelVisible);
   }
 
-  launchColorWheel() {
-    this.launchColorModal(false);
-    this.setState({wheelVisible: true});
-    console.log('launch color wheel called')
-  }
-
+  /*
+  * Launches stroke width slider modal
+  */
   launchStrokeModal(bool) {
     this.setState({strokeSliderVisible: bool})
   }
 
+  /*
+  * Launches inter player modal
+  */
   launchInterPlayer() {
     this.setState({interPlayerVisible: true})
   }
 
+  /*
+  * Closers interplayer modal, starts timer and resets drawing settings
+  */
   closeInterPlayer() {
     this.clearScreen()
     this.startTimer()
     this.setState({interPlayerVisible: false, timerOn: true, strokeColor: 0x000000, strokeWidth:20})
   }
 
+  /*
+  * Closes pregame modal, starts the timer
+  */
   closePreGame() {
     this.startTimer()
     this.setState({preGameModalVisible: false, timerOn: true})
 
   }
 
-
-
+  /*
+  * Changes stroke color based on color wheel selection
+  */
   handleColorWheelChange(newColor) {
     newColorString = String(colorsys.hsvToHex(newColor));
     newColorHexForm = "0x" +newColorString.substring(1,7);
@@ -212,6 +256,9 @@ export default class Drawing extends React.Component {
     })
   }
 
+  /*
+  * Changes stroke color based on color button pressed
+  */
   handleColorButtonPress(newColor) {
     newColorHexForm = "0x" +newColor.substring(1,7);
     newColorInt = parseInt(newColorHexForm);
@@ -221,11 +268,10 @@ export default class Drawing extends React.Component {
     })
   }
 
-  updateDimensions(width, height) {
-    this.state.playerInfo[this.state.playerNum].width = width
-    this.state.playerInfo[this.state.playerNum].height = height
-  }
-
+  /*
+  * Saves the sketch drawn under the current drawer. Resizes the image according
+  * to screen dimensions
+  */
   saveImage = async () => {
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
@@ -233,12 +279,16 @@ export default class Drawing extends React.Component {
       height: Dimensions.get('window').height * 0.85,
       width: Dimensions.get('window').width
     });
-   // console.log(Image.getSize(uri, (width, height))
     this.state.playerInfo[this.state.playerNum].img = uri;
     Image.getSize(uri, (width, height) => {this.updateDimensions(width, height)})
-    // console.log(Image.getSize(uri) + 'yeeeet')
+    this.nextPlayer();
+  }
 
-
+  /*
+  * Goes to the next drawer. If it was the last drawer, navigates to the Voting
+  * screen
+  */
+  nextPlayer() {
     if(this.state.playerNum < this.state.numPlayers - 1 &&
         !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {
       this.state.playerNum += 1;
@@ -251,17 +301,10 @@ export default class Drawing extends React.Component {
     }
   }
 
-  onReady = () => {
-    console.log('ready! ');
-    console.log('word of the day is', this.state.word);
-    console.log('drawing screen! '+this.state.playerInfo)
-  };
-
   render() {
     const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
-
         <View style= {styles.upperText}>
           <View style={{marginTop:20}}>
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
@@ -271,6 +314,7 @@ export default class Drawing extends React.Component {
             <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>
         </View>
+          {/*View that contains the area for sketching*/}
           <View style={styles.container}>
             <View style={styles.sketchContainer}>
               <ExpoPixi.Sketch
@@ -282,10 +326,10 @@ export default class Drawing extends React.Component {
                 strokeWidth={this.state.strokeWidth}
                 strokeAlpha={1}
                 onChange={this.onChangeAsync}
-                onReady={this.onReady}
               />
             </View>
           </View>
+          {/*Color wheel modal*/}
           <View>
             <Modal
               isVisible= {this.state.wheelVisible}
@@ -300,6 +344,7 @@ export default class Drawing extends React.Component {
                    />
             </Modal>
           </View>
+          {/*Inter player modal*/}
           <View>
             <Modal
               isVisible= {this.state.interPlayerVisible}
@@ -320,12 +365,12 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
+          {/*Modal that is shown at beginning of round*/}
           <View>
             <Modal
               isVisible= {this.state.preGameModalVisible}
               backdropOpacity={.50}>
                 <View style= {styles.interPlayerPopUp}>
-
                   <Text style = {{fontSize: 24, fontWeight: 'bold',}}> Let the  </Text>
                   <Text style = {{fontSize: 24, fontWeight: 'bold'}}> games begin! </Text>
 
@@ -341,6 +386,10 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
+          {/*
+          * Modal that maps through list of rgb values to display buttons that
+          * can be selected to change colors
+          */}
           <View>
             <Modal
               isVisible= {this.state.colorModalVisible}
@@ -370,6 +419,7 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
+          {/*Stroke width slider modal*/}
           <View>
             <Modal
               isVisible= {this.state.strokeSliderVisible}
@@ -387,6 +437,10 @@ export default class Drawing extends React.Component {
                 </View>
             </Modal>
           </View>
+          {/*
+          * Buttons at bottom of screen for selecting colors, editing stroke width,
+          * undoing a line, clearing a drawing, and submiting a drawing
+          */}
           <View style={styles.iconBar}>
             <TouchableOpacity onPress={() => {
                 this.launchColorModal(true);

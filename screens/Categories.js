@@ -41,6 +41,10 @@ export default class CategoriesScreen extends React.Component {
 
 
 
+  /*
+  HTML and CSS code for the Categories screen; the base buttons, styling, and images
+  to make the screen look how it does.
+  */
   render() {
     const { navigate } = this.props.navigation;
     return (

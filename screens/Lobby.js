@@ -58,7 +58,7 @@ export default class LobbyScreen extends React.Component {
       // LobbyScreen.names = this.state.playerInfo;
     }else{
       Alert.alert(
-        'Please enter player names into the inputs.',
+        'Please enter player names.',
         '',
         [{text: 'Ok',
           style: 'cancel'}

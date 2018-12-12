@@ -2,9 +2,8 @@ import Expo from 'expo';
 import { FileSystem } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { TouchableOpacity, Dimensions, Image, Button, Platform, AppState, StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+import { TouchableOpacity, Dimensions, Image, Button, Platform, AppState, StyleSheet, Text, View, TouchableHighlight, BackHandler } from 'react-native';
 import Swiper from 'react-native-swiper'
-
 
 {/*
   This class displays the players drawings from the current round.
@@ -36,6 +35,21 @@ export default class Voting extends React.Component {
     this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName, playerInfo: playerInfo})
   }
 
+  /*
+  * Following three functions disable android back button
+  */
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
+  }
 
   render() {
 

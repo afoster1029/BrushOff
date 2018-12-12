@@ -2,7 +2,7 @@ import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio, BackHandler } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import { ColorWheel } from 'react-native-color-wheel';
@@ -139,6 +139,7 @@ export default class Drawing extends React.Component {
   * Invoked when drawing component is mounted (inserted into tree)
   */
   componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
   }
 
@@ -157,8 +158,16 @@ export default class Drawing extends React.Component {
   * Invoked immediately before a component is unmounted and destroyed. Clears timer
   */
   componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
     TimerMixin.clearInterval(this.interval)
+  }
+
+  /*
+  * Disables android back button
+  */
+  handleBackButton() {
+    return true;
   }
 
   /*
@@ -279,7 +288,6 @@ export default class Drawing extends React.Component {
     });
 
     this.state.playerInfo[this.state.playerNum].img = uri;
-    //Image.getSize(uri, (width, height) => {this.updateDimensions(width, height)})
     this.nextPlayer();
   }
 

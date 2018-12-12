@@ -43,7 +43,7 @@ export default class Home extends React.Component {
                   <TouchableOpacity
                     onPress={() => {
                       /* 1. Navigate to the Details route with params */
-                      this.props.navigation.navigate('Settings', {
+                      this.props.navigation.navigate('Instructions', {
                       });
                     }}>
                     <Image

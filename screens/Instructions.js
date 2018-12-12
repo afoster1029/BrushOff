@@ -17,16 +17,23 @@ export default class Settings extends React.Component {
         <View style = {styles.container}>
           <View style = {styles.instructionsBox}>
             <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Welcome to Brush Off!</Text>
+
+            <Text></Text>
+
             <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>
               Brush Off is a drawing competetion game! You need at least three players to play!
             </Text>
 
+            <Text></Text>
+
             <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>
               One player will be chosen as judge for each rounds drawings!
-              That judge will choose from four possible prompt categories that the other players will each take a
+              That judge will choose from four prompt categories that the other players will each take a
               turn drawing. The judge will not draw on the drawing screen, and will alternate next round. The
-              artists are on a timer though, and will only have so much time to draw their art.
+              artists are on a timer, and will only have so much time to draw their take.
             </Text>
+
+            <Text></Text>
 
             <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>
               Once all players have had their turn the judge will select the winning image, and that player
@@ -50,6 +57,9 @@ export default class Settings extends React.Component {
   }
 }
 
+const windowHeight = Dimensions.get('window').height;
+const windowWidth =  Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -61,6 +71,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     backgroundColor: 'white',
+    width: windowWidth - 110,
+    height: windowHeight - 200,
     borderRadius: 10,
     paddingBottom: 10,
     marginTop: 15,

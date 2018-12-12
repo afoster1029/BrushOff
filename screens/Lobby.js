@@ -77,6 +77,7 @@ export default class LobbyScreen extends React.Component {
 
 
   goToHomeScreen() {
+    // checks if any text was inputted to the TextInputs
     nameEntered = false
     this.state.playerInfo.map((playerName, idx)=> {
       if (playerName['name'].length != 0){
@@ -93,6 +94,8 @@ export default class LobbyScreen extends React.Component {
           style: 'cancel'}
        ],{ cancelable: false }
       )
+    } else {
+      this.props.navigation.navigate('Home', {name: 'HomeScreen'});
     }
   }
 

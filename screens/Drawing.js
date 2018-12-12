@@ -2,7 +2,7 @@ import Expo from 'expo';
 import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio, BackHandler } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
 import { ColorWheel } from 'react-native-color-wheel';
@@ -139,6 +139,7 @@ export default class Drawing extends React.Component {
   * Invoked when drawing component is mounted (inserted into tree)
   */
   componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     AppState.addEventListener('change', this.handleAppStateChangeAsync);
   }
 
@@ -157,8 +158,16 @@ export default class Drawing extends React.Component {
   * Invoked immediately before a component is unmounted and destroyed. Clears timer
   */
   componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     AppState.removeEventListener('change', this.handleAppStateChangeAsync);
     TimerMixin.clearInterval(this.interval)
+  }
+
+  /*
+  * Disables android back button
+  */
+  handleBackButton() {
+    return true;
   }
 
   /*
@@ -276,9 +285,8 @@ export default class Drawing extends React.Component {
     const { uri } = await this.sketch.takeSnapshotAsync({
       result: 'file',
       format: 'png',
-      height: Dimensions.get('window').height * 0.85,
-      width: Dimensions.get('window').width
     });
+
     this.state.playerInfo[this.state.playerNum].img = uri;
     this.nextPlayer();
   }
@@ -492,6 +500,8 @@ export default class Drawing extends React.Component {
 }
 
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
@@ -556,13 +566,14 @@ const styles = StyleSheet.create({
     borderRadius:5,
     backgroundColor: 'white',
     position: 'absolute',
-    top: 380,
+    top: screenHeight - 220,
+    //transform: [{ scaleX: 1.1 }, { scaleY: 1.1 }]
   },
   sliderModal: {
     position: 'absolute',
-    top: 410,
+    top: screenHeight - 120,
     alignSelf: 'center',
-
+    transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }]
   },
   upperText: {
     borderBottomColor: 'grey',
@@ -584,7 +595,6 @@ const styles = StyleSheet.create({
     width:35,
     height:35,
     borderRadius: 4,
-
     padding: 2,
 
   }

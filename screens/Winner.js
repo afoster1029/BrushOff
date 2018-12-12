@@ -1,7 +1,7 @@
 import Expo from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { Image, Button, Platform, AppState, StyleSheet, Text, View, ImageBackground, Dimensions } from 'react-native';
+import { Image, Button, Platform, AppState, StyleSheet, Text, View, ImageBackground, Dimensions, BackHandler } from 'react-native';
 
 export default class Voting extends React.Component {
   constructor(props) {
@@ -55,6 +55,22 @@ export default class Voting extends React.Component {
   HTML and CSS code for the Winner screen; the base buttons, styling, and images
   to make the screen look how it does.
   */
+
+  /*
+  * Following three functions disable android back button
+  */
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    return true;
+  }
+
   render() {
     console.log(this.state.players)
     const { navigate } = this.props.navigation;

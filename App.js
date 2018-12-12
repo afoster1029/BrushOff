@@ -4,7 +4,7 @@ import { Button, View, Text, StyleSheet } from 'react-native';
 import { StackNavigator, createStackNavigator } from 'react-navigation';
 import {AppRegistry} from 'react-native';
 import HomeScreen from './screens/Home.js';
-import SettingsScreen from './screens/Settings.js';
+import InstructionsScreen from './screens/Instructions.js';
 import DrawingScreen from './screens/Drawing.js';
 import LobbyScreen from './screens/Lobby.js'
 import InterPlayerScreen from './screens/InterPlayer.js'
@@ -12,11 +12,9 @@ import VotingScreen from './screens/Voting.js'
 import WinnerScreen from './screens/Winner.js'
 import CategoriesScreen from './screens/Categories.js'
 
-
-
 const Navigation = createStackNavigator({
     Home: {screen: HomeScreen},
-    Settings: {screen: SettingsScreen},
+    Instructions: {screen: InstructionsScreen},
     Drawing: {screen: DrawingScreen},
     Lobby: {screen: LobbyScreen},
     InterPlayer: {screen: InterPlayerScreen},

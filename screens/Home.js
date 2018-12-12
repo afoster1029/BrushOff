@@ -7,7 +7,7 @@ import { createStackNavigator } from 'react-navigation';
 /*
 This files creates the homescreen for the game. When the game starts up
 it automatically navigates to this screen. Players are provided two options:
-Play Game or Settings. 
+Play Game or Settings.
 */
 
 
@@ -48,7 +48,7 @@ export default class Home extends React.Component {
                     }}>
                     <Image
                       style={styles.buttonImage}
-                      source={require('./img/settingsbutton.png')}
+                      source={require('./img/instructionsbutton.png')}
                     />
                   </TouchableOpacity>
                 </View>

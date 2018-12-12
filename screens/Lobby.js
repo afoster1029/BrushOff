@@ -165,7 +165,7 @@ export default class LobbyScreen extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('./img/player-names-back.jpg')}
+        source={require('./img/new-lobby.jpg')}
         imageStyle={{resizeMode: 'stretch'}}
         style={{flex: 1}}
       >

@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation';
 
 export default class Settings extends React.Component {
   static navigationOptions = {
-    title: 'Settings'
+    title: 'Instructions'
   };
   render() {
     const { navigate } = this.props.navigation;
@@ -25,7 +25,7 @@ export default class Settings extends React.Component {
               When you click Start Game in the lobby, a player will be chosen as judge over this rounds drawings!
               That judge will choose from four possible prompt categories that the other players will each take a
               turn drawing. The judge will not draw on the drawing screen. The judge will change next round. The
-              artists are on a timer though, and will only have so much time to draw their masterpiece 
+              artists are on a timer though, and will only have so much time to draw their masterpiece
               before it is the next players turn and the previous player must pass their phone along.
 
               Once all players have had their turn the judge will select the winning image, and that player

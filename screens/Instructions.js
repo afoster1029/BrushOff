@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { Dimensions, Button, View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 export default class Settings extends React.Component {

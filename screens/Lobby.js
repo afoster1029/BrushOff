@@ -30,7 +30,7 @@ export default class LobbyScreen extends React.Component {
     }
   }
 
-  
+
   checkIfPlayerNamesEntered(){
     this.state.playerInfo.map((playerName, idx)=> {
       if (playerName['name'].length == 0){
@@ -58,12 +58,10 @@ export default class LobbyScreen extends React.Component {
       // LobbyScreen.names = this.state.playerInfo;
     }else{
       Alert.alert(
-        'Do you want to enter player names?',
+        'Please enter player names.',
         '',
-        [{text: 'No', onPress: () => this.startWithNoNames(),
-          style: 'cancel'},
-          {text: 'Yes', onPress: () => console.log('Cancel Pressed'),
-           style: 'cancel'}
+        [{text: 'Ok',
+          style: 'cancel'}
        ],{ cancelable: false }
       )
     }
@@ -75,6 +73,27 @@ export default class LobbyScreen extends React.Component {
     ))
     this.state.playerInfo[0].isJudge = true;
     this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
+  }
+
+
+  goToHomeScreen() {
+    nameEntered = false
+    this.state.playerInfo.map((playerName, idx)=> {
+      if (playerName['name'].length != 0){
+        nameEntered = true;
+      }
+    })
+
+    if (nameEntered) {
+      Alert.alert(
+        'Are you sure you want to go back? This will discard any player names entered.',
+        '',
+        [{text: 'No', style: 'cancel'},
+         {text: 'Yes', onPress: () => this.props.navigation.navigate('Home', {name: 'HomeScreen'}),
+          style: 'cancel'}
+       ],{ cancelable: false }
+      )
+    }
   }
 
 
@@ -153,7 +172,7 @@ export default class LobbyScreen extends React.Component {
         */}
         <View style = {styles.container}>
           <View style={{padding: 60}}>
-            <View style={{marginTop:60}}>
+            <View style={{marginTop:60, width:240}}>
             {this.state.playerInfo.map((playerName, idx)=> (
               <TextInput
                 key = {idx}
@@ -167,33 +186,43 @@ export default class LobbyScreen extends React.Component {
             </View>
             {/* Buttons that allow player to add/remove players and start game.*/}
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-                <View style = {{flexDirection: 'row'}}>
+                <View style = {{flexDirection: 'row', width:240}}>
                   <View style= {styles.changePlayerButton}>
-                  <Button
-                    title="Add "
-                    color="grey"
-                    accessibilityLabel= ""
-                    onPress={() => {this.handleAddPlayer()}}
-                  />
+                    <Button
+                      title="Add "
+                      color="grey"
+                      accessibilityLabel= ""
+                      onPress={() => {this.handleAddPlayer()}}
+                    />
                   </View>
                   <View style= {styles.changePlayerButton}>
-                  <Button
-                    title="Remove"
-                    color="grey"
-                    accessibilityLabel= ""
-                    onPress={() => {this.handleRemovePlayer()}}
-                  />
+                    <Button
+                      title="Remove"
+                      color="grey"
+                      accessibilityLabel= ""
+                      onPress={() => {this.handleRemovePlayer()}}
+                    />
                   </View>
                 </View>
               </View>
-              <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 50}}>
-                <Button
-                  title="Start Game"
-                  color="grey"
-                  accessibilityLabel= ""
-                  onPress={() => {this.startGame()}}
-                />
-              </View>
+              <View style={{flexDirection:'row', justifyContent: 'space-evenly'}}>
+                <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 50,width:120}}>
+                  <Button
+                    title="Back"
+                    color="grey"
+                    onPress={() => {this.goToHomeScreen()}}
+                  />
+                </View>
+                <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 50,width:120}}>
+                  <Button
+                    title="Start Game"
+                    color="grey"
+                    accessibilityLabel= ""
+                    onPress={() => {this.startGame()}}
+                  />
+                </View>
+
+             </View>
             </View>
         </View>
       </ImageBackground>
@@ -222,7 +251,7 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 1,
     backgroundColor: 'white',
-    width: 100,
+    width: 120,
     height:36,
   },
 });

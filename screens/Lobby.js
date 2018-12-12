@@ -180,9 +180,10 @@ export default class LobbyScreen extends React.Component {
               <TextInput
                 key = {idx}
                 type='text'
-                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white'}}
+                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}
                 placeholder = {'Player '+parseInt(idx+1)}
                 value = {playerName.name}
+                maxLength = {16}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}

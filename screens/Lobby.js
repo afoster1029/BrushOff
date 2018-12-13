@@ -165,7 +165,7 @@ export default class LobbyScreen extends React.Component {
   render() {
     return (
       <ImageBackground
-        source={require('./img/player-names-back.jpg')}
+        source={require('./img/new-lobby.jpg')}
         imageStyle={{resizeMode: 'stretch'}}
         style={{flex: 1}}
       >
@@ -180,9 +180,10 @@ export default class LobbyScreen extends React.Component {
               <TextInput
                 key = {idx}
                 type='text'
-                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white'}}
+                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}
                 placeholder = {'Player '+parseInt(idx+1)}
                 value = {playerName.name}
+                maxLength = {16}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}

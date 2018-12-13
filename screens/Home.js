@@ -48,7 +48,7 @@ export default class Home extends React.Component {
                     }}>
                     <Image
                       style={styles.buttonImage}
-                      source={require('./img/settingsbutton.png')}
+                      source={require('./img/instructionsbutton.png')}
                     />
                   </TouchableOpacity>
                 </View>

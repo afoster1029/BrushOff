@@ -13,6 +13,7 @@ const animalWordList = prompts.animals
 const artsWordList = prompts.art
 const randomWordList = prompts.random
 const sportsWordList = prompts.sports
+const macalesterWordList = prompts.sports
 
 export default class CategoriesScreen extends React.Component {
   constructor(props) {
@@ -37,9 +38,6 @@ export default class CategoriesScreen extends React.Component {
     this.props.navigation.navigate('Drawing',
     {list: categoryList, playerInfo: this.state.playerInfo})
   }
-
-
-
 
   /*
   HTML and CSS code for the Categories screen; the base buttons, styling, and images
@@ -124,8 +122,8 @@ const styles = StyleSheet.create({
   buttonImage: {
     resizeMode: 'contain',
     flex: 1,
-    width: 170,
-    height: 40,
+    width: 234,
+    height: 55,
   },
   fillerButton: {
     flex:1,

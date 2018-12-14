@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground, TouchableOpacity, Image } from 'react-native';
+import { Number, Dimensions, Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -24,9 +24,12 @@ export default class LobbyScreen extends React.Component {
       playerInfo: [
         {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 0},
         {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 1},
-        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 2}],
+        {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 2}],
       enteredPlayerNames: false,
       numPlayerInputs: 3,
+      windowHeight: Dimensions.get('window').height,
+      windowWidth:  Dimensions.get('window').width,
+      timerLength: 60,
     }
   }
 
@@ -54,8 +57,11 @@ export default class LobbyScreen extends React.Component {
     // Also passes along the playerInfo to Categories.js.
     if (namesEntered) {
       this.state.playerInfo[0].isJudge = true;
-      this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
-      // LobbyScreen.names = this.state.playerInfo;
+      this.props.navigation.navigate('Categories', {
+        playerInfo: this.state.playerInfo,
+        timerLength: this.state.timerLength
+      });
+      console.log(this.state.timerLength + ' time length: lobby')
     }else{
       Alert.alert(
         'Please enter player names.',
@@ -67,15 +73,6 @@ export default class LobbyScreen extends React.Component {
     }
   }
 
-  startWithNoNames() {
-    this.state.playerInfo.map((player, idx)=> (
-      player.name = 'Player '+parseInt(idx+1)
-    ))
-    this.state.playerInfo[0].isJudge = true;
-    this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
-  }
-
-
   goToHomeScreen() {
     // checks if any text was inputted to the TextInputs
     nameEntered = false
@@ -83,8 +80,8 @@ export default class LobbyScreen extends React.Component {
       if (playerName['name'].length != 0){
         nameEntered = true;
       }
-    })
 
+    })
     if (nameEntered) {
       Alert.alert(
         'Are you sure you want to go back? This will discard any player names entered.',
@@ -162,6 +159,16 @@ export default class LobbyScreen extends React.Component {
     this.setState({ playerInfo: newPlayerInfo });
   }
 
+  isInteger(x) {
+   return x % 1 === 0;
+  }
+
+  updateTimerLimit(text){
+    if (this.isInteger(parseInt(text,10))){
+      this.setState({timerLength: parseInt(text,10)})
+    }
+  }
+
   render() {
     return (
       <ImageBackground
@@ -175,7 +182,7 @@ export default class LobbyScreen extends React.Component {
         */}
         <View style = {styles.container}>
           <View style={{padding: 60}}>
-            <View style={{marginTop:60, width:240}}>
+            <View style={{marginTop:60, width:240, marginTop:this.state.windowHeight*0.15}}>
             {this.state.playerInfo.map((playerName, idx)=> (
               <TextInput
                 key = {idx}
@@ -208,7 +215,20 @@ export default class LobbyScreen extends React.Component {
                     />
                   </View>
                 </View>
+                <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', marginTop:50}}>
+                  <Text> Image will go here </Text>
+
+                  <TextInput
+                    type='text'
+                    style={{width: 50, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}
+                    placeholder = {'60'}
+                    maxLength = {3}
+                    onChangeText={(text) => this.updateTimerLimit(text)}
+                  />
+
+                </View>
               </View>
+
               <View style={{flexDirection:'row', justifyContent: 'space-evenly'}}>
                 <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 50,width:120}}>
                   <Button

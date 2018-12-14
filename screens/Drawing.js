@@ -16,7 +16,7 @@ const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
 var imageList = ['','','','']
 var colorsys = require('colorsys')
-const colorButtonList= ['#E44262', '#C0C0C0', '#808080', '#000000', '#FF0000', '#800000', '#FFFF00', '#808000',
+const colorButtonList= ['#FFFFFF', '#C0C0C0', '#808080', '#000000', '#FF0000', '#800000', '#FFFF00', '#808000',
 '#00FF00', '#008000','#00FFFF', '#008080', '#0000FF', '#000080','#FF00FF', '#800080', '#D2691E']
 const height = Dimensions.get('window').height;
 const width =  Dimensions.get('window').width;

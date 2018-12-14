@@ -16,7 +16,7 @@ const isAndroid = Platform.OS === 'android';
 const timer = require('react-native-timer');
 var imageList = ['','','','']
 var colorsys = require('colorsys')
-const colorButtonList= ['#FFFFFF', '#C0C0C0', '#808080', '#000000', '#FF0000', '#800000', '#FFFF00', '#808000',
+const colorButtonList= ['#E44262', '#C0C0C0', '#808080', '#000000', '#FF0000', '#800000', '#FFFF00', '#808000',
 '#00FF00', '#008000','#00FFFF', '#008080', '#0000FF', '#000080','#FF00FF', '#800080', '#D2691E']
 const height = Dimensions.get('window').height;
 const width =  Dimensions.get('window').width;
@@ -315,8 +315,8 @@ export default class Drawing extends React.Component {
         <View style= {styles.upperText}>
           <View style={{marginTop:20}}>
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-              <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
-              <Text style= {{fontSize: 14, fontWeight: 'bold',position: 'absolute', right: 15}}> {this.state.timer} </Text>
+              <Text id = 'wordOfTheDay' style= {{fontSize: 23, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
+              <Text style= {{fontSize: 17, position: 'absolute', right: 15}}> {this.state.timer} </Text>
             </View>
             <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>

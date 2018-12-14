@@ -18,10 +18,12 @@ export default class CategoriesScreen extends React.Component {
   constructor(props) {
     super(props);
     const players = this.props.navigation.getParam('playerInfo', 'nothing passed');
-    console.log(players);
+
+
     this.state = {
-      playerInfo: players
+      playerInfo: this.props.navigation.getParam('playerInfo', 'nothing passed'),
     };
+    console.log(this.state.playerInfo);
 }
 
   static navigationOptions = {
@@ -35,7 +37,9 @@ export default class CategoriesScreen extends React.Component {
 
   navigateToDrawing(categoryList) {
     this.props.navigation.navigate('Drawing',
-    {list: categoryList, playerInfo: this.state.playerInfo})
+    {list: categoryList,
+     playerInfo: this.state.playerInfo,
+     timerLength: this.props.navigation.getParam('timerLength', 60)})
   }
 
   /*

@@ -24,12 +24,12 @@ export default class LobbyScreen extends React.Component {
       playerInfo: [
         {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 0},
         {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 1},
-        {'name':'', 'img':'', 'isJudge': false, 'score': 0, 'key': 2}],
+        {'name':'', 'img':'','height': 0,'width':0, 'isJudge': false, 'score': 0, 'key': 2}],
       enteredPlayerNames: false,
       numPlayerInputs: 3,
       windowHeight: Dimensions.get('window').height,
       windowWidth:  Dimensions.get('window').width,
-      timerLength: 30,
+      timerLength: 60,
     }
   }
 
@@ -57,8 +57,11 @@ export default class LobbyScreen extends React.Component {
     // Also passes along the playerInfo to Categories.js.
     if (namesEntered) {
       this.state.playerInfo[0].isJudge = true;
-      this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
-      // LobbyScreen.names = this.state.playerInfo;
+      this.props.navigation.navigate('Categories', {
+        playerInfo: this.state.playerInfo,
+        timerLength: this.state.timerLength
+      });
+      console.log(this.state.timerLength + ' time length: lobby')
     }else{
       Alert.alert(
         'Please enter player names.',
@@ -69,16 +72,6 @@ export default class LobbyScreen extends React.Component {
       )
     }
   }
-
-  startWithNoNames() {
-    this.state.playerInfo.map((player, idx)=> (
-      player.name = 'Player '+parseInt(idx+1)
-    ))
-    this.state.playerInfo[0].isJudge = true;
-    this.props.navigation.navigate('Categories', {playerInfo: this.state.playerInfo});
-  }
-
-
 
   goToHomeScreen() {
     // checks if any text was inputted to the TextInputs
@@ -170,12 +163,10 @@ export default class LobbyScreen extends React.Component {
    return x % 1 === 0;
   }
 
-  updateTimerLimit(time){
-    if (this.isInteger(parseInt('10',10))){
-      this.setState(timerLength: time)
+  updateTimerLimit(text){
+    if (this.isInteger(parseInt(text,10))){
+      this.setState({timerLength: parseInt(text,10)})
     }
-    //console.log(this.state.timerLength + 'timer length!')
-
   }
 
   render() {
@@ -231,16 +222,12 @@ export default class LobbyScreen extends React.Component {
                     type='text'
                     style={{width: 50, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}
                     placeholder = {'60'}
-                    value = {this.state.timerLength.toString()}
                     maxLength = {3}
-                    onChangeText={this.updateTimerLimit()}
+                    onChangeText={(text) => this.updateTimerLimit(text)}
                   />
 
                 </View>
               </View>
-
-
-
 
               <View style={{flexDirection:'row', justifyContent: 'space-evenly'}}>
                 <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 50,width:120}}>

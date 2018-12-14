@@ -57,7 +57,7 @@ export default class Drawing extends React.Component {
       colorModalVisible: false,
       strokeSliderVisible: false,
       preGameModalVisible: true,
-      timer: 60,
+      timer: this.props.navigation.getParam('timerLength', 60),
       hasDrawn: false,
       lines: [ //This dot prevents the game from crashing when nothing is drawn
       {
@@ -295,6 +295,7 @@ export default class Drawing extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
+    console.log(this.state.timer + ' timer length!!!')
     return (
       <View style={styles.container}>
         <View style= {styles.upperText}>

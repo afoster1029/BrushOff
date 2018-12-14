@@ -1,9 +1,5 @@
 import React from 'react';
-<<<<<<< HEAD
 import { Button, View, Text, StyleSheet, ImageBackground, Dimensions } from 'react-native';
-=======
-import { Dimensions, Button, View, Text, StyleSheet, ImageBackground } from 'react-native';
->>>>>>> 5a802a39b959a6d9f1d5c84847343e1cf209b331
 import { createStackNavigator } from 'react-navigation';
 
 export default class Settings extends React.Component {
@@ -47,7 +43,7 @@ export default class Settings extends React.Component {
             <Button
               title="Back"
               color="grey"
-              onPress={() => {this.goToHomeScreen()}}
+              onPress={() => {this.props.navigation.navigate('Home', {name: 'HomeScreen'})}}
             />
           </View>
         </View>

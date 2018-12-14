@@ -181,13 +181,13 @@ export default class LobbyScreen extends React.Component {
         in playerInfo.
         */}
         <View style = {styles.container}>
-          <View style={{padding: 60}}>
+          <View style={{padding: 60, flexDirection: 'column', alignItems: 'center'}}>
             <View style={{marginTop:60, width:240, marginTop:this.state.windowHeight*0.15}}>
             {this.state.playerInfo.map((playerName, idx)=> (
               <TextInput
                 key = {idx}
                 type='text'
-                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}
+                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24, alignSelf: 'center', width: 240}}
                 placeholder = {'Player '+parseInt(idx+1)}
                 value = {playerName.name}
                 maxLength = {16}
@@ -215,9 +215,20 @@ export default class LobbyScreen extends React.Component {
                     />
                   </View>
                 </View>
-                <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', marginTop:50}}>
-                  <Text> Image will go here </Text>
+                <View style = {{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
 
+                  <Image
+                    style={
+                        {
+                        resizeMode: 'center',
+                        width: this.state.windowWidth*0.95,
+                        height: 100,
+                        marginBottom:0,
+                        marginTop: 50
+                        }
+                    }
+                    source={require('./img/timelimitheader.png')}
+                  />
                   <TextInput
                     type='text'
                     style={{width: 50, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}

@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio, BackHandler } from 'react-native';
 import { TouchableHighlight, TouchableOpacity, Alert, Dimensions} from 'react-native'   //Alert may be the wrong command
 import { createStackNavigator, NavigationActions } from 'react-navigation';
-import { ColorWheel } from 'react-native-color-wheel';
 import Modal from "react-native-modal";
 import TimerMixin from 'react-timer-mixin';
 <script src="https://unpkg.com/colorsys@1.0.11/colorsys.js"></script>
@@ -41,7 +40,7 @@ export default class Drawing extends React.Component {
     this.state = {
       image: null,
       strokeColor: 0x000000,
-      backgroundColor: 0x000000,
+      backgroundColor: 'transparent',
       transparent: false,
       strokeWidth: 20,
       count: 0,
@@ -59,6 +58,15 @@ export default class Drawing extends React.Component {
       strokeSliderVisible: false,
       preGameModalVisible: true,
       timer: 60,
+      hasDrawn: false,
+      lines: [ //This dot prevents the game from crashing when nothing is drawn
+      {
+        points: [{ x: 0, y: 0 },{ x: 0, y: 0 }],
+        color: 0x000000,
+        alpha: 1,
+        width: 1,
+      },
+    ],
     }
     this.handleJudge();
   }
@@ -176,6 +184,7 @@ export default class Drawing extends React.Component {
   * number of lines drawn
   */
   onChangeAsync = async () => {
+    this.state.hasDrawn = true;
     const { uri } = await this.sketch.takeSnapshotAsync();
     this.setState({
       image: { uri },
@@ -210,18 +219,6 @@ export default class Drawing extends React.Component {
   }
 
   /*
-  * Toggles color wheel
-  */
-  toggleColorWheel(bool) {
-    this.launchColorModal(false);
-    console.log(this.state.wheelVisible);
-
-    this.setState({wheelVisible: bool});
-    //this.state.wheelVisible = bool;
-    console.log('toggle color wheel called ' + bool + ': ' + this.state.wheelVisible);
-  }
-
-  /*
   * Launches stroke width slider modal
   */
   launchStrokeModal(bool) {
@@ -251,18 +248,6 @@ export default class Drawing extends React.Component {
     this.startTimer()
     this.setState({preGameModalVisible: false, timerOn: true})
 
-  }
-
-  /*
-  * Changes stroke color based on color wheel selection
-  */
-  handleColorWheelChange(newColor) {
-    newColorString = String(colorsys.hsvToHex(newColor));
-    newColorHexForm = "0x" +newColorString.substring(1,7);
-    newColorInt = parseInt(newColorHexForm);
-    this.setState({
-      strokeColor: newColorInt,
-    })
   }
 
   /*
@@ -333,23 +318,9 @@ export default class Drawing extends React.Component {
                 strokeWidth={this.state.strokeWidth}
                 strokeAlpha={1}
                 onChange={this.onChangeAsync}
+                initialLines={this.state.lines}
               />
             </View>
-          </View>
-          {/*Color wheel modal*/}
-          <View>
-            <Modal
-              isVisible= {this.state.wheelVisible}
-              backdropOpacity={.50}
-              onBackdropPress={() => this.toggleColorWheel(false)}
-              thumbStyle={{ height: 30, width: 30, borderRadius: 30}}
-              style={styles.colorWheel}>
-                  <ColorWheel
-                  initialColor="#eeeeee"
-                  onColorChange={color => {this.handleColorWheelChange(color)}}
-
-                   />
-            </Modal>
           </View>
           {/*Inter player modal*/}
           <View>
@@ -415,12 +386,12 @@ export default class Drawing extends React.Component {
                     </View>
                   ))}
                   <TouchableOpacity
-                    onPress={() => {
-                      {this.toggleColorWheel(true)};
-                    }}>
+                    onPress={() =>
+                      this.setState({ strokeColor: 0xdcdcdc })
+                    }>
                     <Image
                       style={styles.colorButton}
-                      source={require('./img/color_palette.png')}
+                      source={require('./img/erasericon.png')}
                     />
                   </TouchableOpacity>
                 </View>
@@ -509,6 +480,7 @@ const styles = StyleSheet.create({
   },
   sketch: {
     flex: 1,
+    backgroundColor: '#ff00ff',
   },
   sketchContainer: {
     height: '100%',
@@ -538,14 +510,6 @@ const styles = StyleSheet.create({
   colorButton: {
     height: 35,
     width: 35,
-  },
-  colorWheel: {
-    height:300,
-    width: 300,
-    position: 'absolute',
-    top: 200,
-    right:50,
-    padding:40
   },
   interPlayerPopUp: {
     width: width - 50,

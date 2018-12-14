@@ -53,7 +53,7 @@ export default class Home extends React.Component {
                   </TouchableOpacity>
                 </View>
 
-        
+
               </View>
             </View>
           </ImageBackground>
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
   buttonImage: {
     resizeMode: 'contain',
     flex: 1,
-    width: 170,
-    height: 40,
+    width: 234,
+    height: 55,
   },
   fillerButton: {
     flex:1,

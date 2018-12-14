@@ -2,7 +2,7 @@ import Expo from 'expo';
 import { FileSystem } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
-import { TouchableOpacity, Dimensions, Image, Button, Platform, AppState, StyleSheet, Text, View, TouchableHighlight, BackHandler } from 'react-native';
+import { TouchableOpacity, Dimensions, Image, Button, Platform, AppState, StyleSheet, Text, View, TouchableHighlight, BackHandler} from 'react-native';
 import Swiper from 'react-native-swiper'
 
 {/*
@@ -53,12 +53,16 @@ export default class Voting extends React.Component {
 
   render() {
 
+    const screenWidth = Dimensions.get('window').width;
+    const screenHeight = Dimensions.get('window').height;
     const playerInfo = this.props.navigation.getParam('playerInfo', 'nothing passed');
     return (
 
       <Swiper
         loop={false}
         showsPagination={true}
+        paginationStyle={{ bottom: 55 }}
+
         index={0}>
 
         {/*

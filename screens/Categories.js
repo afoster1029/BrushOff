@@ -38,9 +38,6 @@ export default class CategoriesScreen extends React.Component {
     {list: categoryList, playerInfo: this.state.playerInfo})
   }
 
-
-
-
   /*
   HTML and CSS code for the Categories screen; the base buttons, styling, and images
   to make the screen look how it does.
@@ -49,7 +46,7 @@ export default class CategoriesScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <ImageBackground
-        source={require('./img/categories-back.jpg')}
+        source={require('./img/new-categories.jpg')}
         imageStyle={{resizeMode: 'stretch'}}
         style={{flex: 1}}
       >
@@ -124,8 +121,8 @@ const styles = StyleSheet.create({
   buttonImage: {
     resizeMode: 'contain',
     flex: 1,
-    width: 170,
-    height: 40,
+    width: 234,
+    height: 55,
   },
   fillerButton: {
     flex:1,

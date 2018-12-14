@@ -1,5 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD
+import { Button, View, Text, StyleSheet, ImageBackground, Dimensions } from 'react-native';
+=======
 import { Dimensions, Button, View, Text, StyleSheet, ImageBackground } from 'react-native';
+>>>>>>> 5a802a39b959a6d9f1d5c84847343e1cf209b331
 import { createStackNavigator } from 'react-navigation';
 
 export default class Settings extends React.Component {
@@ -16,41 +20,36 @@ export default class Settings extends React.Component {
       >
         <View style = {styles.container}>
           <View style = {styles.instructionsBox}>
-            <Text style= {{fontSize: 30, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>Welcome to Brush Off!</Text>
+            <Text style= {styles.welcomeText}>Welcome to Brush Off!</Text>
 
             <Text></Text>
 
-            <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>
+            <Text style= {styles.textStyle}>
               Brush Off is a drawing competetion game! You need at least three players to play!
             </Text>
 
             <Text></Text>
 
-            <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>
-              One player will be chosen as judge for each rounds drawings!
-              That judge will choose from four prompt categories that the other players will each take a
-              turn drawing. The judge will not draw on the drawing screen, and will alternate next round. The
+            <Text style= {styles.textStyle}>
+              One player will be chosen as judge for each round!
+              The judge will not draw, and will alternate each round. The
               artists are on a timer, and will only have so much time to draw their take.
             </Text>
 
             <Text></Text>
 
-            <Text style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center'}}>
-              Once all players have had their turn the judge will select the winning image, and that player
-              will receive one point for winning the round! You can then choose to start a new round with the same
-              players and points, or quit.
+            <Text style= {styles.textStyle}>
+              Once all artists have submitted their drawing the judge will select the winning drawing, and that player
+              will receive a point for winning the round!
             </Text>
           </View>
-          <Button
-            title="Home"
-            color="gray"
-            accessibilityLabel="Return to the home screen."
-            onPress={() => {
-              /* 1. Navigate to the Details route with params */
-              this.props.navigation.navigate('Home', {
-              });
-            }}
-          />
+          <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 10,marginBottom: 20,width:120}}>
+            <Button
+              title="Back"
+              color="grey"
+              onPress={() => {this.goToHomeScreen()}}
+            />
+          </View>
         </View>
       </ImageBackground>
     )
@@ -61,18 +60,35 @@ const windowHeight = Dimensions.get('window').height;
 const windowWidth =  Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+  welcomeText: {
+    width: windowWidth*0.82,
+    fontSize: 26,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    alignSelf: 'center'
+  },
+
+  textStyle: {
+    width: windowWidth*0.82,
+    fontSize: 22,
+    textAlign: 'center',
+    alignSelf: 'center'
+  },
+
   container: {
+    marginTop: 50,
     flex: 1,
     backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
   },
   instructionsBox: {
-    flex: 1,
+
+
     alignSelf: 'center',
     backgroundColor: 'white',
-    width: windowWidth - 110,
-    height: windowHeight - 200,
+    width: windowWidth *0.85,
+    height: windowHeight *0.6,
     borderRadius: 10,
     paddingBottom: 10,
     marginTop: 15,

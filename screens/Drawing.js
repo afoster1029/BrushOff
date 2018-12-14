@@ -300,8 +300,8 @@ export default class Drawing extends React.Component {
         <View style= {styles.upperText}>
           <View style={{marginTop:20}}>
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-              <Text id = 'wordOfTheDay' style= {{fontSize: 23, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
-              <Text style= {{fontSize: 17, position: 'absolute', right: 15}}> {this.state.timer} </Text>
+              <Text id = 'wordOfTheDay' style= {{fontSize: 28, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
+              <Text style= {{fontSize: 33, position: 'absolute', right: 15}}> {this.state.timer} </Text>
             </View>
             <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>

@@ -84,26 +84,26 @@ export default class Voting extends React.Component {
         style={{flex: 1}}
       >
         <View style = {styles.container}>
-          <Text style= {{fontSize: 40, textAlign: 'center', alignSelf: 'center', marginTop:20}}>Congrats {winner}</Text>
-          <View style={{borderWidth:2, borderColor:'grey', alignSelf: 'center', backgroundColor: 'white'}}>
+          <Text style= {styles.congratulations}>Congrats {winner}</Text>
+          <View style={styles.winnerDrawing}>
             <Image
               style={{width: 220, height: 280}}
               source={{uri: winnerUri}}
             />
           </View>
           <View style = {styles.leaderboard}>
-            <Text style= {{fontSize: 24, textAlign: 'center', alignSelf: 'center', color: 'grey'}}> Scoreboard </Text>
-              <View style={{flexDirection: 'column', flexWrap: 'wrap', alignItems: 'center'}}>
+            <Text style= {styles.scoreboardHeader}> Scoreboard </Text>
+              <View style={styles.scoreboardOrganization}>
                 {playerInfo.map((player, idx)=> (
                   <View key = {idx}>
-                    <Text style= {{fontSize: 18, textAlign: 'left', alignSelf: 'center', color: 'grey', marginHorizontal: 5}}>
+                    <Text style= {styles.scoreboardText}>
                       {player.name}: {player.score}
                     </Text>
                   </View>
                 ))}
               </View>
           </View>
-          <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 5, marginTop: 8}}>
+          <View style= {styles.bottomButtonRow}>
             <View style={styles.button}>
               <Button
                 title="Next Round"
@@ -161,5 +161,41 @@ const styles = StyleSheet.create({
     opacity: .85,
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  congratulations: {
+    fontSize: 40,
+    textAlign: 'center',
+    alignSelf: 'center',
+    marginTop:20
+  },
+  winnerDrawing: {
+    borderWidth:2,
+    borderColor:'grey',
+    alignSelf: 'center',
+    backgroundColor: 'white'
+  },
+  scoreboardHeader: {
+    fontSize: 24,
+    textAlign: 'center',
+    alignSelf: 'center',
+    color: 'grey',
+  },
+  scoreboardOrganization: {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+  },
+  scoreboardText: {
+    fontSize: 18,
+    textAlign: 'left',
+    alignSelf: 'center',
+    color: 'grey',
+    marginHorizontal: 5,
+  },
+  bottomButtonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginBottom: 5,
+    marginTop: 8
   }
 });

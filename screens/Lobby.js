@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Number, Dimensions, Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import ModalDropdown from 'react-native-modal-dropdown';
+
 
 /*
 This class allows players to enter in player names. The game will only navigate
@@ -228,7 +228,7 @@ export default class LobbyScreen extends React.Component {
                     }
                     source={require('./img/timelimitheader.png')}
                   />
-                  
+
                   <TextInput
                     type='text'
                     style={{width: 50, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}

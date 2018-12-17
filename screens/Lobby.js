@@ -188,7 +188,7 @@ export default class LobbyScreen extends React.Component {
                 style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24, alignSelf: 'center', width: 240}}
                 placeholder = {'Player '+parseInt(idx+1)}
                 value = {playerName.name}
-                maxLength = {16}
+                maxLength = {12}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}

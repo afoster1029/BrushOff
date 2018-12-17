@@ -76,8 +76,7 @@ export default class Voting extends React.Component {
         {playerInfo.filter((player) => !player.isJudge).map((player, idx)=> (
           <View
             key = {idx}
-            style = {{borderTopWidth: Dimensions.get('window').height* 0.075,
-            borderColor: 'transparent'}}
+            style = {styles.drawingDisplay}
           >
             <Image
               style={
@@ -92,7 +91,7 @@ export default class Voting extends React.Component {
               }
               source={{uri: player.img}}
             />
-            <View style={{borderRadius:10, borderColor: 'grey', borderWidth: 2,marginTop: 2,marginHorizontal:20}}>
+            <View style={styles.voteButton}>
               <Button
                 style = {styles.button}
                 title="Vote for this drawing"
@@ -114,16 +113,11 @@ export default class Voting extends React.Component {
 
 const styles = StyleSheet.create({
   voteButton: {
-    width: '100%',
-    height: 100,
-    backgroundColor: '#f4511e',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 0,
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 36
+    borderRadius:10,
+    borderColor: 'grey',
+    borderWidth: 2,
+    marginTop: 2,
+    marginHorizontal:20
   },
   container: {
     flex: 1,
@@ -133,4 +127,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  drawingDisplay: {
+    borderTopWidth: Dimensions.get('window').height* 0.075,
+    borderColor: 'transparent',
+  }
 });

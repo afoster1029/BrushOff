@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Number, Dimensions, Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-<<<<<<< HEAD
-//import ModalDropdown from 'react-native-modal-dropdown';
-=======
 
->>>>>>> 6ded085c2e7c06d1b7656f2268cd215b4c3b1659
+//import ModalDropdown from 'react-native-modal-dropdown';
+
+
+
 
 /*
 This class allows players to enter in player names. The game will only navigate

@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'white',
     // width: windowWidth - 110,
-    maxHeight: 120,
+    maxHeight: 140,
     borderRadius: 10,
     paddingBottom: 10,
     marginTop: 15,

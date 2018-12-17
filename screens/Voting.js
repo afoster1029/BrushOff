@@ -29,7 +29,9 @@ export default class Voting extends React.Component {
     gesturesEnabled:false
   };
 
-
+  /*
+  * Winning player and image are passed in as parameters, navigates to winner screen
+  */
   navigateToWinner(image, playerName, playerInfo) {
     this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName, playerInfo: playerInfo})
   }
@@ -101,8 +103,6 @@ export default class Voting extends React.Component {
           </View>
 
         ))}
-
-
       </Swiper>
     )
   }

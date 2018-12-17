@@ -12,7 +12,8 @@ import prompts from './prompts.json';
 const animalWordList = prompts.animals
 const artsWordList = prompts.art
 const sportsWordList = prompts.sports
-const randomWordList = prompts.random.concat(sportsWordList,artsWordList,animalWordList)
+//const randomWordList = prompts.random.concat(sportsWordList,artsWordList,animalWordList)
+const randomWordList = prompts.random
 
 export default class CategoriesScreen extends React.Component {
   constructor(props) {

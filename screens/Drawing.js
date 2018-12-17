@@ -1,5 +1,5 @@
 import Expo from 'expo';
-import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
+import { takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio, BackHandler } from 'react-native';
@@ -37,6 +37,7 @@ export default class Drawing extends React.Component {
     super(props)
     var wordList = this.props.navigation.state.params.list
     const players = this.props.navigation.getParam('playerInfo', 'nothing passed')
+    const initialTime = this.props.navigation.getParam('timerLength', 60);
     this.state = {
       image: null,
       strokeColor: 0x000000,
@@ -57,7 +58,8 @@ export default class Drawing extends React.Component {
       colorModalVisible: false,
       strokeSliderVisible: false,
       preGameModalVisible: true,
-      timer: this.props.navigation.getParam('timerLength', 60),
+      time0: initialTime,
+      timer: initialTime,
       hasDrawn: false,
       lines: [ //This dot prevents the game from crashing when nothing is drawn
       {
@@ -118,7 +120,7 @@ export default class Drawing extends React.Component {
       'Are you sure you want to clear?',
       '',
       [
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Cancel', onPress: () => null},
         {text: 'Yes', onPress: () => {this.clearScreen()}},
       ],
       { cancelable: false }
@@ -140,7 +142,7 @@ export default class Drawing extends React.Component {
   */
   resetTimer() {
     TimerMixin.clearInterval(this.interval)
-    this.state.timer = 60;
+    this.state.timer = this.state.time0;
   }
 
   /*
@@ -295,7 +297,6 @@ export default class Drawing extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log(this.state.timer + ' timer length!!!')
     return (
       <View style={styles.container}>
         <View style= {styles.upperText}>

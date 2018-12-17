@@ -39,7 +39,6 @@ export default class Voting extends React.Component {
         }
         setJudge = false
       }
-      console.log(playerInfo[i].name + ': ' + playerInfo[i].score);
     }
   }
 
@@ -72,7 +71,6 @@ export default class Voting extends React.Component {
   }
 
   render() {
-    console.log(this.state.players)
     const { navigate } = this.props.navigation;
     const winnerUri = this.props.navigation.getParam('winningImage', 'no image')
     const winner = this.props.navigation.getParam('winnerName', 'nothing passed')

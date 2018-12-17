@@ -31,7 +31,11 @@ export default class Voting extends React.Component {
 
 
   navigateToWinner(image, playerName, playerInfo) {
-    this.props.navigation.navigate('Winner', {winningImage: image, winnerName: playerName, playerInfo: playerInfo})
+    this.props.navigation.navigate('Winner', {
+       winningImage: image,
+       winnerName: playerName,
+       playerInfo: playerInfo
+     })
   }
 
   /*

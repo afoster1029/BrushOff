@@ -43,7 +43,7 @@ export default class Settings extends React.Component {
             <Button
               title="Back"
               color="grey"
-              onPress={() => {this.goToHomeScreen()}}
+              onPress={() => {this.props.navigation.navigate('Home', {name: 'HomeScreen'})}}
             />
           </View>
         </View>

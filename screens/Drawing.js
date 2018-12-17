@@ -57,7 +57,7 @@ export default class Drawing extends React.Component {
       colorModalVisible: false,
       strokeSliderVisible: false,
       preGameModalVisible: true,
-      timer: 60,
+      timer: this.props.navigation.getParam('timerLength', 60),
       hasDrawn: false,
       lines: [ //This dot prevents the game from crashing when nothing is drawn
       {
@@ -300,8 +300,8 @@ export default class Drawing extends React.Component {
         <View style= {styles.upperText}>
           <View style={{marginTop:20}}>
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-              <Text id = 'wordOfTheDay' style= {{fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
-              <Text style= {{fontSize: 14, fontWeight: 'bold',position: 'absolute', right: 15}}> {this.state.timer} </Text>
+              <Text id = 'wordOfTheDay' style= {{fontSize: 28, fontWeight: 'bold', textAlign: 'center'}}> {this.state.word} </Text>
+              <Text style= {{fontSize: 33, position: 'absolute', right: 15}}> {this.state.timer} </Text>
             </View>
             <Text style={{fontSize: 14, textAlign:'center'}}>{this.state.playerInfo[this.state.playerNum]['name']} </Text>
           </View>

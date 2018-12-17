@@ -82,7 +82,7 @@ export default class Voting extends React.Component {
         style={{flex: 1}}
       >
         <View style = {styles.container}>
-          <Text style= {{fontSize: 40, textAlign: 'center', alignSelf: 'center', marginTop:20, color: 'grey'}}>Congrats {winner}</Text>
+          <Text style= {{fontSize: 40, textAlign: 'center', alignSelf: 'center', marginTop:20}}>Congrats {winner}</Text>
           <View style={{borderWidth:2, borderColor:'grey', alignSelf: 'center', backgroundColor: 'white'}}>
             <Image
               style={{width: 220, height: 280}}
@@ -101,7 +101,7 @@ export default class Voting extends React.Component {
                 ))}
               </View>
           </View>
-          <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 5}}>
+          <View style= {{flexDirection: 'row', justifyContent: 'space-evenly', marginBottom: 5, marginTop: 8}}>
             <View style={styles.button}>
               <Button
                 title="Next Round"

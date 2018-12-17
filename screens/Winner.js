@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   congratulations: {
-    fontSize: 40,
+    fontSize: 30,
     textAlign: 'center',
     alignSelf: 'center',
     marginTop:20

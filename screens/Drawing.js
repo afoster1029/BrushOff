@@ -212,27 +212,6 @@ export default class Drawing extends React.Component {
   }
 
   /*
-  * Launches color selector modal
-  */
-  launchColorModal(bool) {
-    this.setState({colorModalVisible: bool})
-  }
-
-  /*
-  * Launches stroke width slider modal
-  */
-  launchStrokeModal(bool) {
-    this.setState({strokeSliderVisible: bool})
-  }
-
-  /*
-  * Launches inter player modal
-  */
-  launchInterPlayer() {
-    this.setState({interPlayerVisible: true})
-  }
-
-  /*
   * Closers interplayer modal, starts timer and resets drawing settings
   */
   closeInterPlayer() {
@@ -285,7 +264,7 @@ export default class Drawing extends React.Component {
         !(this.state.playerInfo[this.state.numPlayers - 1].isJudge && (this.state.playerNum === this.state.numPlayers - 2))) {
       this.state.playerNum += 1;
       this.handleJudge();
-      this.launchInterPlayer();
+      this.setState({interPlayerVisible: true});
     } else {
       this.clearScreen();
       this.state.playerNum = 0;
@@ -373,7 +352,7 @@ export default class Drawing extends React.Component {
             <Modal
               isVisible= {this.state.colorModalVisible}
               backdropOpacity={0}
-              onBackdropPress={() => this.launchColorModal(false)}
+              onBackdropPress={() => this.setState({ colorModalVisible: false})}
               >
                 <View style= {styles.colorModal}>
                   {colorButtonList.map((rgb, idx)=> (
@@ -403,7 +382,7 @@ export default class Drawing extends React.Component {
             <Modal
               isVisible= {this.state.strokeSliderVisible}
               backdropOpacity={0}
-              onBackdropPress={() => this.launchStrokeModal(false)}
+              onBackdropPress={() => this.setState({strokeSliderVisible: false})}
               >
                 <View style= {styles.sliderModal}>
                   <Slider style = {{ width: 300 }}
@@ -422,7 +401,7 @@ export default class Drawing extends React.Component {
           */}
           <View style={styles.iconBar}>
             <TouchableOpacity onPress={() => {
-                this.launchColorModal(true);
+                this.setState({colorModalVisible: true})
               }}>
               <Image
                 style={styles.colorButton}
@@ -430,7 +409,7 @@ export default class Drawing extends React.Component {
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => {
-                this.launchStrokeModal(true);
+                this.setState({strokeSliderVisible: true})
               }}>
               <Image
                 style={styles.colorButton}
@@ -500,9 +479,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    //position: 'absolute',
-    //bottom: 8,
-    //left: 8,
+
     zIndex: 2,
     padding: 12,
     minWidth: 56,

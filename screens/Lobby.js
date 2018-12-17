@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import ModalDropdown from 'react-native-modal-dropdown';
 
 /*
 This class allows players to enter in player names. The game will only navigate
@@ -104,7 +103,6 @@ export default class LobbyScreen extends React.Component {
   Allows players to add an additional TextInput for another player name.
   */
   handleAddPlayer () {
-    console.log(this.state.playerInfo.length)
     if (this.state.numPlayerInputs <= 7) {
       newPlayer = this.state.emptyPlayer;
       newPlayer['key'] = this.state.numPlayerInputs;
@@ -118,7 +116,7 @@ export default class LobbyScreen extends React.Component {
       Alert.alert(
         'Maximum Number of Players',
         '',
-        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
+        [{text: 'Okay', onPress: () => null,
         style: 'cancel'},], { cancelable: false }
       )
     }
@@ -142,7 +140,7 @@ export default class LobbyScreen extends React.Component {
       Alert.alert(
         'Minimum Number of Players',
         '',
-        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
+        [{text: 'Okay', onPress: () => null,
         style: 'cancel'},], { cancelable: false }
       )
     }

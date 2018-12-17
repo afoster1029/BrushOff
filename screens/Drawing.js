@@ -1,5 +1,5 @@
 import Expo from 'expo';
-import { FileSystem, takeSnapshotAsync, Permissions } from 'expo';
+import { takeSnapshotAsync, Permissions } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { Image, Button, Platform, AppState, StyleSheet, Text, View, AsyncStorage,StatusBar, Slider, PixelRatio, BackHandler } from 'react-native';
@@ -118,7 +118,7 @@ export default class Drawing extends React.Component {
       'Are you sure you want to clear?',
       '',
       [
-        {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+        {text: 'Cancel', onPress: () => null},
         {text: 'Yes', onPress: () => {this.clearScreen()}},
       ],
       { cancelable: false }

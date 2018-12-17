@@ -1,5 +1,4 @@
 import Expo from 'expo';
-import { FileSystem } from 'expo';
 import * as ExpoPixi from 'expo-pixi';
 import React, { Component } from 'react';
 import { TouchableOpacity, Dimensions, Image, Button, Platform, AppState, StyleSheet, Text, View, TouchableHighlight, BackHandler} from 'react-native';

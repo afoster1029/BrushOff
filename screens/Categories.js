@@ -23,7 +23,6 @@ export default class CategoriesScreen extends React.Component {
     this.state = {
       playerInfo: this.props.navigation.getParam('playerInfo', 'nothing passed'),
     };
-    console.log(this.state.playerInfo);
 }
 
   static navigationOptions = {

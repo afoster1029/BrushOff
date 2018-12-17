@@ -39,7 +39,6 @@ export default class Voting extends React.Component {
         }
         setJudge = false
       }
-      console.log(playerInfo[i].name + ': ' + playerInfo[i].score);
     }
   }
 

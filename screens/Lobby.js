@@ -61,7 +61,6 @@ export default class LobbyScreen extends React.Component {
         playerInfo: this.state.playerInfo,
         timerLength: this.state.timerLength
       });
-      console.log(this.state.timerLength + ' time length: lobby')
     }else{
       Alert.alert(
         'Please enter player names.',
@@ -101,7 +100,6 @@ export default class LobbyScreen extends React.Component {
   Allows players to add an additional TextInput for another player name.
   */
   handleAddPlayer () {
-    console.log(this.state.playerInfo.length)
     if (this.state.numPlayerInputs <= 7) {
       newPlayer = this.state.emptyPlayer;
       newPlayer['key'] = this.state.numPlayerInputs;

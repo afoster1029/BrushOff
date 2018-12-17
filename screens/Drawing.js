@@ -295,7 +295,6 @@ export default class Drawing extends React.Component {
 
   render() {
     const { navigate } = this.props.navigation;
-    console.log(this.state.timer + ' timer length!!!')
     return (
       <View style={styles.container}>
         <View style= {styles.upperText}>

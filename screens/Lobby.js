@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { Number, Dimensions, Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
+<<<<<<< HEAD
 //import ModalDropdown from 'react-native-modal-dropdown';
+=======
+
+>>>>>>> 6ded085c2e7c06d1b7656f2268cd215b4c3b1659
 
 /*
 This class allows players to enter in player names. The game will only navigate
@@ -61,7 +65,6 @@ export default class LobbyScreen extends React.Component {
         playerInfo: this.state.playerInfo,
         timerLength: this.state.timerLength
       });
-      console.log(this.state.timerLength + ' time length: lobby')
     }else{
       Alert.alert(
         'Please enter player names.',
@@ -101,7 +104,6 @@ export default class LobbyScreen extends React.Component {
   Allows players to add an additional TextInput for another player name.
   */
   handleAddPlayer () {
-    console.log(this.state.playerInfo.length)
     if (this.state.numPlayerInputs <= 7) {
       newPlayer = this.state.emptyPlayer;
       newPlayer['key'] = this.state.numPlayerInputs;
@@ -115,7 +117,7 @@ export default class LobbyScreen extends React.Component {
       Alert.alert(
         'Maximum Number of Players',
         '',
-        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
+        [{text: 'Okay', onPress: () => null,
         style: 'cancel'},], { cancelable: false }
       )
     }
@@ -139,7 +141,7 @@ export default class LobbyScreen extends React.Component {
       Alert.alert(
         'Minimum Number of Players',
         '',
-        [{text: 'Okay', onPress: () => console.log('Cancel Pressed'),
+        [{text: 'Okay', onPress: () => null,
         style: 'cancel'},], { cancelable: false }
       )
     }
@@ -181,8 +183,8 @@ export default class LobbyScreen extends React.Component {
         in playerInfo.
         */}
         <View style = {styles.container}>
-          <View style={{padding: 60}}>
-            <View style={styles.nameInputs}>
+          <View style={{padding: 60, flexDirection: 'column', alignItems: 'center'}}>
+            <View style={{marginTop:60, width:240, marginTop:this.state.windowHeight*0.15}}>
             {this.state.playerInfo.map((playerName, idx)=> (
               <TextInput
                 key = {idx}
@@ -190,7 +192,7 @@ export default class LobbyScreen extends React.Component {
                 style={styles.nameInput}
                 placeholder = {'Player '+parseInt(idx+1)}
                 value = {playerName.name}
-                maxLength = {16}
+                maxLength = {12}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
             ))}
@@ -215,8 +217,19 @@ export default class LobbyScreen extends React.Component {
                     />
                   </View>
                 </View>
-                <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', marginTop:50}}>
-                  <Text> Image will go here </Text>
+                <View style = {{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+                  <Image
+                    style={
+                        {
+                        resizeMode: 'center',
+                        width: this.state.windowWidth*0.95,
+                        height: 100,
+                        marginBottom:0,
+                        marginTop: 50
+                        }
+                    }
+                    source={require('./img/timelimitheader.png')}
+                  />
 
                   <TextInput
                     type='text'

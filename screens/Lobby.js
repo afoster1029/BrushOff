@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { Number, Dimensions, Alert, Button, View, StyleSheet, Text, TextInput, Picker, ImageBackground, TouchableOpacity, Image } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+//import ModalDropdown from 'react-native-modal-dropdown';
+
+
+
 
 /*
 This class allows players to enter in player names. The game will only navigate
@@ -185,7 +189,7 @@ export default class LobbyScreen extends React.Component {
               <TextInput
                 key = {idx}
                 type='text'
-                style={{height: 40, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24, alignSelf: 'center', width: 240}}
+                style={styles.nameInput}
                 placeholder = {'Player '+parseInt(idx+1)}
                 value = {playerName.name}
                 maxLength = {12}
@@ -195,7 +199,7 @@ export default class LobbyScreen extends React.Component {
             </View>
             {/* Buttons that allow player to add/remove players and start game.*/}
             <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'}}>
-                <View style = {{flexDirection: 'row', width:240}}>
+                <View style = {styles.changePlayerRow}>
                   <View style= {styles.changePlayerButton}>
                     <Button
                       title="Add "
@@ -229,7 +233,7 @@ export default class LobbyScreen extends React.Component {
 
                   <TextInput
                     type='text'
-                    style={{width: 50, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}
+                    style={styles.timerText}
                     placeholder = {'60'}
                     maxLength = {3}
                     onChangeText={(text) => this.updateTimerLimit(text)}
@@ -238,15 +242,15 @@ export default class LobbyScreen extends React.Component {
                 </View>
               </View>
 
-              <View style={{flexDirection:'row', justifyContent: 'space-evenly'}}>
-                <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 50,width:120}}>
+              <View style={styles.buttonRow}>
+                <View style= {styles.bottomButton}>
                   <Button
                     title="Back"
                     color="grey"
                     onPress={() => {this.goToHomeScreen()}}
                   />
                 </View>
-                <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 50,width:120}}>
+                <View style= {styles.bottomButton}>
                   <Button
                     title="Start Game"
                     color="grey"
@@ -286,5 +290,40 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: 120,
     height:36,
+  },
+  timerText: {
+    width: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    fontSize: 24,
+  },
+  buttonRow: {
+    flexDirection:'row',
+    justifyContent: 'space-evenly',
+  },
+  bottomButton: {
+    borderRadius:10,
+    borderColor: 'grey',
+    borderWidth: 2,
+    backgroundColor: 'white',
+    marginTop: 50,
+    width:120,
+  },
+  nameInputs: {
+    marginTop:60,
+    width:240,
+    marginTop:Dimensions.get('window').height*0.15,
+  },
+  nameInput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    backgroundColor: 'white',
+    fontSize: 24,
+  },
+  changePlayerRow: {
+    flexDirection: 'row',
+    width:240,
   },
 });

@@ -39,7 +39,7 @@ export default class Settings extends React.Component {
               will receive a point for winning the round!
             </Text>
           </View>
-          <View style= {{borderRadius:10, borderColor: 'grey', borderWidth: 2,backgroundColor: 'white', marginTop: 10,marginBottom: 20,width:120}}>
+          <View style= {styles.backButton}>
             <Button
               title="Back"
               color="grey"
@@ -63,14 +63,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     alignSelf: 'center'
   },
-
   textStyle: {
     width: windowWidth*0.82,
     fontSize: 22,
     textAlign: 'center',
     alignSelf: 'center'
   },
-
   container: {
     marginTop: 50,
     flex: 1,
@@ -79,8 +77,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   instructionsBox: {
-
-
     alignSelf: 'center',
     backgroundColor: 'white',
     width: windowWidth *0.85,
@@ -93,5 +89,13 @@ const styles = StyleSheet.create({
     opacity: .85,
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  backButton: {
+    borderRadius:10,
+    borderColor: 'grey',
+    borderWidth: 2,
+    backgroundColor: 'white',
+    marginTop: 10,marginBottom: 20,
+    width:120
   }
 });

@@ -216,7 +216,6 @@ export default class LobbyScreen extends React.Component {
                   </View>
                 </View>
                 <View style = {{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-
                   <Image
                     style={
                         {
@@ -229,6 +228,7 @@ export default class LobbyScreen extends React.Component {
                     }
                     source={require('./img/timelimitheader.png')}
                   />
+                  
                   <TextInput
                     type='text'
                     style={{width: 50, borderColor: 'gray', borderWidth: 1, backgroundColor: 'white',fontSize: 24}}

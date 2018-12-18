@@ -37,3 +37,20 @@ your phone. (Cannot use QR code on iOS)
   - Note: If you are on internet that does not allow local networks you can
     use your phone's mobile hotspot
 10. Enjoy the game!
+
+Future goals
+ - Implementation of networking
+   - Everyone can vote
+   - Accounts
+   - Stats
+   - Using node.js
+ - More drawing features
+   - Eraser
+   - Color wheel
+   - Adjust color brightness
+   - Save colors
+ - New game modes
+ - Better prompts
+ - More customizability
+ - Fix bugs
+ 

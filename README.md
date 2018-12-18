@@ -13,20 +13,22 @@ most points wins!
 To install:
 1. Install Node.js -> https://nodejs.org/en/download/
 2. Install the Expo app on your mobile device
-3. Install expo-cli using npm in your command line:
+3. Install Yarn -> https://yarnpkg.com/lang/en/docs/install/#windows-stable
+4. Install expo-cli using npm in your command line:
     npm install -g expo-cli
-4. Install Yarn -> https://yarnpkg.com/lang/en/docs/install/#windows-stable
+    (If this command doesn't work, try - yarn global add expo-cli)
 5. Fork and clone our project:
     https://github.com/afoster1029/BrushOff
-6. Install the following dependencies using these commands:
+6. In your command line, cd to the BrushOff project folder
+7. Install the following dependencies using these commands:
   - yarn add expo-pixi
-  - npm install --save colorsys
-  - npm install --save react-native-modal
-  - npm install --save react-native-timer
-  - npm install --save react-native-swiper
-  - npm install --save react-timer-mixin
-  - npm install --save react-navigation
-7. In your command line, cd to the BrushOff project folder
+  - yarn add colorsys
+  - yarn add react-native-modal
+  - yarn add react-native-timer
+  - yarn add react-native-swiper
+  - yarn add react-native-timer-mixin
+  - yarn add react-navigation@2.17.0 #Important that it is v2 not v3
+  (If you are having issues with yarn, instead of yarn add try npm install --save)
 8. Enter the command based on your phone type:
    iOS: npm start
    android: expo start

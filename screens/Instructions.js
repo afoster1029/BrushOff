@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: 'white',
     width: windowWidth *0.85,
-    height: windowHeight *0.6,
+    height: windowHeight *0.65,
     borderRadius: 10,
     paddingBottom: 10,
     marginTop: 15,

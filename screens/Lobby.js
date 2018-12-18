@@ -185,13 +185,13 @@ export default class LobbyScreen extends React.Component {
         <View style = {styles.container}>
           <View style={{padding: 60, flexDirection: 'column', alignItems: 'center'}}>
             <View style={{marginTop:60, width:240, marginTop:this.state.windowHeight*0.15}}>
-            {this.state.playerInfo.map((playerName, idx)=> (
+            {this.state.playerInfo.map((player, idx)=> (
               <TextInput
                 key = {idx}
                 type='text'
                 style={styles.nameInput}
                 placeholder = {'Player '+parseInt(idx+1)}
-                value = {playerName.name}
+                value = {player.name}
                 maxLength = {12}
                 onChangeText={this.handlePlayerNameChange(idx)}
               />
@@ -309,6 +309,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: 50,
     width:120,
+    marginHorizontal: 3
   },
   nameInputs: {
     marginTop:60,
